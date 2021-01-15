@@ -1,0 +1,12 @@
+input {
+    width: 200px;
+    font-size: 18px;
+    border-width: 0px;
+    border: none;
+    font-weight: 700;
+    font-family: "Montserrat", sans-serif;
+}
+
+input:focus {
+    outline: none;
+}
