@@ -27,7 +27,7 @@ export const LandingPage: React.FC = () => {
 
   return (
     <div>
-      <div className="heading">Znajdź swój stolik</div>
+      <div className="heading">Znajdź swój huj</div>
       <div className="subHeading">
         Wpisz datę, godzinę, liczbę osób oraz opcjonalnie adres.
       </div>
