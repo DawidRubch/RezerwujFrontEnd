@@ -9,9 +9,10 @@ export class RestaurantOrPubRemoteDb {
     headers: {
       crossDomain: true,
       "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
     },
   };
-  
+
   async getRestaurantsFromDb(bookTime: BookTime, address?: string) {
     let bookTimeToJson = bookTime.toJson();
 
