@@ -10,7 +10,7 @@ export const RESERVATIONTIMECHECK = 2;
 
 //API
 export const APIURLS = {
-  serverAddress: process.env.PUBLIC_URL || "http://localhost:5000",
+  serverAddress: process.env.SERVER_URL || "http://localhost:5000",
   reservation: {
     reservation: "/reservation",
     save: "/save",
