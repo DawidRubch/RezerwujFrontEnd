@@ -46,7 +46,6 @@ export function ConfirmReservationPage(): JSX.Element {
       <div
         style={{
           width: "50vw",
-
           display: "grid",
           gridTemplateColumns: "repeat(2, 1fr)",
           gridTemplateRows: "repeat(2, 1fr)",
