@@ -27,7 +27,7 @@ export const LandingPage: React.FC = () => {
   //UseState Hooks
   const [address, setAddress] = useState<string>("");
   const [value, onChange] = useState<Date>(date);
-
+  console.log(process.env);
   return (
     <>
       <div className="heading">Znajdź swój stolik</div>
