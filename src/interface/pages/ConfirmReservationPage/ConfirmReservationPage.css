@@ -1,0 +1,12 @@
+.restaurant-image {
+    border-radius: 18px;
+    width: 400px;
+    height: 250px;
+}
+
+.restaurant-name {
+    font-weight: bold;
+    font-size: 40px;
+    color: #f23a3a;
+    margin-bottom: 10px;
+}

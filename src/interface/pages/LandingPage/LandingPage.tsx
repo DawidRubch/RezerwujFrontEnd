@@ -1,9 +1,6 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
-import LocationInput from "../../components/LocationInput/LocationInput";
-import "./LandingPage.css";
-import { ReactCalendar } from "../../components/Calendar/Calendar";
 
-import SearchButton from "../../components/SearchButton/SearchButton";
+import "./LandingPage.css";
 
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -11,50 +8,76 @@ import {
   updateHour,
   updatePeopleCount,
 } from "../../../stateManagment/action";
-import TimePicker from "../../components/TimePicker/TimePicker";
-import PeopleAmountPicker from "../../components/PeopleAmountPicker/PeopleAmountPicker";
-export const LandingPage: React.FC = () => {
-  //Redux hooks
-  const dispatcher: any = useSelector((state) => state);
-  const dispatch = useDispatch();
 
+import { mapPropToSearchQuery } from "../../../core/Helper/SearchQuery/mapPropertiesToSearchQuery";
+import {
+  LocationInput,
+  PeopleAmountPicker,
+  ReactCalendar,
+  SearchButton,
+  TimePicker,
+} from "../../components";
+import { useGlobalVariables } from "../../../core/Helper/ReduxCustomHooks/useGlobalVariables";
+import { useHistory } from "react-router-dom";
+export const LandingPage: React.FC = () => {
+  const history = useHistory();
+  //Redux hooks
+  const { hour, location, people, date } = useGlobalVariables();
+  const dispatch = useDispatch();
   //UseState Hooks
   const [address, setAddress] = useState<string>("");
-  const [value, onChange] = useState<Date>(dispatcher.date);
-  useEffect(() => {
-    dispatch(updateDate(value));
-  }, [value]);
+  const [value, onChange] = useState<Date>(date);
 
   return (
-    <div>
+    <>
       <div className="heading">Znajdź swój stolik</div>
       <div className="subHeading">
         Wpisz datę, godzinę, liczbę osób oraz opcjonalnie adres.
       </div>
 
       <div className="flex-box">
-        <ReactCalendar
-          value={dispatcher.date}
-          onChange={onChange}
-        ></ReactCalendar>
+        <ReactCalendar value={date} onChange={onChange} />
         <PeopleAmountPicker
           onChange={(e: ChangeEvent<HTMLSelectElement>) => {
-            dispatch(updatePeopleCount(+e.currentTarget.value.slice(3, 5)));
+            let currentPeopleVal = e.currentTarget.value.slice(3, 5);
+            dispatch(updatePeopleCount(+currentPeopleVal));
+            history.push({
+              search: mapPropToSearchQuery(
+                location,
+                date.toString(),
+                hour,
+                currentPeopleVal
+              ),
+            });
           }}
-        ></PeopleAmountPicker>
+          people={people}
+        />
         <TimePicker
           onChange={(e: ChangeEvent<HTMLSelectElement>) => {
-            dispatch(updateHour(e.currentTarget.value.slice(3)));
+            let currentHourVal = e.currentTarget.value.slice(3);
+            dispatch(updateHour(currentHourVal));
+            history.push({
+              search: mapPropToSearchQuery(
+                location,
+                date.toString(),
+                currentHourVal,
+                people.toString()
+              ),
+            });
           }}
-          date={dispatcher.date}
-        ></TimePicker>
+          date={date}
+        />
 
-        <LocationInput
-          address={address}
-          setAddress={setAddress}
-        ></LocationInput>
+        <LocationInput />
       </div>
-      <SearchButton></SearchButton>
-    </div>
+      <SearchButton
+        searchParams={mapPropToSearchQuery(
+          location,
+          date.toString(),
+          hour,
+          people.toString()
+        )}
+      />
+    </>
   );
 };

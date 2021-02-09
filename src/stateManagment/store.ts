@@ -1,4 +1,3 @@
-import { parse } from "path";
 import { createStore } from "redux";
 import combinedReducers from "./reducers";
 
@@ -13,7 +12,7 @@ function saveToLocalStorage(state: any) {
 function loadFromLocalStorage() {
   try {
     const localStorageItem = localStorage.getItem("state");
-    console.log(localStorageItem);
+
     if (localStorageItem === null) return undefined;
 
     const parseLocalStorage = JSON.parse(localStorageItem);
@@ -30,8 +29,12 @@ function loadFromLocalStorage() {
 }
 
 const stateFromStorage = loadFromLocalStorage();
-
-const store = createStore(combinedReducers, stateFromStorage);
+const store = createStore(
+  combinedReducers,
+  stateFromStorage,
+  (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
+    (window as any).__REDUX_DEVTOOLS_EXTENSION__()
+);
 store.subscribe(() => {
   saveToLocalStorage(store.getState());
 });

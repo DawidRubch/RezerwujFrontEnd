@@ -1,32 +1,24 @@
-import React, { ChangeEvent, useEffect, useRef, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./RestaurantDescriptionPage.css";
-import { RestaurantOrPub } from "../../../core/Entities";
 import {
   updateDate,
   updateHour,
   updatePeopleCount,
 } from "../../../stateManagment/action";
 
-import { ReactCalendar } from "../../components/Calendar/Calendar";
+import { BookingHoursComponent } from "../RestaurantPubsArrPage/localComponents/RestaurantPubComponent/RestaurantPubComponent";
+import { useLocation } from "react-router-dom";
+import {
+  PeopleAmountPicker,
+  ReactCalendar,
+  TimePicker,
+} from "../../components";
+import { BookingContainer } from "./localComponents/BookingContainer/BookingContainer";
+import { BookTime } from "../../../core/Entities";
 
-import PeopleAmountPicker from "../../components/PeopleAmountPicker/PeopleAmountPicker";
-import { BookingHoursComponent } from "../../components/RestaurantPubComponent/RestaurantPubComponent";
-import TimePicker from "../../components/TimePicker/TimePicker";
-
-export default function RestaurantDescriptionPage(props: any) {
-  let state: RestaurantOrPub = props.location.state;
-  const dispatcher: any = useSelector((state) => state);
-  const dispatch = useDispatch();
-  const [
-    reloadAlternativeBookingArr,
-    setReloadAlternativeBookingArr,
-  ] = useState(false);
-
-  const [value, onChange] = useState(new Date());
-  useEffect(() => {
-    dispatch(updateDate(value));
-  }, [value]);
+export default function RestaurantDescriptionPage() {
+  let state: any = useLocation().state;
 
   useEffect(() => {
     if (state) {
@@ -38,6 +30,7 @@ export default function RestaurantDescriptionPage(props: any) {
     let getItem = localStorage.getItem("RoP");
     if (getItem) {
       state = JSON.parse(getItem);
+      console.log(state);
     }
   }
 
@@ -47,9 +40,8 @@ export default function RestaurantDescriptionPage(props: any) {
         <img
           style={{ height: "auto", width: "100%", borderRadius: "10px" }}
           src={state.descriptionPageImg}
-        ></img>
+        />
       </div>
-      7
       <div className="mainContainer">
         <div className="restaurantContainer">
           <div className="restaurantName">{state.name}</div>
@@ -57,7 +49,7 @@ export default function RestaurantDescriptionPage(props: any) {
             {state.type}
           </div>
           <div className="tagContainer">
-            {state.tags.map((tag) => {
+            {state.tags.map((tag: any) => {
               return <div className="tag">{tag}</div>;
             })}
           </div>
@@ -68,60 +60,11 @@ export default function RestaurantDescriptionPage(props: any) {
             Zobacz menu restauracji na stronie
           </div>
         </div>
-        <div className="placeOrderContainer">
-          <div className="placeOrderHeading">
-            <b style={{ padding: "5px", fontSize: "25px" }}>
-              Złóż rezerwacje w {state.name}
-            </b>
-          </div>
-          <hr className="placeOrderhr" />
-          <div className="placeOrderSubHeading">
-            <b style={{ padding: "5px" }}>Data</b>
-          </div>
-          <div style={{ margin: "auto" }}>
-            <ReactCalendar
-              value={dispatcher.date}
-              onChange={onChange}
-            ></ReactCalendar>
-          </div>
-          <div className="placeOrderSubHeading">
-            <b style={{ padding: "5px" }}>Godzina</b>
-          </div>
-
-          <PeopleAmountPicker
-            onChange={(e: ChangeEvent<HTMLSelectElement>) => {
-              dispatch(updatePeopleCount(+e.currentTarget.value.slice(3, 5)));
-              setReloadAlternativeBookingArr(true);
-            }}
-          ></PeopleAmountPicker>
-
-          <div className="placeOrderSubHeading">
-            <b style={{ padding: "5px" }}>Ilość osób</b>
-          </div>
-          <TimePicker
-            date={dispatcher.date}
-            onChange={(e: ChangeEvent<HTMLSelectElement>) => {
-              dispatch(updateHour(e.currentTarget.value.slice(3)));
-              setReloadAlternativeBookingArr(true);
-            }}
-          ></TimePicker>
-          <div style={{ marginLeft: "20px", marginBottom: "20px" }}>
-            {reloadAlternativeBookingArr ? (
-              <button
-                onClick={() => {
-                  setReloadAlternativeBookingArr(!reloadAlternativeBookingArr);
-                }}
-              >
-                Reload
-              </button>
-            ) : (
-              <BookingHoursComponent
-                type="universal"
-                alternativeBookingHours={state.alternativeBookingHours}
-              ></BookingHoursComponent>
-            )}
-          </div>
-        </div>
+        <BookingContainer
+          state={state}
+          alternativeBookingHours={state.alternativeBookingHours}
+          name={state.name}
+        />
       </div>
     </div>
   );

@@ -1,4 +1,3 @@
-
 import React from "react";
 import { LandingPage } from "./interface/pages/LandingPage/LandingPage";
 import RestaurantPubsArrayPage from "./interface/pages/RestaurantPubsArrPage/RestaurantPubsArray";
@@ -9,21 +8,27 @@ import RestaurantDescriptionPage from "./interface/pages/RestaurantDescriptionPa
 import { Provider } from "react-redux";
 
 import { store } from "../src/stateManagment/store";
+import { ConfirmReservationPage } from "./interface/pages/ConfirmReservationPage/ConfirmReservationPage";
 function App() {
   return (
     <Router>
       <Switch>
-        <Route path="/" exact component={LandingPage}></Route>
+        <Route path="/" exact component={LandingPage} />
         <Route
           path="/lista-restauracji"
           exact
           component={RestaurantPubsArrayPage}
-        ></Route>
+        />
         <Route
           path="/opis-restauracji"
           exact
           component={RestaurantDescriptionPage}
-        ></Route>
+        />
+        <Route
+          path="/potwierdz-rezerwacje"
+          exact
+          component={ConfirmReservationPage}
+        />
       </Switch>
     </Router>
   );

@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
+import { useSearchParams } from "../core/Helper/SearchQuery/useSearchParams";
 
 function getMaxTimeOr17() {
   let date = new Date();
@@ -11,7 +12,7 @@ function getMaxTimeOr17() {
       minutes = 0;
     }
   }
-  return `${hour}:${minutes == 30 ? 30 : "00"}`;
+  return `${hour}:${minutes === 30 ? 30 : "00"}`;
 }
 
 const setNewDate = (date: Date = new Date(), action: any) => {
