@@ -36,6 +36,6 @@ const store = createStore(
     (window as any).__REDUX_DEVTOOLS_EXTENSION__()
 );
 store.subscribe(() => {
-  saveToLocalStorage(store.getState());
+  store.getState();
 });
 export { store };
