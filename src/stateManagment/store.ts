@@ -31,7 +31,6 @@ function loadFromLocalStorage() {
 const stateFromStorage = loadFromLocalStorage();
 const store = createStore(
   combinedReducers,
-  stateFromStorage,
   (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
     (window as any).__REDUX_DEVTOOLS_EXTENSION__()
 );
