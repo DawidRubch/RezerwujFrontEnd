@@ -12,6 +12,11 @@ export function ConfirmReservationPage(): JSX.Element {
   //Dać tutaj typ na RestaurantOrPub
   const state: any = useLocation().state;
   const [locationState, setLocationState] = useState(state || {});
+
+  const [nameInput, setNameInput] = useState();
+  const [surNameInput, setSurNameInput] = useState();
+  const [numberInput, setNumberInput] = useState();
+  const [emailInput, setEmailInput] = useState();
   useEffect(() => {
     if (!state) {
       setLocationState({
@@ -53,11 +58,38 @@ export function ConfirmReservationPage(): JSX.Element {
           marginTop: "50px",
         }}
       >
-        <InformationInput placeHolder={"Imie"} />
-        <InformationInput placeHolder={"Nazwisko"} />
-        <InformationInput placeHolder={"Numer"} />
-        <InformationInput placeHolder={"Email"} />
+        <InformationInput
+          autoComplete={"first name"}
+          name="fname"
+          placeHolder={"Imie"}
+          onChange={setNameInput}
+          value={nameInput}
+        />
+        <InformationInput
+          autoComplete={"last name"}
+          name="lname"
+          placeHolder={"Nazwisko"}
+          onChange={setSurNameInput}
+          value={surNameInput}
+        />
+        <InformationInput
+          autoComplete="tel"
+          name="phone"
+          placeHolder={"Numer"}
+          onChange={setNumberInput}
+          value={numberInput}
+        />
+        <InformationInput
+          autoComplete="email"
+          name="email"
+          placeHolder={"Email"}
+          onChange={setEmailInput}
+          value={emailInput}
+        />
       </div>
+      <button className="confirm-reservation-button">
+        Potwierdz rezerwacje
+      </button>
     </div>
   );
 }
