@@ -45,7 +45,7 @@ hr {
 }
 
 .restaurantContainerhr {
-    width: 26vw;
+    width: 47vw;
     min-width: 300px;
     margin: 20px 0 20px 10px;
 }
@@ -58,7 +58,7 @@ hr {
 .restaurantContainer {
     box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
     left: 100px;
-    width: 29vw;
+    width: 50vw;
     background: white;
     min-width: 350px;
     color: black;
@@ -93,7 +93,7 @@ hr {
     word-spacing: 5px;
     margin: 0 15px;
     font-weight: bold;
-    width: 26vw;
+    width: 47vw;
     min-width: 280px;
 }
 

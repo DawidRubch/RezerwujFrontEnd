@@ -18,11 +18,10 @@ import { useSearchParams } from "../../../core/Helper/SearchQuery/useSearchParam
 
 export default function RestaurantPubsArrayPage() {
   //Redux Hooks
-  const { date, hour, people, location }: any = useSelector((state) => state);
+  const { date, people }: any = useSelector((state) => state);
   const dispatch = useDispatch();
 
   //UseState
-  const [address, setAddress] = useState("");
   const [value, onChange] = useState<Date>(date);
   const [RoPArray, setRoPArray] = useState<RestaurantOrPub[]>();
   const restaurantPubRep = new RestaurantOrPubRepository();
@@ -65,7 +64,7 @@ export default function RestaurantPubsArrayPage() {
       <input type="checkbox" id="check" />
       <NavBar onChange={onChange} />
 
-      <RestaurantPubComponent  restaurantPubArr={RoPArray} />
+      <RestaurantPubComponent restaurantPubArr={RoPArray} />
     </div>
   );
 }

@@ -51,7 +51,7 @@ export default function RestaurantPubComponent({
                   })}
                 </div>
                 <BookingHoursComponent
-                  state={RoP}
+                  restaurantOrPub={RoP}
                   type="pc"
                   alternativeBookingHours={RoP.alternativeBookingHours}
                 />
@@ -67,7 +67,7 @@ export default function RestaurantPubComponent({
               })}
             </div>
             <BookingHoursComponent
-              state={RoP}
+              restaurantOrPub={RoP}
               type="mobile"
               alternativeBookingHours={RoP.alternativeBookingHours}
             />
@@ -82,13 +82,13 @@ export default function RestaurantPubComponent({
 interface BookingHoursComponentInterface {
   alternativeBookingHours: (BookTime | null)[];
   type: "mobile" | "pc" | "universal";
-  state: RestaurantOrPub;
+  restaurantOrPub: RestaurantOrPub;
 }
 
 export function BookingHoursComponent({
   alternativeBookingHours,
   type,
-  state,
+  restaurantOrPub,
 }: BookingHoursComponentInterface) {
   let cssMainClassName: string = "booking-hours-component-universal";
   if (type === "mobile") {
@@ -100,47 +100,45 @@ export function BookingHoursComponent({
   return (
     <div className={cssMainClassName}>
       <BookingHoursArr
-        state={state}
-        alternativeBookingHours={alternativeBookingHours.slice(0, 3)}
+        restaurantOrPub={restaurantOrPub}
+        alternativeBookingHours={alternativeBookingHours?.slice(0, 3)}
       />
       <BookingHoursArr
-        state={state}
-        alternativeBookingHours={alternativeBookingHours.slice(3)}
+        restaurantOrPub={restaurantOrPub}
+        alternativeBookingHours={alternativeBookingHours?.slice(3)}
       />
     </div>
   );
 }
 interface BookingHoursArrInterface {
   alternativeBookingHours: (BookTime | null)[];
-  state: RestaurantOrPub;
+  restaurantOrPub: RestaurantOrPub;
 }
 
 function BookingHoursArr({
   alternativeBookingHours,
-  state,
+  restaurantOrPub,
 }: BookingHoursArrInterface) {
   let history = useHistory();
 
-  const bookReservation = () => {
-    history.push({ pathname: "/potwierdz-rezerwacje", state });
+  const bookReservation = (bookTime: BookTime) => {
+    history.push({
+      pathname: "/potwierdz-rezerwacje",
+      state: { restaurantOrPub, bookTime },
+      search: `?&hour=${bookTime.hour}&minute=${bookTime.minute}&day=${bookTime.day}&month=${bookTime.month}&year=${bookTime.year}&people=${bookTime.people}&name=${restaurantOrPub.name}`,
+    });
   };
 
   return (
     <div style={{ display: "flex", flexDirection: "row", marginTop: "10px" }}>
-      {alternativeBookingHours.map(
+      {alternativeBookingHours?.map(
         (btOrNull: BookTime | null, index: number) => {
           if (btOrNull === null) {
-            return (
-              <button
-                onClick={bookReservation}
-                key={index}
-                className="book-button booked"
-              />
-            );
+            return <button key={index} className="book-button booked" />;
           }
           return (
             <button
-              onClick={bookReservation}
+              onClick={() => bookReservation(btOrNull)}
               key={index}
               className="book-button free"
             >

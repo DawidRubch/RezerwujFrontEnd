@@ -7,11 +7,11 @@ import { ReactComponent as ArrowDownIcon } from "../../../../images/arrowDown.sv
 import "./Calendar.css";
 import CalendarLocationContainer from "../CalendarLocationContainer/CalendarLocationContainer";
 import { useSearchParams } from "../../../../core/Helper/SearchQuery/useSearchParams";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { mapPropToSearchQuery } from "../../../../core/Helper/SearchQuery/mapPropertiesToSearchQuery";
 import { useDispatch, useSelector } from "react-redux";
 import { updateDate } from "../../../../stateManagment/action";
-
+import queryString from "querystring";
 interface ReactCalendarProps {
   value: Date;
   onChange: any;
@@ -19,15 +19,12 @@ interface ReactCalendarProps {
 
 export const ReactCalendar = ({ value, onChange }: ReactCalendarProps) => {
   const [showCalendar, setShowCalendar] = useState(false);
+  const { search } = useLocation();
   const history = useHistory();
   const dispatch = useDispatch();
   const { hour, location, people }: any = useSelector((state) => state);
-  const {
-    dateParam,
-    hourParam,
-    locationParam,
-    peopleParam,
-  } = useSearchParams();
+  const { dateParam } = useSearchParams();
+  const { name } = queryString.parse(search);
 
   return (
     <div>
@@ -61,14 +58,16 @@ export const ReactCalendar = ({ value, onChange }: ReactCalendarProps) => {
             prev2Label={null}
             locale="pl"
             onChange={(date: Date | Date[]) => {
+              onChange();
               dispatch(updateDate(date as Date));
               history.push({
-                search: mapPropToSearchQuery(
-                  location,
-                  date.toString(),
-                  hour,
-                  people.toString()
-                ),
+                search:
+                  mapPropToSearchQuery(
+                    location,
+                    date.toString(),
+                    hour,
+                    people.toString()
+                  ) + `&name=${name}`,
               });
             }}
             value={dateParam}

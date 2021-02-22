@@ -1,4 +1,3 @@
-
 export class BookTime {
   minute: number;
   hour: number;
