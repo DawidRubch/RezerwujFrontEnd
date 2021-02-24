@@ -35,3 +35,22 @@ export class BookTime {
     };
   }
 }
+
+interface BookTimeFromJson {
+  minute: number;
+  hour: number;
+  day: number;
+  month: number;
+  year: number;
+  people: number;
+}
+
+export function bookTimeFromJson(
+  bookTimeOrNull: BookTimeFromJson | null
+): BookTime | null {
+  if (bookTimeOrNull === null) {
+    return null;
+  }
+  let { minute, hour, day, month, year, people } = bookTimeOrNull;
+  return new BookTime(minute, hour, day, month, year, people);
+}

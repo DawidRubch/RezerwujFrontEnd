@@ -17,7 +17,7 @@ interface ReactCalendarProps {
   onChange: any;
 }
 
-export const ReactCalendar = ({ value, onChange }: ReactCalendarProps) => {
+export const ReactCalendar = () => {
   const [showCalendar, setShowCalendar] = useState(false);
   const { search } = useLocation();
   const history = useHistory();
@@ -58,7 +58,6 @@ export const ReactCalendar = ({ value, onChange }: ReactCalendarProps) => {
             prev2Label={null}
             locale="pl"
             onChange={(date: Date | Date[]) => {
-              onChange();
               dispatch(updateDate(date as Date));
               history.push({
                 search:

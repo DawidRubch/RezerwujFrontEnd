@@ -1,24 +1,28 @@
 .flex-box {
+    display: grid;
     height: 40vh;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    margin-left: 50px;
+    grid-template-columns: repeat(2, 1fr);
+    width: 25vw;
     align-items: center;
-    align-content: center;
-    gap: 5px;
-    margin-left: -20px;
+    height: 20vh;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
 }
 
 .heading {
-    text-align: center;
-    font-weight: 700;
-    color: black;
+    text-align: left;
+    color: #575f98;
     font-size: 8vh;
-    margin-top: 8vh;
+    margin-top: 7vh;
+    margin-left: 70px;
 }
 
 .subHeading {
-    text-align: center;
+    text-align: left;
     font-size: 3vh;
-    margin-top: 2vh;
+    margin-top: 5vh;
+    margin-left: 70px;
+    margin-bottom: 5vh;
+    opacity: 0.67;
 }

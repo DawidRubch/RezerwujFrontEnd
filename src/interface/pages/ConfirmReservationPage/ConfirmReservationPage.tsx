@@ -18,7 +18,7 @@ export function ConfirmReservationPage(): JSX.Element {
     search
   );
 
-  const [locationState, setLocationState] = useState(state || {});
+  const [locationState, setLocationState] = useState(state || undefined);
   let restaurantOrPubRepository = new RestaurantOrPubRepository();
   const [nameInput, setNameInput] = useState<string | undefined>();
   const [surNameInput, setSurNameInput] = useState<string | undefined>();
@@ -37,101 +37,120 @@ export function ConfirmReservationPage(): JSX.Element {
     //Dzwonić do api
 
     if (!state) {
-      console.log("Api call");
       restaurantOrPubRepository
         .getRestaurantInfoConfirmPage(name.toString(), bookTime)
-        .then((res) => setLocationState(res));
+        .then((res) => {
+          //Zrobić jakąs bledów ewidencje
+          //Jesli da się złą nazwe i on nie złapie jej z bazy to jesy chu
+          //Pokaz cos że link nie poprawny
+          setLocationState(res);
+        });
     }
   }, []);
-  console.log(locationState);
 
-  return (
-    <div className="main-container">
-      <div style={{ margin: "40px", padding: "10px" }}>
-        <div className="image-and-restaurant-info">
-          <img
-            className="restaurant-image"
-            alt="Restaurant photo"
-            src={locationState?.image || locationState.restaurantOrPub.image}
-          />
-          <div className="restaurant-name-and-info">
-            <b className="restaurant-name">{name}</b>
-            <SmallBookingInfo
-              insideText={`${bookTime.day}.${bookTime.month}`}
-              icon={<CalendarIcon />}
+  if (locationState) {
+    return (
+      <div className="main-container">
+        <div style={{ margin: "40px", padding: "10px" }}>
+          <div className="image-and-restaurant-info">
+            <img
+              className="restaurant-image"
+              alt="Restaurant photo"
+              src={locationState.image || locationState.restaurantOrPub.image}
             />
-            <SmallBookingInfo
-              insideText={`${bookTime.hour}:${
-                state.bookTime.minute === 0 ? "00" : "30"
-              }`}
-              icon={<ClockIcon />}
+            <div className="restaurant-name-and-info">
+              <b className="restaurant-name">{name}</b>
+              <SmallBookingInfo
+                insideText={`${bookTime.day}.${
+                  bookTime.month < 10 ? "0" + bookTime.month : bookTime.month
+                }`}
+                icon={<CalendarIcon />}
+              />
+              <SmallBookingInfo
+                insideText={`${bookTime.hour}:${
+                  bookTime.minute === 0 ? "00" : "30"
+                }`}
+                icon={<ClockIcon />}
+              />
+              <SmallBookingInfo
+                insideText={`${bookTime.people} ${PeopleArr[bookTime.people]}`}
+                icon={<PeopleIcon />}
+              />
+            </div>
+          </div>
+
+          <div className="input-container">
+            <InformationInput
+              autoComplete={"first name"}
+              name="fname"
+              placeHolder={"Imie"}
+              onChange={setNameInput}
+              value={nameInput}
             />
-            <SmallBookingInfo
-              insideText={`${bookTime.people} ${
-                PeopleArr[state.bookTime.people]
-              }`}
-              icon={<PeopleIcon />}
+            <InformationInput
+              autoComplete={"last name"}
+              name="lname"
+              placeHolder={"Nazwisko"}
+              onChange={setSurNameInput}
+              value={surNameInput}
+            />
+            <InformationInput
+              autoComplete="tel"
+              name="phone"
+              placeHolder={"Numer"}
+              onChange={setNumberInput}
+              value={numberInput}
+            />
+            <InformationInput
+              autoComplete="email"
+              name="email"
+              placeHolder={"Email"}
+              onChange={setEmailInput}
+              value={emailInput}
             />
           </div>
+          <button
+            onClick={() => {
+              restaurantOrPubRepository.saveBookTime(
+                bookTime,
+                name.toString(),
+                numberInput as string,
+                nameInput as string,
+                surNameInput as string,
+                emailInput
+              );
+              alert(
+                `Udało się zamówiłeś stolik dla ${bookTime.people} ${
+                  PeopleArr[bookTime.people]
+                }.\nDnia ${bookTime.day}.${
+                  bookTime.month < 10 ? "0" + bookTime.month : bookTime.month
+                } o godzinie ${bookTime.hour}:${
+                  bookTime.minute === 0 ? "00" : "30"
+                }.`
+              );
+            }}
+            className="confirm-reservation-button"
+          >
+            Potwierdz rezerwacje
+          </button>
         </div>
 
-        <div className="input-container">
-          <InformationInput
-            autoComplete={"first name"}
-            name="fname"
-            placeHolder={"Imie"}
-            onChange={setNameInput}
-            value={nameInput}
-          />
-          <InformationInput
-            autoComplete={"last name"}
-            name="lname"
-            placeHolder={"Nazwisko"}
-            onChange={setSurNameInput}
-            value={surNameInput}
-          />
-          <InformationInput
-            autoComplete="tel"
-            name="phone"
-            placeHolder={"Numer"}
-            onChange={setNumberInput}
-            value={numberInput}
-          />
-          <InformationInput
-            autoComplete="email"
-            name="email"
-            placeHolder={"Email"}
-            onChange={setEmailInput}
-            value={emailInput}
-          />
-        </div>
-        <button
-          onClick={() => {
-            restaurantOrPubRepository.saveBookTime(
-              bookTime,
-              name.toString(),
-              numberInput as string,
-              nameInput as string,
-              surNameInput as string,
-              emailInput
-            );
-            alert(
-              `Udało się zamówiłeś stolik dla ${bookTime.people} ${
-                PeopleArr[bookTime.people]
-              }.\nDnia ${bookTime.day}.${
-                bookTime.month < 10 ? "0" + bookTime.month : bookTime.month
-              } o godzinie ${bookTime.hour}:${
-                bookTime.minute === 0 ? "00" : "30"
-              }.`
-            );
-          }}
-          className="confirm-reservation-button"
-        >
-          Potwierdz rezerwacje
-        </button>
+        <AdditionalRestaurantInfo />
       </div>
+    );
+  }
 
-      <AdditionalRestaurantInfo />
+  //Tutaj activity indicator
+  return (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100%",
+      }}
+    >
+      Activity Indicator
     </div>
   );
 }
