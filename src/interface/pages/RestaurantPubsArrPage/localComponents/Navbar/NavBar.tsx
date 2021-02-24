@@ -38,7 +38,7 @@ export default function NavBar({ onChange }: NavBarProps) {
       </label>
       <ul>
         <li>
-          <ReactCalendar value={dateParam} onChange={onChange} />
+          <ReactCalendar onChange={onChange} />
         </li>
         <li>
           <PeopleAmountPicker
