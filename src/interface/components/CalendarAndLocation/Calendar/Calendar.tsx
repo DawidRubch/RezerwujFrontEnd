@@ -13,11 +13,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateDate } from "../../../../stateManagment/action";
 import queryString from "querystring";
 interface ReactCalendarProps {
-  value: Date;
-  onChange: any;
+  onChange?: any;
 }
 
-export const ReactCalendar = () => {
+export const ReactCalendar = ({ onChange }: ReactCalendarProps) => {
   const [showCalendar, setShowCalendar] = useState(false);
   const { search } = useLocation();
   const history = useHistory();
@@ -58,6 +57,7 @@ export const ReactCalendar = () => {
             prev2Label={null}
             locale="pl"
             onChange={(date: Date | Date[]) => {
+              onChange();
               dispatch(updateDate(date as Date));
               history.push({
                 search:
