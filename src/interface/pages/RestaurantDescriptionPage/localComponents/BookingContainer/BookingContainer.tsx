@@ -64,7 +64,6 @@ export function BookingContainer({
       </div>
       <div style={{ margin: "auto" }}>
         <ReactCalendar
-          value={dt}
           onChange={() => {
             setReloadBookingArr(true);
           }}
