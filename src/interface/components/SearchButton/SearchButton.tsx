@@ -14,13 +14,9 @@ export function SearchButton({ searchParams, onPressed }: SearchButtonProps) {
         search: searchParams,
       }}
     >
-      <div
-        style={{ display: "flex", justifyContent: "left", marginLeft: "70px" }}
-      >
-        <button className="search-button" onClick={onPressed}>
-          Szukaj
-        </button>
-      </div>
+      <button className="search-button" onClick={onPressed}>
+        Szukaj
+      </button>
     </Link>
   );
 }

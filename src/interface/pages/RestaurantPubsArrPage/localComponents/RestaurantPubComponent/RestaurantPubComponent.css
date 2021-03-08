@@ -95,7 +95,7 @@ a {
 
 @media screen and (max-width: 1200px) {
     .restaurant-array {
-        margin-left: 20px;
+        margin-left: 10px;
     }
     .restaurant-component b {
         font-size: 10vw;

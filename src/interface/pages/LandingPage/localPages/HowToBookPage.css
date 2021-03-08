@@ -1,0 +1,61 @@
+.instructionHeading {
+    font-size: 35px;
+    margin-top: 25px;
+    color: #e54949;
+    word-wrap: break-word;
+    width: 650px;
+    text-align: center;
+}
+
+.subHeading {
+    margin-top: 20px;
+    font-size: 25px;
+}
+
+.topText {
+    margin-top: 20px;
+    font-size: 25px;
+}
+
+.instructionHeadingAndSubHeadingContainer {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.shortDescription {
+    display: flex;
+    flex-direction: column;
+}
+
+.threePointsContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.threePointsContainerWithVectorGraphic {
+    display: flex;
+    align-items: center;
+}
+
+.vectorGraphic {
+    height: 600px;
+    width: 6000px;
+}
+
+@media screen and (max-width: 700px) {
+    .instructionHeading {
+        width: 250px;
+        font-size: 25px;
+    }
+    .topText {
+        font-size: 20px;
+    }
+    .threePointsContainerWithVectorGraphic {
+        flex-direction: column;
+    }
+    .vectorGraphic {
+        width: 300px;
+        height: 300px;
+    }
+}

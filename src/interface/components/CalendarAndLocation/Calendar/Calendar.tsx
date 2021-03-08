@@ -57,7 +57,7 @@ export const ReactCalendar = ({ onChange }: ReactCalendarProps) => {
             prev2Label={null}
             locale="pl"
             onChange={(date: Date | Date[]) => {
-              onChange();
+              if (onChange) onChange();
               dispatch(updateDate(date as Date));
               history.push({
                 search:
