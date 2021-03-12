@@ -5,15 +5,16 @@ import { useSearchParams } from "../../../../core/Helper/SearchQuery/useSearchPa
 import { updateHour } from "../../../../stateManagment/action";
 
 import TimePersonComponent from "../HourMinutePicker/HourMinutePeoplePicker";
+import { useSearchQueryAndReduxStoreUpdate } from "../LocalHooks/useSearchQueryAndReduxStoreUpdate";
 
 interface TimeComponent {
   onChange: (e: ChangeEvent<HTMLSelectElement>) => void;
   date: Date;
 }
 
-export function TimePicker({ onChange, date }: TimeComponent) {
+export function TimePicker({ date }: TimeComponent) {
+  const searchQueryAndLocalStoreUpdate = useSearchQueryAndReduxStoreUpdate();
   //Redux hook
-  const { hour }: any = useSelector((state) => state);
   const dispatch = useDispatch();
   let { hourParam, dateParam } = useSearchParams();
 
@@ -31,7 +32,9 @@ export function TimePicker({ onChange, date }: TimeComponent) {
   }, [date]);
   return (
     <TimePersonComponent
-      onChange={onChange}
+      onChange={(e)=>{
+        
+      }}
       optionMapping={timeChoiceArray.map((hourStr: string, index: number) => (
         <option key={index} selected={hourStr.slice(3) === hourParam}>
           {hourStr}

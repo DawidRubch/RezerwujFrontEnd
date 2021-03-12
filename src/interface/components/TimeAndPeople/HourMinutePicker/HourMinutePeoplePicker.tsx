@@ -1,5 +1,4 @@
 import React, { ChangeEvent } from "react";
-
 import "./HourMinutePeoplePicker.css";
 interface TimePersonComponent {
   onChange: (e: ChangeEvent<HTMLSelectElement>) => void;
