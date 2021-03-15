@@ -25,7 +25,7 @@
   margin-left: 70px;
   margin-bottom: 50px;
   opacity: 0.67;
-  width: 650px;
+  
 }
 
 .logo {
@@ -79,6 +79,7 @@
     width: 100vw;
     margin-left: 0;
     margin-top: 20px;
+    
   }
 
   .pickingContainer > * {
@@ -97,10 +98,7 @@
     text-align: center;
     margin-left: 0;
   }
-  .mainPageSubHeading {
-    width: 20vw;
-    margin: 0;
-  }
+  
   .heading {
     font-size: 35px;
   }
@@ -109,9 +107,10 @@
     margin-bottom: 0;
   }
   .mainPageSubHeading {
+    text-align: center;
     font-size: 20px;
-    width: 80vw;
-    margin-left: 25px;
+   
+    margin-left: 0px;
     margin-top: 25px;
   }
   .searchButtonContainer {
@@ -122,7 +121,9 @@
     width: 100vw;
   }
   .searchButtonContainer {
+    display: flex;
+    justify-content: center;
     margin-bottom: 20px;
-    margin-left: 13vw;
+   
   }
 }

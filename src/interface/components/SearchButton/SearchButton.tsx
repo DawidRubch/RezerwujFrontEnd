@@ -8,7 +8,7 @@ interface SearchButtonProps {
 }
 export function SearchButton({ searchParams, onPressed }: SearchButtonProps) {
   return (
-    <Link
+    <Link style={{width:"250px"}}
       to={{
         pathname: "/lista-restauracji",
         search: searchParams,

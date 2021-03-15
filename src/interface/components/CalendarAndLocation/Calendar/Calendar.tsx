@@ -40,7 +40,7 @@ export const ReactCalendar = ({ onChange }: ReactCalendarProps) => {
           <ArrowDownIcon />
         </span>
       </CalendarLocationContainer>
-      <div style={{ position: "absolute", marginLeft: "-25px" }}>
+      <div style={{ position: "absolute", marginLeft: "25px" }}>
         <CSSTransition in={showCalendar} unmountOnExit timeout={100}>
           <Calendar
             onClickDay={() => {
