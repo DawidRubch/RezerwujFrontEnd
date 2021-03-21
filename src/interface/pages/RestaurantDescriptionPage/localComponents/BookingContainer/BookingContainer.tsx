@@ -1,12 +1,6 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useLocation } from "react-router-dom";
+import React, { useState } from "react";
+import './BookingContainer.css'
 import { BookTime, bookTimeFromJson } from "../../../../../core/Entities";
-import {
-  updateDate,
-  updateHour,
-  updatePeopleCount,
-} from "../../../../../stateManagment/action";
 import {
   PeopleAmountPicker,
   ReactCalendar,
@@ -14,12 +8,8 @@ import {
 } from "../../../../components";
 import { BookingHoursComponent } from "../../../RestaurantPubsArrPage/localComponents/RestaurantPubComponent/RestaurantPubComponent";
 import "./BookingContainer.css";
-import queryString from "querystring";
 import RestaurantOrPubRepository from "../../../../../domain/repository/RestaurantPubRepository";
-import {
-  useBookTimeAndNameSearchParams,
-  useLocationDescriptionPage,
-} from "../../../../../core/Helper/SearchQuery/useBookTimeSearchParams";
+import { useBookTimeAndNameSearchParams } from "../../../../../core/Helper/SearchQuery/useBookTimeSearchParams";
 interface BookingContainerInterface {
   nameString: string;
   alternativeBookingHours: (BookTime | null)[];
@@ -33,24 +23,24 @@ export function BookingContainer({
   //useState Hooks
   const [reloadBookingArr, setReloadBookingArr] = useState(false);
 
-  //Redux hooks
-  const dispatch = useDispatch();
-  // const { date, hour }: any = useSelector((state) => state);
   let restaurantOrPubRepository = new RestaurantOrPubRepository();
   const [altBookTimes, setAltBookTimes] = useState(alternativeBookingHours);
-  const { bookTime, dt, name } = useBookTimeAndNameSearchParams();
-  const { dateString, hour, people } = useLocationDescriptionPage();
+  const { bookTime, name } = useBookTimeAndNameSearchParams();
 
-  useEffect(() => {
-    if (!alternativeBookingHours) {
-      restaurantOrPubRepository
-        .getRoPAlternativeBookingHours(name.toString(), bookTime)
-        .then((res: any) => bookTimeFromJson(res));
-    }
-  });
+  //get alt booking hours for new alt booking hours
 
-  let history = useHistory();
+  const getNewAltBookingHours = () => {
+    setReloadBookingArr(!reloadBookingArr);
 
+    restaurantOrPubRepository
+      .getRoPAlternativeBookingHours(name, bookTime)
+      .then((res) => {
+        let bookTimesMapped = res.map((bt) => bookTimeFromJson(bt));
+        setAltBookTimes(bookTimesMapped);
+      });
+  };
+
+  const calendarOnChange = () => setReloadBookingArr(true);
   return (
     <div className="placeOrderContainer">
       <div className="placeOrderHeading">
@@ -63,57 +53,20 @@ export function BookingContainer({
         <b style={{ padding: "5px" }}>Data</b>
       </div>
       <div style={{ margin: "auto" }}>
-        <ReactCalendar
-          onChange={() => {
-            setReloadBookingArr(true);
-          }}
-        />
+        <ReactCalendar onChange={calendarOnChange} />
       </div>
       <div className="placeOrderSubHeading">
         <b style={{ padding: "5px" }}>Godzina</b>
       </div>
 
-      <TimePicker
-        date={dt}
-        onChange={(e: ChangeEvent<HTMLSelectElement>) => {
-          let currentHour = e.currentTarget.value.slice(3);
-          dispatch(updateHour(e.currentTarget.value.slice(3)));
-          setReloadBookingArr(true);
-          history.push({
-            search: `?&dateString=${dateString}&hour=${currentHour}&people=${people}&name=${name}`,
-          });
-        }}
-      />
+      <TimePicker />
       <div className="placeOrderSubHeading">
         <b style={{ padding: "5px" }}>Ilość osób</b>
       </div>
-      <PeopleAmountPicker
-        onChange={(e: ChangeEvent<HTMLSelectElement>) => {
-          let peopleCount = +e.currentTarget.value.slice(3, 5);
-          dispatch(updatePeopleCount(peopleCount));
-          setReloadBookingArr(true);
-          history.push({
-            search: `?&dateString=${dateString}&hour=${hour}&people=${peopleCount}&name=${name}`,
-          });
-        }}
-        people={+people}
-      />
+      <PeopleAmountPicker />
       <div style={{ marginLeft: "20px", marginBottom: "20px" }}>
         {reloadBookingArr ? (
-          <button
-            onClick={() => {
-              setReloadBookingArr(!reloadBookingArr);
-
-              restaurantOrPubRepository
-                .getRoPAlternativeBookingHours(name.toString(), bookTime)
-                .then((res) => {
-                  let bookTimesMapped = res.map((bt) => bookTimeFromJson(bt));
-                  setAltBookTimes(bookTimesMapped);
-                });
-            }}
-          >
-            Reload
-          </button>
+          <button onClick={getNewAltBookingHours}>Reload</button>
         ) : (
           <BookingHoursComponent
             restaurantOrPub={state}

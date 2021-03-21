@@ -5,7 +5,6 @@ import { APIURLS } from "../../core/ImportantVariables/variables";
 import { ReservationFindNextAvaliableJson } from "../../core/Interfaces/index";
 import { RestaurantDescriptionInfoResponse } from "../../core/Interfaces/RestaurantDescriptionInfoResponse";
 import { RestaurantConfirmInfoResponse } from "../../core/Interfaces/RestaurantConfirmInfoResponse";
-import { RoPAlternativeBookingHoursResponse } from "../../core/Interfaces/RoPAlternativeBookingHoursResponse";
 
 export class RestaurantOrPubRemoteDb {
   config = {

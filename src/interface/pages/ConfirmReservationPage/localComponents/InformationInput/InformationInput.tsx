@@ -14,12 +14,15 @@ export function InformationInput({
   autoComplete,
   name,
 }: InformationInputInterface) {
+  //FunctionExecuted on input change
+  const inputOnChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    onChange(e.target.value);
   return (
     <input
       name={name}
       autoComplete={autoComplete}
       value={value}
-      onChange={(event) => onChange(event.target.value)}
+      onChange={inputOnChange}
       style={{
         border: "solid 1px",
         height: "50px",

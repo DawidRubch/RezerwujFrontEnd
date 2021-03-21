@@ -1,41 +1,78 @@
 import React, { useState } from "react";
-import Calendar from "react-calendar";
+import Calendar, { Detail } from "react-calendar";
 import { CSSTransition } from "react-transition-group";
 
 import { ReactComponent as CalendarIcon } from "../../../../images/calendar.svg";
 import { ReactComponent as ArrowDownIcon } from "../../../../images/arrowDown.svg";
 import "./Calendar.css";
 import CalendarLocationContainer from "../CalendarLocationContainer/CalendarLocationContainer";
-import { useSearchParams } from "../../../../core/Helper/SearchQuery/useSearchParams";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { mapPropToSearchQuery } from "../../../../core/Helper/SearchQuery/mapPropertiesToSearchQuery";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { updateDate } from "../../../../stateManagment/action";
-import queryString from "querystring";
-interface ReactCalendarProps {
-  onChange?: any;
-}
+import { useGlobalVariables } from "../../../../core/Helper/ReduxCustomHooks/useGlobalVariables";
 
-export const ReactCalendar = ({ onChange }: ReactCalendarProps) => {
+export const ReactCalendar = ({ onChange }: any) => {
+  //Boolean value to show Calendar
   const [showCalendar, setShowCalendar] = useState(false);
-  const { search } = useLocation();
+
+  //Hook to redirect or update search query
   const history = useHistory();
+
+  //Hook to update redux store
   const dispatch = useDispatch();
-  const { hour, location, people }: any = useSelector((state) => state);
-  const { dateParam } = useSearchParams();
-  const { name } = queryString.parse(search);
+
+  //Global variables
+  const { hour, location, people, date, name } = useGlobalVariables();
+
+  //Function changin boolean val of showCalendar
+  const hideOrShowCalendar = () => setShowCalendar(!showCalendar);
+
+  //What shows on top of the calendar
+  const navigationLabel = (navigation: {
+    date: Date;
+    view: Detail;
+    label: string;
+  }) => navigation.label.charAt(0).toUpperCase() + navigation.label.slice(1);
+
+  //Function executes when the date in Calendar is changed
+  const onChangeDate = (date: Date | Date[]) => {
+    //onChange is used in RestaurantDescriptionPage
+    //It informs the component that it should be updated
+    if (onChange) onChange();
+    dispatch(updateDate(date as Date));
+
+    //Function changes parameters to search query string
+    let mappingPropsToSearchQueries = mapPropToSearchQuery(
+      location,
+      date.toString(),
+      hour,
+      people.toString(),
+      name
+    );
+
+    //Search query object
+    let searchQuery = {
+      search: mappingPropsToSearchQueries,
+    };
+
+    history.push(searchQuery);
+  };
+
+  //Calendar style is used here, due to dynamic value showCalendar
+  const calendarLocationContainerStyle = {
+    borderRadius: showCalendar ? "8px 8px 0 0" : "8px",
+  };
 
   return (
     <div>
       <CalendarLocationContainer
-        styling={{ borderRadius: showCalendar ? "8px 8px 0 0" : "8px" }}
+        styling={calendarLocationContainerStyle}
         className="menu-item calendar"
         leadingIcon={<CalendarIcon />}
-        onClick={() => {
-          setShowCalendar(!showCalendar);
-        }}
+        onClick={hideOrShowCalendar}
       >
-        <div className="icon-text">{dateParam.toLocaleDateString()}</div>
+        <div className="icon-text">{date.toLocaleDateString()}</div>
         <span className="icon-right">
           <ArrowDownIcon />
         </span>
@@ -43,36 +80,21 @@ export const ReactCalendar = ({ onChange }: ReactCalendarProps) => {
       <div style={{ position: "absolute", marginLeft: "25px" }}>
         <CSSTransition in={showCalendar} unmountOnExit timeout={100}>
           <Calendar
-            onClickDay={() => {
-              setShowCalendar(!showCalendar);
-            }}
-            navigationLabel={(navigation) =>
-              navigation.label.charAt(0).toUpperCase() +
-              navigation.label.slice(1)
-            }
+            onClickDay={hideOrShowCalendar}
+            navigationLabel={navigationLabel}
             defaultView={"month"}
             view={"month"}
             minDate={new Date()}
             next2Label={null}
             prev2Label={null}
             locale="pl"
-            onChange={(date: Date | Date[]) => {
-              if (onChange) onChange();
-              dispatch(updateDate(date as Date));
-              history.push({
-                search:
-                  mapPropToSearchQuery(
-                    location,
-                    date.toString(),
-                    hour,
-                    people.toString()
-                  ) + `&name=${name}`,
-              });
-            }}
-            value={dateParam}
+            onChange={onChangeDate}
+            value={date}
           />
         </CSSTransition>
       </div>
     </div>
   );
 };
+
+

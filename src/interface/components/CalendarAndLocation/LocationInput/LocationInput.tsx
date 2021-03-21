@@ -6,28 +6,32 @@ import "./LocationInput.css";
 import CalendarLocationContainer from "../CalendarLocationContainer/CalendarLocationContainer";
 import { useDispatch, useSelector } from "react-redux";
 import { updateLocation } from "../../../../stateManagment/action";
-import { useSearchParams } from "../../../../core/Helper/SearchQuery/useSearchParams";
 import { useHistory } from "react-router-dom";
 import { mapPropToSearchQuery } from "../../../../core/Helper/SearchQuery/mapPropertiesToSearchQuery";
 
 export function LocationInput() {
+  //history hook is for redirecting or updating searchQuery
   const history = useHistory();
   //Redux hooks
   const dispatch = useDispatch();
   const { location, hour, date, people }: any = useSelector((state) => state);
-  const { locationParam, hourParam }: any = useSearchParams();
+
   //React hooks
   const [searchOptions, setSearchOptions] = useState<any>();
 
-  useEffect(() => {
-    setSearchOptions({
-      location: new google.maps.LatLng(53.4289, 14.553),
-      radius: 20000,
-      types: ["address"],
-    });
-  }, []);
+  const settingSearchOptions = () => {
+    //Location is created using latidute and longiture
+    const location = new google.maps.LatLng(53.4289, 14.553);
+    //Radius in meters
+    const radius = 20000;
 
-  console.log(location, hour, date, people);
+    //Array of location types, f.e. adress, restaurant etc.
+    const types = ["address"];
+
+    setSearchOptions({ location, radius, types });
+  };
+
+  useEffect(settingSearchOptions, []);
 
   //Method for location input
   const onChange = (value: string) => {
@@ -37,31 +41,38 @@ export function LocationInput() {
     });
   };
 
+  //Function to generate options of locations to choose
+  const generateLocationOptionsContainer = ({
+    getInputProps,
+    suggestions,
+    getSuggestionItemProps,
+  }: any) => (
+    <div>
+      <CalendarLocationContainer
+        className="menu-item location"
+        leadingIcon={<PlaceIcon />}
+      >
+        <input
+          {...getInputProps({
+            placeholder: "Adres, np. Plac Rodła",
+          })}
+        />
+      </CalendarLocationContainer>
+
+      <div style={{ position: "absolute", marginLeft: "19px" }}>
+        {filterAndMapSuggestions(suggestions, getSuggestionItemProps)}
+      </div>
+    </div>
+  );
+
   return (
     <div>
       <PlacesAutocomplete
-        value={location || locationParam}
+        value={location}
         onChange={onChange}
         searchOptions={searchOptions}
       >
-        {({ getInputProps, suggestions, getSuggestionItemProps }) => (
-          <div>
-            <CalendarLocationContainer
-              className="menu-item location"
-              leadingIcon={<PlaceIcon />}
-            >
-              <input
-                {...getInputProps({
-                  placeholder: "Adres, np. Plac Rodła",
-                })}
-              />
-            </CalendarLocationContainer>
-
-            <div style={{ position: "absolute", marginLeft: "19px" }}>
-              {filterAndMapSuggestions(suggestions, getSuggestionItemProps)}
-            </div>
-          </div>
-        )}
+        {generateLocationOptionsContainer}
       </PlacesAutocomplete>
     </div>
   );

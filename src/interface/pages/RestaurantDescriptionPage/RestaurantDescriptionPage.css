@@ -19,94 +19,6 @@
     border-radius: 1vw;
 }
 
-.placeOrderContainer {
-    background: white;
-    margin-right: 0.5em;
-    width: 18vw;
-    height: 460px;
-    min-width: 300px;
-    border-radius: 8px;
-    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
-}
-
-.placeOrderHeading {
-    text-align: center;
-    margin-top: 10px;
-}
-
-hr {
-    opacity: 0.5;
-}
-
-.placeOrderhr {
-    width: 16vw;
-    min-width: 280px;
-    margin: 20px 0 20px 10px;
-}
-
-.restaurantContainerhr {
-    width: 47vw;
-    min-width: 300px;
-    margin: 20px 0 20px 10px;
-}
-
-.placeOrderSubHeading {
-    text-align: left;
-    margin: 5px 10px 5px 15px;
-}
-
-.restaurantContainer {
-    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
-    left: 100px;
-    width: 50vw;
-    background: white;
-    min-width: 350px;
-    color: black;
-    border-radius: 10px;
-    padding: 10px 0 0 10px;
-}
-
-.restaurantName {
-    margin-left: 10px;
-    font-size: 50px;
-    color: #e54949;
-    font-weight: bold;
-}
-
-.tagContainer {
-    display: flex;
-    flex-wrap: wrap;
-    padding-top: 10px;
-    margin-left: 10px;
-}
-
-.tag {
-    border-radius: 15px;
-    border: 1px solid;
-    margin: 0 10px 0 0;
-    padding: 8px;
-}
-
-.shortDescription {
-    font-size: 18px;
-    height: auto;
-    word-spacing: 5px;
-    margin: 0 15px;
-    font-weight: bold;
-    width: 47vw;
-    min-width: 280px;
-}
-
-.restaurantMenuLink {
-    padding: 0 10px 10px 0;
-    font-size: 25px;
-    color: #e54949;
-    margin-bottom: 10px;
-    margin-top: 10px;
-    font-weight: bold;
-    margin-left: 5px;
-}
-
 @media screen and (max-width: 750px) {
     .mainContainer {
         justify-content: center;
@@ -120,8 +32,5 @@ hr {
     .placeOrderContainer {
         position: absolute;
         top: 170px;
-    }
-    .shortDescription {
-        margin-top: 500px;
     }
 }

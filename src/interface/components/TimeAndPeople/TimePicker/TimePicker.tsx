@@ -1,48 +1,75 @@
 import React, { useEffect } from "react";
 import { ChangeEvent } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useSearchParams } from "../../../../core/Helper/SearchQuery/useSearchParams";
+import { useDispatch } from "react-redux";
+import { useGlobalVariables } from "../../../../core/Helper/ReduxCustomHooks/useGlobalVariables";
 import { updateHour } from "../../../../stateManagment/action";
 
 import TimePersonComponent from "../HourMinutePicker/HourMinutePeoplePicker";
 import { useSearchQueryAndReduxStoreUpdate } from "../LocalHooks/useSearchQueryAndReduxStoreUpdate";
 
 interface TimeComponent {
-  onChange: (e: ChangeEvent<HTMLSelectElement>) => void;
-  date: Date;
+  onChange?: (e: ChangeEvent<HTMLSelectElement>) => void;
+  currentDate?: Date;
 }
 
-export function TimePicker({ date }: TimeComponent) {
+export function TimePicker({}: TimeComponent) {
+  //Takes updates search queries to ReduxStore and returns updated
+  const { location, people, date, hour } = useGlobalVariables();
+
+  //Function that updates search queries and redux store
   const searchQueryAndLocalStoreUpdate = useSearchQueryAndReduxStoreUpdate();
-  //Redux hook
+
+  //Global hook to update
   const dispatch = useDispatch();
-  let { hourParam, dateParam } = useSearchParams();
 
-  let timeChoiceArray = generateTime(dateParam);
+  //Generating time choices f.e 10:00, 10:30 etc
+  let timeChoiceArray = generateTime(date);
 
-  useEffect(() => {
+  //Compares the hour searchQuery to hours in timeChoiceArray
+  //Sets the time
+  const updateGlobalVariableHour = () => {
     let isTimeChoiceInArray = false;
     for (let timeChoice of timeChoiceArray) {
-      if (timeChoice.slice(3) === hourParam) {
+      if (timeChoice.slice(3) === hour) {
         isTimeChoiceInArray = true;
         break;
       }
     }
-    if (!isTimeChoiceInArray) dispatch(updateHour(timeChoiceArray[0].slice(3)));
-  }, [date]);
+    let [firstTimeChoice] = timeChoiceArray;
+
+    if (!isTimeChoiceInArray) dispatch(updateHour(firstTimeChoice.slice(3)));
+  };
+
+  //Function runs when the amount of people is changed
+  const onPickingAmountOfPeople = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    let currentHourVal = e.currentTarget.value.slice(3);
+    dispatch(updateHour(currentHourVal));
+    searchQueryAndLocalStoreUpdate(
+      currentHourVal,
+      location,
+      people.toString(),
+      date
+    );
+  };
+
+  //Mapping options to JSX components
+  const optionsMapping = () =>
+    timeChoiceArray.map((hourStr: string, index: number) => (
+      <option key={index} selected={hourStr.slice(3) === hour}>
+        {hourStr}
+      </option>
+    ));
+
+  useEffect(updateGlobalVariableHour, [date]);
+
   return (
     <TimePersonComponent
-      onChange={(e)=>{
-        
-      }}
-      optionMapping={timeChoiceArray.map((hourStr: string, index: number) => (
-        <option key={index} selected={hourStr.slice(3) === hourParam}>
-          {hourStr}
-        </option>
-      ))}
+      onChange={onPickingAmountOfPeople}
+      optionMapping={optionsMapping()}
     />
   );
 }
+
 export function generateTime(date: Date) {
   let [hour, minutes] = [date.getHours(), date.getMinutes()];
 
@@ -61,7 +88,10 @@ export function generateTime(date: Date) {
   let hourAndMinutesArr: string[] = new Array();
 
   for (var i = 0; i < 48; i++) {
-    hourAndMinutesArr.push(`🕒 ${hour}:${minutes === 0 ? "00" : "30"}`);
+    
+    let hourAndMinutesString = `🕒 ${hour}:${minutes === 0 ? "00" : "30"}`;
+
+    hourAndMinutesArr.push(hourAndMinutesString);
     minutes += 30;
     if (minutes === 60) {
       hour++;

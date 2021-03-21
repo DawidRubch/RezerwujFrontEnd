@@ -4,7 +4,7 @@ import { RestaurantOrPubRemoteDb } from "../../data/database/RestaurantOrPubRemo
 export default class RestaurantOrPubRepository {
   restaurantOrPubRemoteDb = new RestaurantOrPubRemoteDb();
 
-  async mapROPArrayToJSX(bookTime: BookTime, address?: string) {
+  async getRoPArrayFromDb(bookTime: BookTime, address?: string) {
     return await this.restaurantOrPubRemoteDb.getRestaurantsFromDb(
       bookTime,
       address

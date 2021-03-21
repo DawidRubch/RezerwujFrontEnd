@@ -12,14 +12,17 @@ interface GlobalVariablesInterface {
   location: string;
   date: Date;
   people: number;
+  name?: string;
 }
 
+//Hook takes search parametes and updates them to the redux store
 export function useGlobalVariables(): GlobalVariablesInterface {
   const {
     hourParam,
     locationParam,
     peopleParam,
     dateParam,
+    name,
   } = useSearchParams();
 
   const { hour, location, date, people }: any = useSelector((state) => state);
@@ -32,10 +35,9 @@ export function useGlobalVariables(): GlobalVariablesInterface {
     dispatch(updateHour(hourParam));
   }, []);
 
-  console.table([
-    [hourParam, locationParam, dateParam, peopleParam],
-    [hour, location, date, people],
-  ]);
-
-  return { hour, location, date, people };
+  let finalReturnObj = { hour, location, date, people };
+  if (name === "undefined") {
+    return finalReturnObj;
+  }
+  return { ...finalReturnObj, name };
 }

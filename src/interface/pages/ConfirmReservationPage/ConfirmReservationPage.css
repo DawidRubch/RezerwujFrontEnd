@@ -16,15 +16,6 @@
     margin-bottom: 10px;
 }
 
-.input-container {
-    display: grid;
-    width: 50vw;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    gap: 40px 10px;
-    margin-top: 50px;
-}
-
 .restaurant-name-and-info {
     display: flex;
     flex-direction: column;
@@ -63,15 +54,6 @@
     .confirm-reservation-button {
         width: 70vw;
         font-size: 5vw;
-    }
-}
-
-@media screen and (max-width: 800px) {
-    .input-container {
-        grid-template-columns: repeat(1, 2fr);
-        grid-template-rows: repeat(1, 2fr);
-        margin-top: 0px;
-        gap: 15px 10px;
     }
 }
 

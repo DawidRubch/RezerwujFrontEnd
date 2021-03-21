@@ -1,11 +1,6 @@
-import React, { ChangeEvent } from "react";
-
+import React from "react";
 import "./LandingPage.css";
 import image from "../../../images/Image 7.png";
-import { useDispatch } from "react-redux";
-import { updateHour, updatePeopleCount } from "../../../stateManagment/action";
-
-import { mapPropToSearchQuery } from "../../../core/Helper/SearchQuery/mapPropertiesToSearchQuery";
 import {
   LocationInput,
   PeopleAmountPicker,
@@ -13,19 +8,12 @@ import {
   SearchButton,
   TimePicker,
 } from "../../components";
-import { useGlobalVariables } from "../../../core/Helper/ReduxCustomHooks/useGlobalVariables";
-import { useHistory } from "react-router-dom";
+
 import HowToBookPage from "./localPages/HowToBookPage";
 
 export const LandingPage: React.FC = () => {
-  //Redux hooks
-  const { hour, location, people, date } = useGlobalVariables();
-  const dispatch = useDispatch();
-
-  let history = useHistory();
-
   return (
-    <div>
+    <>
       <div className="mainPageContainer">
         <div className="pickingBookTimeContainer">
           <div className="logo">REZERWUJ</div>
@@ -42,48 +30,12 @@ export const LandingPage: React.FC = () => {
 
           <div className="pickingContainer">
             <ReactCalendar />
-            <TimePicker
-              onChange={(e: ChangeEvent<HTMLSelectElement>) => {
-                let currentHourVal = e.currentTarget.value.slice(3);
-                timeOrPersonChangingFunction(
-                  history,
-                  location,
-                  date.toString(),
-                  currentHourVal,
-                  people.toString(),
-                  dispatch,
-                  updateHour(currentHourVal)
-                );
-              }}
-              date={date}
-            />
-
+            <TimePicker />
             <LocationInput />
-            <PeopleAmountPicker
-              onChange={(e: ChangeEvent<HTMLSelectElement>) => {
-                let currentPeopleVal = e.currentTarget.value.slice(3, 5);
-                timeOrPersonChangingFunction(
-                  history,
-                  location,
-                  date.toString(),
-                  hour,
-                  currentPeopleVal,
-                  dispatch,
-                  updatePeopleCount(+currentPeopleVal)
-                );
-              }}
-              people={people}
-            />
+            <PeopleAmountPicker />
           </div>
           <div className="searchButtonContainer">
-            <SearchButton
-              searchParams={mapPropToSearchQuery(
-                location,
-                date.toString(),
-                hour,
-                people.toString()
-              )}
-            />
+            <SearchButton />
           </div>
         </div>
         <div className="mainPageImageContainer">
@@ -91,22 +43,6 @@ export const LandingPage: React.FC = () => {
         </div>
       </div>
       <HowToBookPage />
-    </div>
+    </>
   );
 };
-
-function timeOrPersonChangingFunction(
-  history: any,
-  location: string,
-  date: string,
-  hour: string,
-  people: string,
-  dispatch: any,
-  reducerFunction: any
-): void {
-  dispatch(reducerFunction);
-
-  history.push({
-    search: mapPropToSearchQuery(location, date, hour, people),
-  });
-}

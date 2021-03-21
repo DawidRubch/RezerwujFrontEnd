@@ -6,12 +6,13 @@ interface ParamsInterface {
   locationParam: string;
   hourParam: string;
   peopleParam: number;
+  name?: string;
 }
 export function useSearchParams(): ParamsInterface {
   const { search } = useLocation();
-  let { dateString, location, hour, people } = queryString.parse(search);
+  let { dateString, location, hour, people, name } = queryString.parse(search);
   let date = new Date();
-  console.log(location, dateString);
+
   let [day, month, year] =
     typeof dateString === "string"
       ? dateString.split(".")
@@ -33,10 +34,17 @@ export function useSearchParams(): ParamsInterface {
   let hourToReturn = checkIfSearchParamIsAString(hour);
   let peopleToReturn = checkIfSearchParamIsAString(people);
 
-  return {
+  let nameToReturn = checkIfSearchParamIsAString(name);
+
+  const finalReturnObj = {
     dateParam: date,
     locationParam: locationToReturn,
     hourParam: hourToReturn,
     peopleParam: +peopleToReturn,
   };
+
+  if (name !== "undefined") {
+    return { ...finalReturnObj, name: nameToReturn };
+  }
+  return finalReturnObj;
 }
