@@ -2,7 +2,7 @@ import axios from "axios";
 import { BookTime } from "../../core/Entities";
 import { ROPArrayFromJson } from "../models/RestaurantOrPubArrayModel";
 import { APIURLS } from "../../core/ImportantVariables/variables";
-import { ReservationFindNextAvaliableJson } from "../../core/Interfaces/index";
+import { ReservationFindNextAvaliableJson } from "../../core/Interfaces";
 import { RestaurantDescriptionInfoResponse } from "../../core/Interfaces/RestaurantDescriptionInfoResponse";
 import { RestaurantConfirmInfoResponse } from "../../core/Interfaces/RestaurantConfirmInfoResponse";
 
@@ -18,44 +18,43 @@ export class RestaurantOrPubRemoteDb {
   async getRestaurantsFromDb(bookTime: BookTime, address?: string) {
     let bookTimeToJson = bookTime.toJson();
 
-    const { data } = await axios.post(
-      `${APIURLS.serverAddress}${APIURLS.getRestaurants}`,
-      {
-        address: address,
-        bookTime: bookTimeToJson,
-      },
-      this.config
-    );
+    const URL = `${APIURLS.serverAddress}${APIURLS.getRestaurants}`;
 
-    return Promise.resolve(ROPArrayFromJson(data));
+    const postData = {
+      address: address,
+      bookTime: bookTimeToJson,
+    };
+    const { data } = await axios.post(URL, postData, this.config);
+
+    return ROPArrayFromJson(data);
   }
 
   async getRestaurantInfoDescriptionPage(name: string, bookTime: BookTime) {
-    let { data }: any = await axios.post(
-      `${APIURLS.serverAddress}${APIURLS.getRestaurantInfoDescriptionPage}`,
-      { name, bookTime },
-      this.config
-    );
+    const URL = `${APIURLS.serverAddress}${APIURLS.getRestaurantInfoDescriptionPage}`;
+
+    const postData = { name, bookTime };
+
+    let { data } = await axios.post(URL, postData, this.config);
+
     let responseData: RestaurantDescriptionInfoResponse = data;
-    return Promise.resolve(responseData);
+
+    return responseData;
   }
 
   async getRestaurantInfoConfirmPage(name: string, bookTime: BookTime) {
-    let { data }: any = await axios.post(
-      `${APIURLS.serverAddress}${APIURLS.getRestaurantInfoConfirmPage}`,
-      { name, bookTime },
-      this.config
-    );
+    const URL = `${APIURLS.serverAddress}${APIURLS.getRestaurantInfoConfirmPage}`;
+
+    let { data } = await axios.post(URL, { name, bookTime }, this.config);
+
     let responseData: RestaurantConfirmInfoResponse = data;
 
-    return Promise.resolve(responseData);
+    return responseData;
   }
   async getRoPAlternativeBookingHours(name: string, bookTime: BookTime) {
-    let { data }: any = await axios.post(
-      `${APIURLS.serverAddress}${APIURLS.getRoPAlternativeBookingHours}`,
-      { name, bookTime },
-      this.config
-    );
+    const URL = `${APIURLS.serverAddress}${APIURLS.getRoPAlternativeBookingHours}`;
+
+    let { data }: any = await axios.post(URL, { name, bookTime }, this.config);
+
     let responseData: ({
       minute: number;
       hour: number;
@@ -65,7 +64,7 @@ export class RestaurantOrPubRemoteDb {
       people: number;
     } | null)[] = data;
 
-    return Promise.resolve(responseData);
+    return responseData;
   }
   async saveBookTime(
     bookTime: BookTime,
@@ -84,11 +83,7 @@ export class RestaurantOrPubRemoteDb {
       surName,
       number,
       email
-    )
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => console.log(1, err));
+    );
   }
   async deleteBookTime(bookTime: BookTime, restaurantName: string) {
     await manageReservations(
@@ -96,7 +91,7 @@ export class RestaurantOrPubRemoteDb {
       restaurantName,
       bookTime,
       this.config
-    ).then(() => console.log("Usunieto"));
+    );
   }
 }
 
@@ -127,20 +122,10 @@ async function manageReservations(
       name: bookTime.name,
     },
   };
-  console.log(bookTimeJsonWithName);
-  console.log(
-    `${APIURLS.serverAddress}${APIURLS.reservation.reservation}${AddOrDeleteRoutePath}`
-  );
-  const response = await axios
-    .post(
-      `${APIURLS.serverAddress}${APIURLS.reservation.reservation}${AddOrDeleteRoutePath}`,
-      bookTimeJsonWithName,
-      config
-    )
-    .then((res) => console.log(res))
-    .catch((e) => {
-      console.log(e);
-    });
 
-  return Promise.resolve(response);
+  const URL = `${APIURLS.serverAddress}${APIURLS.reservation.reservation}${AddOrDeleteRoutePath}`;
+
+  const response = await axios.post(URL, bookTimeJsonWithName, config);
+
+  return response;
 }

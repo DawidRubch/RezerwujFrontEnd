@@ -6,6 +6,7 @@ import { BookTime } from "../../Entities";
 export function useBookTimeAndNameSearchParams() {
   const { search } = useLocation();
   let { name, dateString, hour, people } = queryString.parse(search);
+
   let dateSplited = dateString.toString().split(".");
   let bookTime = new BookTime(
     +hour.toString().split(":")[1],
@@ -20,7 +21,7 @@ export function useBookTimeAndNameSearchParams() {
   dt.setMonth(+dateSplited[1]);
   dt.setDate(+dateSplited[0]);
 
-  return { bookTime, name: name.toString(), dt };
+  return { bookTime, name: name?.toString(), dt };
 }
 
 export function useLocationDescriptionPage() {

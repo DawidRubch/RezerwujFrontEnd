@@ -7,17 +7,25 @@ export function useSearchQueryAndReduxStoreUpdate(): (
   hour: string,
   location: string,
   people: string,
-  date: Date
+  date: Date,
+  name?: string
 ) => void {
   let history = useHistory();
 
-  return (hour: string, location: string, people: string, date: Date) =>
+  return (
+    hour: string,
+    location: string,
+    people: string,
+    date: Date,
+    name?: string
+  ) =>
     history.push({
       search: mapPropToSearchQuery(
         location,
         date.toString(),
         hour,
-        people.toString()
+        people.toString(),
+        name ? name.toString() : ""
       ),
     });
 }

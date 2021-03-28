@@ -12,7 +12,7 @@ interface PeopleAmountPickerProps {
   people?: number;
 }
 
-export function PeopleAmountPicker({}: PeopleAmountPickerProps) {
+export function PeopleAmountPicker({ onChange }: PeopleAmountPickerProps) {
   //Updates Redux store
   const dispatch = useDispatch();
 
@@ -23,12 +23,19 @@ export function PeopleAmountPicker({}: PeopleAmountPickerProps) {
   const searchQueryAndLocalStoreUpdate = useSearchQueryAndReduxStoreUpdate();
 
   //Global variables
-  const { location, date, hour, people } = useGlobalVariables();
+  const { location, date, hour, people, name } = useGlobalVariables();
 
   // Function runs on changing amount of people
-  const onChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const onPickingAmountOfPeople = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    if (onChange) onChange(e);
     let currentPeopleVal = e.currentTarget.value.slice(3, 5);
-    searchQueryAndLocalStoreUpdate(hour, location, currentPeopleVal, date);
+    searchQueryAndLocalStoreUpdate(
+      hour,
+      location,
+      currentPeopleVal,
+      date,
+      name
+    );
     dispatch(updatePeopleCount(+currentPeopleVal));
   };
 
@@ -46,7 +53,7 @@ export function PeopleAmountPicker({}: PeopleAmountPickerProps) {
   });
 
   return (
-    <TimePersonComponent onChange={onChange} optionMapping={optionMapping} />
+    <TimePersonComponent onChange={onPickingAmountOfPeople} optionMapping={optionMapping} />
   );
 }
 

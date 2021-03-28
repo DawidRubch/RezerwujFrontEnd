@@ -54,39 +54,39 @@ export class RestaurantOrPub {
   }
 }
 //Napisać testy pod t
-export function fromJson(restaurantOrPub: RestaurantOrPub): RestaurantOrPub {
+export function fromJson(restaurantOrPubJSON: any): RestaurantOrPub {
   let location: ROPLocation = new ROPLocation(
-    restaurantOrPub.location.lat,
-    restaurantOrPub.location.long
+    restaurantOrPubJSON.location.lat,
+    restaurantOrPubJSON.location.long
   );
-  let weekArray: Array<DayOfTheWeekOpenHours | null> = restaurantOrPub.weekArray.map(
-    mapWeekDay
+  let weekArray: Array<DayOfTheWeekOpenHours | null> = restaurantOrPubJSON.weekArray.map(
+    _mapWeekDay
   );
-  let bookTimeArray: BookTime[] = restaurantOrPub.bookTimeArray.map(
-    mapBookTime
+  let bookTimeArray: BookTime[] = restaurantOrPubJSON.bookTimeArray.map(
+    _mapBookTime
   );
   let restaurantOrPubEntity = new RestaurantOrPub(
-    restaurantOrPub.name,
-    restaurantOrPub.type,
-    restaurantOrPub.tags,
-    restaurantOrPub.shortDescription,
+    restaurantOrPubJSON.name,
+    restaurantOrPubJSON.type,
+    restaurantOrPubJSON.tags,
+    restaurantOrPubJSON.shortDescription,
     location,
-    restaurantOrPub.chairs,
-    restaurantOrPub.menuLink,
+    restaurantOrPubJSON.chairs,
+    restaurantOrPubJSON.menuLink,
     bookTimeArray,
-    restaurantOrPub.image,
-    restaurantOrPub.descriptionPageImg,
+    restaurantOrPubJSON.image,
+    restaurantOrPubJSON.descriptionPageImg,
     weekArray
   );
-  let alternativeBookingHours = restaurantOrPub.alternativeBookingHours.map(
-    mapAlternativeBookingHours
+  let alternativeBookingHours = restaurantOrPubJSON.alternativeBookingHours.map(
+    _mapAlternativeBookingHours
   );
 
-  restaurantOrPubEntity.distance = restaurantOrPub.distance;
+  restaurantOrPubEntity.distance = restaurantOrPubJSON.distance;
   restaurantOrPubEntity.alternativeBookingHours = alternativeBookingHours;
   return restaurantOrPubEntity;
 }
-function mapBookTime(bookTime: BookTime) {
+function _mapBookTime(bookTime: BookTime) {
   let restaurantBookTime = new BookTime(
     bookTime.minute,
     bookTime.hour,
@@ -99,7 +99,7 @@ function mapBookTime(bookTime: BookTime) {
   return restaurantBookTime;
 }
 
-function mapWeekDay(weekDay: DayOfTheWeekOpenHours | null) {
+function _mapWeekDay(weekDay: DayOfTheWeekOpenHours | null) {
   return weekDay === null
     ? null
     : new DayOfTheWeekOpenHours(
@@ -110,7 +110,7 @@ function mapWeekDay(weekDay: DayOfTheWeekOpenHours | null) {
       );
 }
 
-function mapAlternativeBookingHours(bookTimeOrNull: BookTime | null) {
+function _mapAlternativeBookingHours(bookTimeOrNull: BookTime | null) {
   return bookTimeOrNull === null
     ? null
     : new BookTime(

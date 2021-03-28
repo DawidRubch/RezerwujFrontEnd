@@ -3,7 +3,7 @@ import { ChangeEvent } from "react";
 import { useDispatch } from "react-redux";
 import { useGlobalVariables } from "../../../../core/Helper/ReduxCustomHooks/useGlobalVariables";
 import { updateHour } from "../../../../stateManagment/action";
-
+import { TimePickerFunctions } from "../../../../InterfaceFunctions/ComponentFunctions/TimePickerFunctions/TimePickerFunctions";
 import TimePersonComponent from "../HourMinutePicker/HourMinutePeoplePicker";
 import { useSearchQueryAndReduxStoreUpdate } from "../LocalHooks/useSearchQueryAndReduxStoreUpdate";
 
@@ -12,9 +12,10 @@ interface TimeComponent {
   currentDate?: Date;
 }
 
-export function TimePicker({}: TimeComponent) {
+export function TimePicker({ onChange }: TimeComponent) {
+  let timePickerFunctions = new TimePickerFunctions();
   //Takes updates search queries to ReduxStore and returns updated
-  const { location, people, date, hour } = useGlobalVariables();
+  const { location, people, date, hour, name } = useGlobalVariables();
 
   //Function that updates search queries and redux store
   const searchQueryAndLocalStoreUpdate = useSearchQueryAndReduxStoreUpdate();
@@ -23,7 +24,7 @@ export function TimePicker({}: TimeComponent) {
   const dispatch = useDispatch();
 
   //Generating time choices f.e 10:00, 10:30 etc
-  let timeChoiceArray = generateTime(date);
+  let timeChoiceArray = timePickerFunctions.generateTime(date);
 
   //Compares the hour searchQuery to hours in timeChoiceArray
   //Sets the time
@@ -41,14 +42,16 @@ export function TimePicker({}: TimeComponent) {
   };
 
   //Function runs when the amount of people is changed
-  const onPickingAmountOfPeople = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const onPickingHour = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    if (onChange) onChange(e);
     let currentHourVal = e.currentTarget.value.slice(3);
     dispatch(updateHour(currentHourVal));
     searchQueryAndLocalStoreUpdate(
       currentHourVal,
       location,
       people.toString(),
-      date
+      date,
+      name
     );
   };
 
@@ -64,41 +67,8 @@ export function TimePicker({}: TimeComponent) {
 
   return (
     <TimePersonComponent
-      onChange={onPickingAmountOfPeople}
+      onChange={onPickingHour}
       optionMapping={optionsMapping()}
     />
   );
-}
-
-export function generateTime(date: Date) {
-  let [hour, minutes] = [date.getHours(), date.getMinutes()];
-
-  //Start from 0:00, if its not today
-  if (new Date().toDateString() !== date.toDateString()) {
-    hour = 0;
-    minutes = 0;
-  }
-
-  if (minutes > 30) {
-    minutes = 0;
-    hour++;
-  } else {
-    minutes = 30;
-  }
-  let hourAndMinutesArr: string[] = new Array();
-
-  for (var i = 0; i < 48; i++) {
-    
-    let hourAndMinutesString = `🕒 ${hour}:${minutes === 0 ? "00" : "30"}`;
-
-    hourAndMinutesArr.push(hourAndMinutesString);
-    minutes += 30;
-    if (minutes === 60) {
-      hour++;
-      minutes = 0;
-    } else if (hour === 24) {
-      break;
-    }
-  }
-  return hourAndMinutesArr;
 }

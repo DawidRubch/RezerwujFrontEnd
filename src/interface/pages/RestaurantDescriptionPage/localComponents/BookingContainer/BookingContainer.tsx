@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import './BookingContainer.css'
+import "./BookingContainer.css";
 import { BookTime, bookTimeFromJson } from "../../../../../core/Entities";
 import {
   PeopleAmountPicker,
@@ -35,12 +35,14 @@ export function BookingContainer({
     restaurantOrPubRepository
       .getRoPAlternativeBookingHours(name, bookTime)
       .then((res) => {
+        console.log(res);
         let bookTimesMapped = res.map((bt) => bookTimeFromJson(bt));
         setAltBookTimes(bookTimesMapped);
       });
   };
+  
 
-  const calendarOnChange = () => setReloadBookingArr(true);
+  const onChange = () => setReloadBookingArr(true);
   return (
     <div className="placeOrderContainer">
       <div className="placeOrderHeading">
@@ -53,17 +55,17 @@ export function BookingContainer({
         <b style={{ padding: "5px" }}>Data</b>
       </div>
       <div style={{ margin: "auto" }}>
-        <ReactCalendar onChange={calendarOnChange} />
+        <ReactCalendar onChange={onChange} />
       </div>
       <div className="placeOrderSubHeading">
         <b style={{ padding: "5px" }}>Godzina</b>
       </div>
 
-      <TimePicker />
+      <TimePicker onChange={onChange} />
       <div className="placeOrderSubHeading">
         <b style={{ padding: "5px" }}>Ilość osób</b>
       </div>
-      <PeopleAmountPicker />
+      <PeopleAmountPicker onChange={onChange} />
       <div style={{ marginLeft: "20px", marginBottom: "20px" }}>
         {reloadBookingArr ? (
           <button onClick={getNewAltBookingHours}>Reload</button>

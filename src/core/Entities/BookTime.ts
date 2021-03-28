@@ -1,3 +1,5 @@
+//BookTime model
+//Should be rewritten to take only timeStamp and amount of people
 export class BookTime {
   minute: number;
   hour: number;
@@ -45,6 +47,7 @@ interface BookTimeFromJson {
   people: number;
 }
 
+//When bookTime is not free then it should return null
 export function bookTimeFromJson(
   bookTimeOrNull: BookTimeFromJson | null
 ): BookTime | null {
