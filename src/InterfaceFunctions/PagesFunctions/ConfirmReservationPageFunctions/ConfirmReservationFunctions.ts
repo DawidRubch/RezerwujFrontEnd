@@ -76,7 +76,7 @@ export default class ConfirmReservationFunctions {
     } o godzinie ${this.bookTime.hour}:${
       this.bookTime.minute === 0 ? "00" : "30"
     }.`;
-    
+
     const textToAlert = uManagedToBookTheTableText + reservationTimeText;
 
     alert(textToAlert);

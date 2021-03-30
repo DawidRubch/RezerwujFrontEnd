@@ -1,8 +1,8 @@
 import axios from "axios";
-import { BookTime } from "../../core/Entities";
+import { BookTime } from "../../core/Entities/BookTime";
 import { ROPArrayFromJson } from "../models/RestaurantOrPubArrayModel";
 import { APIURLS } from "../../core/ImportantVariables/variables";
-import { ReservationFindNextAvaliableJson } from "../../core/Interfaces";
+import { ReservationFindNextAvaliableJson } from "../../core/Interfaces/ReservationFindNextAvaliable";
 import { RestaurantDescriptionInfoResponse } from "../../core/Interfaces/RestaurantDescriptionInfoResponse";
 import { RestaurantConfirmInfoResponse } from "../../core/Interfaces/RestaurantConfirmInfoResponse";
 
@@ -24,6 +24,7 @@ export class RestaurantOrPubRemoteDb {
       address: address,
       bookTime: bookTimeToJson,
     };
+
     const { data } = await axios.post(URL, postData, this.config);
 
     return ROPArrayFromJson(data);
@@ -46,6 +47,10 @@ export class RestaurantOrPubRemoteDb {
 
     let { data } = await axios.post(URL, { name, bookTime }, this.config);
 
+    if (typeof data === "number") {
+      return;
+    }
+    
     let responseData: RestaurantConfirmInfoResponse = data;
 
     return responseData;

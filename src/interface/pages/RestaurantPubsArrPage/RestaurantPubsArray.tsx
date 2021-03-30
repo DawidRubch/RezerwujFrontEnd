@@ -16,15 +16,15 @@ export default function RestaurantPubsArrayPage() {
 
   //Takes RoP array from api
   const getRoPArr = () => {
+    //Splitting hour and minutes
+    const [hour, minutes] = hourParam.split(":");
+    
+    const day = dateParam.getDate();
+    const month = dateParam.getMonth() + 1;
+    const year = dateParam.getFullYear();
+
     //BookTime taken from search params
-    let bookTime = new BookTime(
-      +hourParam.split(":")[1],
-      +hourParam.split(":")[0],
-      dateParam.getDate(),
-      dateParam.getMonth() + 1,
-      dateParam.getFullYear(),
-      peopleParam
-    );
+    let bookTime = new BookTime(+minutes, +hour, day, month, year, peopleParam);
 
     //Calling APi
     restaurantPubRep

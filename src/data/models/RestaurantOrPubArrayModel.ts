@@ -1,4 +1,4 @@
-import { fromJson, RestaurantOrPub } from "../../core/Entities";
+import { fromJson, RestaurantOrPub } from "../../core/Entities/RestaurantOrPub";
 
 export class RestaurantOrPubArrayModel {
   restaurantOrPubArray: RestaurantOrPub[];
