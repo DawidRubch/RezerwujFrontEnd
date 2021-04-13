@@ -13,9 +13,7 @@ export default function RestaurantPubComponent({
   const { hour, people, date, location }: any = useSelector((state) => state);
   return (
     <div className="restaurant-array">
-      <div className="restaurant-array-searches-number">
-        {restaurantPubArr?.length} wyniki
-      </div>
+      
       {restaurantPubArr?.map((RoP: RestaurantOrPub, index: number) => {
         return (
           <div key={index}>
@@ -80,7 +78,7 @@ export default function RestaurantPubComponent({
 }
 
 interface BookingHoursComponentInterface {
-  alternativeBookingHours: (BookTime | null)[];
+  alternativeBookingHours: (BookTime | null | 0)[];
   type: "mobile" | "pc" | "universal";
   restaurantOrPub: RestaurantOrPub;
 }
@@ -111,7 +109,7 @@ export function BookingHoursComponent({
   );
 }
 interface BookingHoursArrInterface {
-  alternativeBookingHours: (BookTime | null)[];
+  alternativeBookingHours: (BookTime | null | 0)[];
   restaurantOrPub: RestaurantOrPub;
 }
 
@@ -132,17 +130,22 @@ function BookingHoursArr({
   return (
     <div style={{ display: "flex", flexDirection: "row", marginTop: "10px" }}>
       {alternativeBookingHours?.map(
-        (btOrNull: BookTime | null, index: number) => {
-          if (btOrNull === null) {
-            return <button key={index} className="book-button booked" />;
+        (btZeroOrNull: BookTime | null | 0, index: number) => {
+          console.log(btZeroOrNull);
+          if (btZeroOrNull === null) {
+            return <div key={index} className="book-button booked" />;
+          }
+
+          if (btZeroOrNull === 0) {
+            return <button key={index} className="book-button closed" />;
           }
           return (
             <button
-              onClick={() => bookReservation(btOrNull)}
+              onClick={() => bookReservation(btZeroOrNull)}
               key={index}
               className="book-button free"
             >
-              {btOrNull.hour}:{btOrNull.minute === 30 ? "30" : "00"}
+              {btZeroOrNull.hour}:{btZeroOrNull.minute === 30 ? "30" : "00"}
             </button>
           );
         }

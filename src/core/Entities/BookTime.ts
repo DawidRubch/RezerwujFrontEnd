@@ -49,11 +49,15 @@ interface BookTimeFromJson {
 
 //When bookTime is not free then it should return null
 export function bookTimeFromJson(
-  bookTimeOrNull: BookTimeFromJson | null
-): BookTime | null {
-  if (bookTimeOrNull === null) {
+  bTZeroOrNull: BookTimeFromJson | null | 0
+): BookTime | null | 0 {
+  if (bTZeroOrNull === null) {
     return null;
   }
-  let { minute, hour, day, month, year, people } = bookTimeOrNull;
+
+  if (bTZeroOrNull === 0) {
+    return 0;
+  }
+  let { minute, hour, day, month, year, people } = bTZeroOrNull;
   return new BookTime(minute, hour, day, month, year, people);
 }

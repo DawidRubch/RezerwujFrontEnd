@@ -9,7 +9,7 @@ import { Provider } from "react-redux";
 
 import { store } from "../src/stateManagment/store";
 import { ConfirmReservationPage } from "./interface/pages/ConfirmReservationPage/ConfirmReservationPage";
-function App() {
+export function App() {
   return (
     <Router>
       <Switch>

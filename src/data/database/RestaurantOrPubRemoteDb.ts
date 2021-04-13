@@ -7,6 +7,7 @@ import { RestaurantDescriptionInfoResponse } from "../../core/Interfaces/Restaur
 import { RestaurantConfirmInfoResponse } from "../../core/Interfaces/RestaurantConfirmInfoResponse";
 
 export class RestaurantOrPubRemoteDb {
+  //Config to send to database
   config = {
     headers: {
       crossDomain: true,
@@ -35,9 +36,9 @@ export class RestaurantOrPubRemoteDb {
 
     const postData = { name, bookTime };
 
-    let { data } = await axios.post(URL, postData, this.config);
+    const { data } = await axios.post(URL, postData, this.config);
 
-    let responseData: RestaurantDescriptionInfoResponse = data;
+    const responseData: RestaurantDescriptionInfoResponse = data;
 
     return responseData;
   }
@@ -45,29 +46,37 @@ export class RestaurantOrPubRemoteDb {
   async getRestaurantInfoConfirmPage(name: string, bookTime: BookTime) {
     const URL = `${APIURLS.serverAddress}${APIURLS.getRestaurantInfoConfirmPage}`;
 
-    let { data } = await axios.post(URL, { name, bookTime }, this.config);
+    const { data } = await axios.post(URL, { name, bookTime }, this.config);
 
     if (typeof data === "number") {
       return;
     }
-    
-    let responseData: RestaurantConfirmInfoResponse = data;
+
+    const responseData: RestaurantConfirmInfoResponse = data;
 
     return responseData;
   }
   async getRoPAlternativeBookingHours(name: string, bookTime: BookTime) {
     const URL = `${APIURLS.serverAddress}${APIURLS.getRoPAlternativeBookingHours}`;
 
-    let { data }: any = await axios.post(URL, { name, bookTime }, this.config);
+    const { data }: any = await axios.post(
+      URL,
+      { name, bookTime },
+      this.config
+    );
 
-    let responseData: ({
-      minute: number;
-      hour: number;
-      day: number;
-      month: number;
-      year: number;
-      people: number;
-    } | null)[] = data;
+    const responseData: (
+      | {
+          minute: number;
+          hour: number;
+          day: number;
+          month: number;
+          year: number;
+          people: number;
+        }
+      | null
+      | 0
+    )[] = data;
 
     return responseData;
   }
@@ -110,21 +119,21 @@ async function manageReservations(
   number?: string,
   email?: string
 ) {
-  let bookTimeToJson = bookTime.toJson();
-  let bookTimeJsonWithName: ReservationFindNextAvaliableJson = {
+  const { minute, hour, year, day, month, people, name } = bookTime.toJson();
+  const bookTimeJsonWithName: ReservationFindNextAvaliableJson = {
     name: restaurantName,
     email,
     personName,
     surName,
     number,
     bookTime: {
-      minute: bookTimeToJson.minute,
-      hour: bookTimeToJson.hour,
-      year: bookTimeToJson.year,
-      day: bookTimeToJson.day,
-      month: bookTimeToJson.month,
-      people: bookTimeToJson.people,
-      name: bookTime.name,
+      minute,
+      hour,
+      year,
+      day,
+      month,
+      people,
+      name,
     },
   };
 

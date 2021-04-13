@@ -12,7 +12,7 @@ import RestaurantOrPubRepository from "../../../../../domain/repository/Restaura
 import { useBookTimeAndNameSearchParams } from "../../../../../core/Helper/SearchQuery/useBookTimeSearchParams";
 interface BookingContainerInterface {
   nameString: string;
-  alternativeBookingHours: (BookTime | null)[];
+  alternativeBookingHours: (BookTime | null | 0)[];
   state: any;
 }
 
@@ -35,12 +35,10 @@ export function BookingContainer({
     restaurantOrPubRepository
       .getRoPAlternativeBookingHours(name, bookTime)
       .then((res) => {
-        console.log(res);
         let bookTimesMapped = res.map((bt) => bookTimeFromJson(bt));
         setAltBookTimes(bookTimesMapped);
       });
   };
-  
 
   const onChange = () => setReloadBookingArr(true);
   return (
