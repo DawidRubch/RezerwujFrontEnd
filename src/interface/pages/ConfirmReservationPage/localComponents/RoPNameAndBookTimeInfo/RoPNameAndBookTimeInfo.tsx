@@ -1,4 +1,5 @@
 import React from "react";
+import "./RoPNameAndBookTimeInfo.css";
 import ConfirmReservationFunctions from "../../../../../InterfaceFunctions/PagesFunctions/ConfirmReservationPageFunctions/ConfirmReservationFunctions";
 import { SmallBookingInfo } from "../SmallBookingInfo/SmallBookingInfo";
 import { ReactComponent as CalendarIcon } from "../../../../../images/calendar.svg";
@@ -17,18 +18,20 @@ export const RoPNameAndBookTimeInfo = ({
   return (
     <div className="restaurant-name-and-info">
       <b className="restaurant-name">{name}</b>
-      <SmallBookingInfo
-        insideText={confirmReservationFunctions.textInsideCalendarBookingInfo}
-        icon={<CalendarIcon />}
-      />
-      <SmallBookingInfo
-        insideText={confirmReservationFunctions.textInsideHourBookingInfo}
-        icon={<ClockIcon />}
-      />
-      <SmallBookingInfo
-        insideText={confirmReservationFunctions.textInsidePeopleBookingInfo}
-        icon={<PeopleIcon />}
-      />
+      <div className="restaurant-info">
+        <SmallBookingInfo
+          insideText={confirmReservationFunctions.textInsideCalendarBookingInfo}
+          icon={<CalendarIcon className="restaurant-info-icon" />}
+        />
+        <SmallBookingInfo
+          insideText={confirmReservationFunctions.textInsideHourBookingInfo}
+          icon={<ClockIcon className="restaurant-info-icon" />}
+        />
+        <SmallBookingInfo
+          insideText={confirmReservationFunctions.textInsidePeopleBookingInfo}
+          icon={<PeopleIcon className="restaurant-info-icon" />}
+        />
+      </div>
     </div>
   );
 };
