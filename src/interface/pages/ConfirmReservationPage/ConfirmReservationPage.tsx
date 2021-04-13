@@ -43,7 +43,7 @@ export function ConfirmReservationPage(): JSX.Element {
   if (InputObject.locationState) {
     return (
       <div className="main-container">
-        <div style={{ margin: "40px", padding: "10px" }}>
+        <div className="reservation-container">
           <div className="image-and-restaurant-info">
             <RoPImage inputObject={InputObject} />
             <RoPNameAndBookTimeInfo
@@ -62,10 +62,9 @@ export function ConfirmReservationPage(): JSX.Element {
             }
             className="confirm-reservation-button"
           >
-            Potwierdz rezerwacje
+            Potwierdź rezerwację
           </button>
         </div>
-
         <AdditionalRestaurantInfo />
       </div>
     );
