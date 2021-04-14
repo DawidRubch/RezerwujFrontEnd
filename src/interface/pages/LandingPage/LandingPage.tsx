@@ -1,15 +1,12 @@
 import React from "react";
 import "./LandingPage.css";
 import image from "../../../images/Image 7.png";
-import {
-  LocationInput,
-  PeopleAmountPicker,
-  ReactCalendar,
-  SearchButton,
-  TimePicker,
-} from "../../components";
-
 import HowToBookPage from "./localPages/HowToBookPage";
+import { ReactCalendar } from "../../components/CalendarAndLocation/Calendar/Calendar";
+import { TimePicker } from "../../components/TimeAndPeople/TimePicker/TimePicker";
+import { LocationInput } from "../../components/CalendarAndLocation/LocationInput/LocationInput";
+import { PeopleAmountPicker } from "../../components/TimeAndPeople/PeoplePicker/PeopleAmountPicker";
+import { SearchButton } from "../../components/SearchButton/SearchButton";
 
 export const LandingPage: React.FC = () => {
   return (

@@ -5,10 +5,10 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { render } from "react-dom";
 import "./index.css";
 import RestaurantDescriptionPage from "./interface/pages/RestaurantDescriptionPage/RestaurantDescriptionPage";
-import { Provider } from "react-redux";
 
 import { store } from "../src/stateManagment/store";
 import { ConfirmReservationPage } from "./interface/pages/ConfirmReservationPage/ConfirmReservationPage";
+import { ReduxProvider } from "./stateManagment/ReduxProvider";
 export function App() {
   return (
     <Router>
@@ -35,8 +35,8 @@ export function App() {
 }
 
 render(
-  <Provider store={store}>
+  <ReduxProvider store={store}>
     <App />
-  </Provider>,
+  </ReduxProvider>,
   document.getElementById("root")
 );
