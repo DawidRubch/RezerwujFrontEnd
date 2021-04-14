@@ -17,11 +17,18 @@
 }
 
 .book-button.booked {
-    background: #d2d2d2;
+    background-color: #a12e8e;
+    color: white;
+    padding: 5px;
+    opacity: 0.5;
 }
 
 .book-button.free:hover {
     background: #c888bd;
+}
+
+.book-button.closed {
+    background: #d2d2d2;
 }
 
 .restaurant-array {

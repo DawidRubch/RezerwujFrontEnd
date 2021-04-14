@@ -5,7 +5,12 @@ export function mapPropToSearchQuery(
   people: string,
   name?: string
 ) {
+  const currentDate = new Date();
   let date: Date = new Date(dateString);
+
+  if (date > currentDate) {
+    date = currentDate;
+  }
   let dateToSendInQuery = `${date.getDate()}.${date.getMonth()}.${date.getFullYear()}`;
 
   let showLocation = location ? `&location=${location}` : "";

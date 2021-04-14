@@ -1,4 +1,8 @@
 export const updateDate = (date: Date) => {
+  const currentDate = new Date();
+  if (date < currentDate) {
+    date = currentDate;
+  }
   return { type: "Date", value: date };
 };
 

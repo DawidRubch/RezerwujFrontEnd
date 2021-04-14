@@ -7,6 +7,7 @@ module.exports = {
     preset: "ts-jest",
     transform: {
         "^.+\\.(ts|tsx|js)$": "ts-jest",
+        ".+\\.(css|styl|less|sass|scss)$": "jest-transform-css",
     },
     testEnvironment: "node",
     testMatch: ["**/__tests__/**/*.ts?(x)", "**/?(*.)+(test).ts?(x)"],
@@ -35,4 +36,8 @@ module.exports = {
 
     // Module file extensions for importing
     moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
+    moduleNameMapper: {
+        "\\.(css|less)$": "identity-obj-proxy",
+        "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+    },
 };

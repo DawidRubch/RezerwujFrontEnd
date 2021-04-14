@@ -110,15 +110,16 @@ function _mapWeekDay(weekDay: DayOfTheWeekOpenHours | null) {
       );
 }
 
-function _mapAlternativeBookingHours(bookTimeOrNull: BookTime | null) {
-  return bookTimeOrNull === null
-    ? null
-    : new BookTime(
-        bookTimeOrNull.minute,
-        bookTimeOrNull.hour,
-        bookTimeOrNull.day,
-        bookTimeOrNull.month,
-        bookTimeOrNull.year,
-        bookTimeOrNull.people
-      );
+function _mapAlternativeBookingHours(btZeroOrNull: BookTime | null | 0) {
+  if (btZeroOrNull === null) {
+    return null;
+  }
+  if (btZeroOrNull === 0) {
+    return 0;
+  }
+
+  //Destructing book time object
+  const { minute, hour, day, month, year, people } = btZeroOrNull;
+
+  return new BookTime(minute, hour, day, month, year, people);
 }

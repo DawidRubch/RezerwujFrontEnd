@@ -6,3 +6,4 @@ Link do wersji testowej, podpiętej pod branch testing - https://testing.d3k2s2a
 
 Link do wersji produkcyjnej, podpiętej do branch production - https://rezerwuj.co
 
+
