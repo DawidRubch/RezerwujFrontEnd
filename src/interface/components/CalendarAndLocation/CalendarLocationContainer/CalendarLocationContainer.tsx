@@ -21,7 +21,12 @@ export default function CalendarLocationContainer({
 }: CalendarLocationContainerProps) {
   return (
     <div style={{ cursor: "pointer" }}>
-      <a className={className} style={styling} onClick={onClick}>
+      <a
+        data-testid="calendar-button"
+        className={className}
+        style={styling}
+        onClick={onClick}
+      >
         <span className="icon-button">{leadingIcon}</span>
         {children}
       </a>
