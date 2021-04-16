@@ -18,7 +18,7 @@ export default function RestaurantPubsArrayPage() {
   const getRoPArr = () => {
     //Splitting hour and minutes
     const [hour, minutes] = hourParam.split(":");
-    
+
     const day = dateParam.getDate();
     const month = dateParam.getMonth() + 1;
     const year = dateParam.getFullYear();
@@ -35,10 +35,9 @@ export default function RestaurantPubsArrayPage() {
   useEffect(getRoPArr, []);
 
   return (
-    <div style={{ width: "100%" }}>
+    <div className="restaurantPubContainer">
       <input type="checkbox" id="check" />
       <NavBar />
-
       <RestaurantPubComponent restaurantPubArr={RoPArray} />
     </div>
   );

@@ -7,8 +7,13 @@ import { mapPropToSearchQuery } from "../../../core/Helper/SearchQuery/mapProper
 interface SearchButtonProps {
   searchParams?: string;
   onPressed?: any;
+  additionalClassName?: string;
 }
-export function SearchButton({ searchParams, onPressed }: SearchButtonProps) {
+export function SearchButton({
+  searchParams,
+  onPressed,
+  additionalClassName,
+}: SearchButtonProps) {
   const { hour, location, people, date } = useGlobalVariables();
 
   //Changing data to search query string
@@ -21,13 +26,15 @@ export function SearchButton({ searchParams, onPressed }: SearchButtonProps) {
   const pathname = "/lista-restauracji";
   return (
     <Link
-      style={{ width: "250px" }}
       to={{
         pathname,
         search: mappingPropsToSearchQuery,
       }}
     >
-      <button className="search-button" onClick={onPressed}>
+      <button
+        className={`search-button ${additionalClassName}`}
+        onClick={onPressed}
+      >
         Szukaj
       </button>
     </Link>

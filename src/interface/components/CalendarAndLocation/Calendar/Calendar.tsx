@@ -65,7 +65,7 @@ export const ReactCalendar = ({ onChange }: any) => {
   };
 
   return (
-    <div>
+    <>
       <CalendarLocationContainer
         styling={calendarLocationContainerStyle}
         className="menu-item calendar"
@@ -93,6 +93,6 @@ export const ReactCalendar = ({ onChange }: any) => {
           />
         </CSSTransition>
       </div>
-    </div>
+    </>
   );
 };
