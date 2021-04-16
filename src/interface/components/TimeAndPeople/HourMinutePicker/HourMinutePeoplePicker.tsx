@@ -11,9 +11,7 @@ export default function TimePersonComponent({
 }: TimePersonComponent) {
   return (
     <div className="people-hour">
-      <div className="styled">
-        <select onChange={onChange}>{optionMapping}</select>
-      </div>
+      <select onChange={onChange}>{optionMapping}</select>
     </div>
   );
 }

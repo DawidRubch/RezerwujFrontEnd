@@ -1,5 +1,5 @@
 import React from "react";
-import { ReactComponent as MenuIcon } from "../../../../../images/menu.svg";
+import { ReactComponent as MenuIcon } from "../../../../../images/arrowDown.svg";
 import { ReactCalendar } from "../../../../components/CalendarAndLocation/Calendar/Calendar";
 import "./NavBar.css";
 import { useHistory } from "react-router";
@@ -21,29 +21,29 @@ export default function NavBar() {
 
   return (
     <nav>
-      <input type="checkbox" id="check" />
-      <label htmlFor="check">
-        <MenuIcon className="menuIcon" />
-      </label>
       <ul>
-        <li>
+        <li className="inputContainer--navbar">
           <ReactCalendar />
         </li>
-        <li>
+        <li className="inputContainer--navbar">
           <PeopleAmountPicker />
         </li>
-        <li>
+        <li className="inputContainer--navbar">
           <TimePicker />
         </li>
-        <li>
+        <li className="inputContainer--navbar">
           <LocationInput />
         </li>
-        <li>
-          <div style={{ margin: "30px" }}>
-            <SearchButton onPressed={onPressed} />
-          </div>
+        <li className="searchButtonContainer--navbar">
+          <SearchButton
+            onPressed={onPressed}
+            additionalClassName="searchButton--navbar"
+          />
         </li>
       </ul>
+      <label className="menuIconContainer" htmlFor="check">
+        <MenuIcon className="menuIcon" />
+      </label>
     </nav>
   );
 }
