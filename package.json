@@ -17,12 +17,9 @@
         "@types/react-router-dom": "^5.1.6",
         "axios": "^0.21.0",
         "babel-plugin-rewire-ts": "^1.4.0",
-        "bootstrap": "^4.5.3",
-        "jquery": "^3.5.1",
         "moment": "^2.29.1",
         "popper.js": "^1.16.1",
         "react": "^17.0.1",
-        "react-bootstrap": "^1.4.0",
         "react-calendar": "^3.2.1",
         "react-dom": "^17.0.1",
         "react-moment": "^1.1.1",
@@ -39,7 +36,10 @@
         "moduleNameMapper": {
             "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
             "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js"
-        }
+        },
+        "setupFiles": [
+            "./setupJestMock.js"
+        ]
     },
     "scripts": {
         "start": "react-scripts start",

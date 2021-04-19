@@ -5,23 +5,9 @@ import {} from "../../../../../images/arrowDown.svg";
 import { ReduxProvider } from "../../../../../stateManagment/ReduxProvider";
 import { store } from "../../../../../stateManagment/store";
 import React from "react";
-import { App } from "../../../../..";
-import { LandingPage } from "../../../../../interface/pages/LandingPage/LandingPage";
-import { TimePicker } from "../../../../../interface/components/TimeAndPeople/TimePicker/TimePicker";
 import "@testing-library/jest-dom/extend-expect";
 
-jest.mock("react-router-dom", () => ({
-  useLocation: jest.fn().mockReturnValue({
-    pathname: "/another-route",
-    search: "",
-    hash: "",
-    state: null,
-    key: "5nvxpbdafa",
-  }),
-  useHistory: jest.fn().mockReturnValue({
-    push: (mockString: string) => {},
-  }),
-}));
+
 
 afterEach(cleanup);
 
@@ -71,18 +57,32 @@ describe("Calendar", () => {
   test("should close calendar, when pressed on date", async () => {
     const { getByText } = renderReactCalendar();
 
-    const labelToTest = getLabelTextFromNumbers(10, 4, 2021);
+    const todaysDate = new Date();
 
-    const button = getByText(labelToTest);
+    const [day, month, year] = [
+      todaysDate.getDate(),
+      todaysDate.getMonth() + 1,
+      todaysDate.getFullYear(),
+    ];
+
+    //If day is bigger than 30 it picks current day
+    const pickDay = day >= 30 ? day : day + 1;
+
+    const tInitialLabelText = getLabelTextFromNumbers(day, month, year);
+
+    const tLabelTextAfter = getLabelTextFromNumbers(pickDay, month, year);
+
+    const button = getByText(tInitialLabelText);
 
     fireEvent.click(button);
 
     await waitFor(async () => {
-      const pressDayButton = getByText("15");
+      const pressDayButton = getByText(pickDay);
       fireEvent.click(pressDayButton);
 
       await waitFor(() => {
         expect(pressDayButton).not.toBeInTheDocument();
+        expect(getByText(tLabelTextAfter)).toBeInTheDocument();
       });
     });
   });
