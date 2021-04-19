@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Calendar, { Detail } from "react-calendar";
+import moment from "moment";
 import { CSSTransition } from "react-transition-group";
 
 import { default as CalendarIcon } from "../../../../images/calendar.svg";
@@ -11,6 +12,7 @@ import { mapPropToSearchQuery } from "../../../../core/Helper/SearchQuery/mapPro
 import { useDispatch } from "react-redux";
 import { updateDate } from "../../../../stateManagment/action";
 import { useGlobalVariables } from "../../../../core/Helper/ReduxCustomHooks/useGlobalVariables";
+
 
 export const ReactCalendar = ({ onChange }: any) => {
   //Boolean value to show Calendar
@@ -85,10 +87,12 @@ export const ReactCalendar = ({ onChange }: any) => {
             defaultView={"month"}
             view={"month"}
             minDate={new Date()}
+            maxDate={moment().add(21, 'days').toDate()}
             next2Label={null}
             prev2Label={null}
             locale="pl"
             onChange={onChangeDate}
+            minDetail="month"
             value={date}
           />
         </CSSTransition>
