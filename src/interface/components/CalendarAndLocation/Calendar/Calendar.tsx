@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import Calendar, { Detail } from "react-calendar";
+import moment from "moment";
 import { CSSTransition } from "react-transition-group";
 
-import { ReactComponent as CalendarIcon } from "../../../../images/calendar.svg";
-import { ReactComponent as ArrowDownIcon } from "../../../../images/arrowDown.svg";
+import { default as CalendarIcon } from "../../../../images/calendar.svg";
+import { default as ArrowDownIcon } from "../../../../images/arrowDown.svg";
 import "./Calendar.css";
 import CalendarLocationContainer from "../CalendarLocationContainer/CalendarLocationContainer";
 import { useHistory } from "react-router-dom";
@@ -11,6 +12,7 @@ import { mapPropToSearchQuery } from "../../../../core/Helper/SearchQuery/mapPro
 import { useDispatch } from "react-redux";
 import { updateDate } from "../../../../stateManagment/action";
 import { useGlobalVariables } from "../../../../core/Helper/ReduxCustomHooks/useGlobalVariables";
+
 
 export const ReactCalendar = ({ onChange }: any) => {
   //Boolean value to show Calendar
@@ -69,12 +71,12 @@ export const ReactCalendar = ({ onChange }: any) => {
       <CalendarLocationContainer
         styling={calendarLocationContainerStyle}
         className="menu-item calendar"
-        leadingIcon={<CalendarIcon />}
+        leadingIcon={<img src={CalendarIcon} />}
         onClick={hideOrShowCalendar}
       >
         <div className="icon-text">{date.toLocaleDateString()}</div>
         <span className="icon-right">
-          <ArrowDownIcon />
+          <img src={ArrowDownIcon} />
         </span>
       </CalendarLocationContainer>
       <div style={{ position: "absolute", marginLeft: "25px" }}>
@@ -85,10 +87,12 @@ export const ReactCalendar = ({ onChange }: any) => {
             defaultView={"month"}
             view={"month"}
             minDate={new Date()}
+            maxDate={moment().add(21, 'days').toDate()}
             next2Label={null}
             prev2Label={null}
             locale="pl"
             onChange={onChangeDate}
+            minDetail="month"
             value={date}
           />
         </CSSTransition>
