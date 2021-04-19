@@ -8,6 +8,8 @@ import React from "react";
 import { App } from "../../../../..";
 import { LandingPage } from "../../../../../interface/pages/LandingPage/LandingPage";
 import { TimePicker } from "../../../../../interface/components/TimeAndPeople/TimePicker/TimePicker";
+import "@testing-library/jest-dom/extend-expect";
+
 jest.mock("react-router-dom", () => ({
   useLocation: jest.fn().mockReturnValue({
     pathname: "/another-route",
@@ -16,10 +18,15 @@ jest.mock("react-router-dom", () => ({
     state: null,
     key: "5nvxpbdafa",
   }),
-  useHistory: jest.fn().mockReturnValue({}),
+  useHistory: jest.fn().mockReturnValue({
+    push: (mockString: string) => {},
+  }),
 }));
 
 afterEach(cleanup);
+
+const getLabelTextFromNumbers = (date: number, month: number, year: number) =>
+  `${month}/${date}/${year}`;
 
 const renderReactCalendar = () =>
   render(
@@ -30,29 +37,53 @@ const renderReactCalendar = () =>
 
 describe("Calendar", () => {
   const tDate_object = new Date();
+
+  //Taking day, month, year out of
+  const tDate = tDate_object.getDate();
+
+  const tMonth = tDate_object.getMonth() + 1;
+
+  const tYear = tDate_object.getFullYear();
+
+  const labelText = `${tMonth}/${tDate}/${tYear}`;
+
   test("should render", () => {
     renderReactCalendar();
   });
 
   test("should render current date label", () => {
-    //Taking day, month, year out of
-    const tDate = tDate_object.getDate();
-
-    const tMonth = tDate_object.getMonth() + 1;
-
-    const tYear = tDate_object.getFullYear();
-
-    const labelText = `${tMonth}/${tDate}/${tYear}`;
-
     const { getByText } = renderReactCalendar();
 
     //Test doesnt work if it doesnt find an element
-    getByText(labelText);
+    expect(getByText(labelText)).toBeInTheDocument();
   });
 
-  test("should open calendar and later close it", () => {
-    const { getByTestId } = renderReactCalendar();
+  test("should open calendar", async () => {
+    const { getByText } = renderReactCalendar();
 
-    fireEvent(getByTestId("calendar-button"), new MouseEvent("click"));
+    const button = getByText(labelText);
+
+    fireEvent.click(button);
+
+    await waitFor(() => expect(getByText("pon")).toBeInTheDocument());
+  });
+
+  test("should close calendar, when pressed on date", async () => {
+    const { getByText } = renderReactCalendar();
+
+    const labelToTest = getLabelTextFromNumbers(10, 4, 2021);
+
+    const button = getByText(labelToTest);
+
+    fireEvent.click(button);
+
+    await waitFor(async () => {
+      const pressDayButton = getByText("15");
+      fireEvent.click(pressDayButton);
+
+      await waitFor(() => {
+        expect(pressDayButton).not.toBeInTheDocument();
+      });
+    });
   });
 });
