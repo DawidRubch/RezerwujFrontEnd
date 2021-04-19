@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./RestaurantPubArr.css";
 import RestaurantOrPubRepository from "../../../domain/repository/RestaurantPubRepository";
 import { BookTime, RestaurantOrPub } from "../../../core/Entities";
+import { Loader } from "../../components/Loader/Loader";
 import NavBar from "./localComponents/Navbar/NavBar";
 import RestaurantPubComponent from "./localComponents/RestaurantPubComponent/RestaurantPubComponent";
 import { useSearchParams } from "../../../core/Helper/SearchQuery/useSearchParams";
@@ -10,12 +11,17 @@ export default function RestaurantPubsArrayPage() {
   //UseState
 
   const [RoPArray, setRoPArray] = useState<RestaurantOrPub[]>();
+  const [loading, setLoading] = useState(true);
   const restaurantPubRep = new RestaurantOrPubRepository();
 
   let { dateParam, hourParam, peopleParam, locationParam } = useSearchParams();
 
   //Takes RoP array from api
   const getRoPArr = () => {
+    if (!loading) {
+      setLoading(true);
+    }
+
     //Splitting hour and minutes
     const [hour, minutes] = hourParam.split(":");
 
@@ -29,7 +35,10 @@ export default function RestaurantPubsArrayPage() {
     //Calling APi
     restaurantPubRep
       .getRoPArrayFromDb(bookTime, locationParam)
-      .then((fetchedRoPArr) => setRoPArray(fetchedRoPArr));
+      .then((fetchedRoPArr) => {
+        setRoPArray(fetchedRoPArr);
+        setLoading(false);
+      });
   };
 
   useEffect(getRoPArr, []);
@@ -37,8 +46,12 @@ export default function RestaurantPubsArrayPage() {
   return (
     <div className="restaurantPubContainer">
       <input type="checkbox" id="check" />
-      <NavBar />
-      <RestaurantPubComponent restaurantPubArr={RoPArray} />
+      <NavBar getRoPArr={getRoPArr} />
+      {loading ? (
+        <Loader />
+      ) : (
+        <RestaurantPubComponent restaurantPubArr={RoPArray} />
+      )}
     </div>
   );
 }
