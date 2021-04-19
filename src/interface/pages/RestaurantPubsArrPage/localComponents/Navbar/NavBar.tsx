@@ -1,8 +1,7 @@
 import React from "react";
-import { ReactComponent as MenuIcon } from "../../../../../images/menu.svg";
+import { ReactComponent as MenuIcon } from "../../../../../images/arrowDown.svg";
 import { ReactCalendar } from "../../../../components/CalendarAndLocation/Calendar/Calendar";
 import "./NavBar.css";
-import { useHistory } from "react-router";
 import {
   LocationInput,
   PeopleAmountPicker,
@@ -10,40 +9,36 @@ import {
   TimePicker,
 } from "../../../../components";
 
-export default function NavBar() {
-  const history = useHistory();
+interface NavBar {
+  getRoPArr?: () => void;
+}
 
-  //Search button onPress
-  const onPressed = () => {
-    //This function refreshes the page
-    history.go(0);
-  };
-
+export default function NavBar({ getRoPArr }: NavBar) {
   return (
     <nav>
-      <input type="checkbox" id="check" />
-      <label htmlFor="check">
-        <MenuIcon className="menuIcon" />
-      </label>
       <ul>
-        <li>
+        <li className="inputContainer--navbar">
           <ReactCalendar />
         </li>
-        <li>
+        <li className="inputContainer--navbar">
           <PeopleAmountPicker />
         </li>
-        <li>
+        <li className="inputContainer--navbar">
           <TimePicker />
         </li>
-        <li>
+        <li className="inputContainer--navbar">
           <LocationInput />
         </li>
-        <li>
-          <div style={{ margin: "30px" }}>
-            <SearchButton onPressed={onPressed} />
-          </div>
+        <li className="searchButtonContainer--navbar">
+          <SearchButton
+            onPressed={getRoPArr}
+            additionalClassName="searchButton--navbar"
+          />
         </li>
       </ul>
+      <label className="menuIconContainer" htmlFor="check">
+        <MenuIcon className="menuIcon" />
+      </label>
     </nav>
   );
 }

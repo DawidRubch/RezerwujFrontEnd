@@ -13,7 +13,6 @@ export default function RestaurantPubComponent({
   const { hour, people, date, location }: any = useSelector((state) => state);
   return (
     <div className="restaurant-array">
-      
       {restaurantPubArr?.map((RoP: RestaurantOrPub, index: number) => {
         return (
           <div key={index}>
@@ -131,7 +130,6 @@ function BookingHoursArr({
     <div style={{ display: "flex", flexDirection: "row", marginTop: "10px" }}>
       {alternativeBookingHours?.map(
         (btZeroOrNull: BookTime | null | 0, index: number) => {
-          console.log(btZeroOrNull);
           if (btZeroOrNull === null) {
             return <div key={index} className="book-button booked" />;
           }
