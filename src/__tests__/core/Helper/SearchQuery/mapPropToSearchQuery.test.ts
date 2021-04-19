@@ -1,17 +1,16 @@
 import { mapPropToSearchQuery } from "../../../../core/Helper/SearchQuery/mapPropertiesToSearchQuery";
 
-const tSearchQuery = "&dateString=25.2.2021&hour=23:00&people=4";
+const todaysDate = new Date();
 
-const tSearchQueryWithLocation =
-  "&location=Duńska,%20Szczecin,%20Poland&dateString=25.2.2021&hour=23:00&people=4";
+const tSearchQuery = `&dateString=${todaysDate.getDate()}.${todaysDate.getMonth()}.${todaysDate.getFullYear()}&hour=23:00&people=4`;
 
-const tSearchQueryWithLocationAndName =
-  "&location=Duńska,%20Szczecin,%20Poland&dateString=25.2.2021&hour=23:00&people=4&name=Ładoga";
+const tSearchQueryWithLocation = `&location=Duńska,%20Szczecin,%20Poland${tSearchQuery}`;
+
+const tSearchQueryWithLocationAndName = `&location=Duńska,%20Szczecin,%20Poland${tSearchQuery}&name=Ładoga`;
 
 const tLocation = "Duńska,%20Szczecin,%20Poland";
 
-const tDateString =
-  "Thu Mar 25 2021 21:39:51 GMT+0000 (Coordinated Universal Time)";
+const tDateString = todaysDate.toDateString();
 
 const tHour = "23:00";
 
