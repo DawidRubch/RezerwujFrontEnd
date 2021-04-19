@@ -2,7 +2,6 @@ import React from "react";
 import { ReactComponent as MenuIcon } from "../../../../../images/arrowDown.svg";
 import { ReactCalendar } from "../../../../components/CalendarAndLocation/Calendar/Calendar";
 import "./NavBar.css";
-import { useHistory } from "react-router";
 import {
   LocationInput,
   PeopleAmountPicker,
@@ -10,15 +9,11 @@ import {
   TimePicker,
 } from "../../../../components";
 
-export default function NavBar() {
-  const history = useHistory();
+interface NavBar {
+  getRoPArr?: () => void;
+}
 
-  //Search button onPress
-  const onPressed = () => {
-    //This function refreshes the page
-    history.go(0);
-  };
-
+export default function NavBar({ getRoPArr }: NavBar) {
   return (
     <nav>
       <ul>
@@ -36,7 +31,7 @@ export default function NavBar() {
         </li>
         <li className="searchButtonContainer--navbar">
           <SearchButton
-            onPressed={onPressed}
+            onPressed={getRoPArr}
             additionalClassName="searchButton--navbar"
           />
         </li>
