@@ -20,19 +20,27 @@ export const LandingPage: React.FC = () => {
 
             <div className="heading">Znajdź swój stolik</div>
             <div className="mainPageSubHeading">
-              Wpisz datę, godzinę, liczbę osób i znajdź stolik w swoim
-              wymarzonym miejscu.
+              Wpisz datę, godzinę, liczbę osób i znajdź stolik w swoim ulubionym
+              miejscu.
             </div>
           </div>
 
           <div className="pickingContainer">
-            <ReactCalendar />
-            <TimePicker />
-            <LocationInput />
-            <PeopleAmountPicker />
+            <div className="inputContainer--landing">
+              <ReactCalendar />
+            </div>
+            <div className="inputContainer--landing">
+              <TimePicker />
+            </div>
+            <div className="inputContainer--landing">
+              <LocationInput />
+            </div>
+            <div className="inputContainer--landing">
+              <PeopleAmountPicker />
+            </div>
           </div>
-          <div className="searchButtonContainer">
-            <SearchButton />
+          <div className="searchButtonContainer--landing">
+            <SearchButton additionalClassName="searchButton--landing" />
           </div>
         </div>
         <div className="mainPageImageContainer">
