@@ -20,11 +20,7 @@ export default function CalendarLocationContainer({
   children,
 }: CalendarLocationContainerProps) {
   return (
-<<<<<<< HEAD
-    <div data-testid="calendar-button" style={{ cursor: "pointer" }}>
-=======
     <div className="calendarLocationContainer">
->>>>>>> 3a0b1598259530804f1c306250c3b5e84e08a75b
       <a className={className} style={styling} onClick={onClick}>
         <span className="icon-button">{leadingIcon}</span>
         {children}
