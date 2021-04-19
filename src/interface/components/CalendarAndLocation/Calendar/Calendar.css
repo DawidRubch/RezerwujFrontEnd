@@ -160,7 +160,7 @@
   font-size: 20px;
 }
 
-.icon-right svg {
+.icon-right img {
   width: 18px;
   height: 18px;
 }
@@ -170,7 +170,7 @@
     font-size: 18px;
   }
 
-  .icon-right svg {
+  .icon-right img {
     width: 16px;
     height: 16px;
   }
