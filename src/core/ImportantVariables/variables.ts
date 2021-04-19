@@ -10,7 +10,7 @@ export const RESERVATIONTIMECHECK = 2;
 
 //API
 export const APIURLS = {
-  serverAddress: process.env.WDS_SOCKET_HOST || "http://localhost:5000",
+  serverAddress: process.env.WDS_SOCKET_HOST || "https://server.rezerwuj.site",
   reservation: {
     reservation: "/reservation",
     save: "/save",

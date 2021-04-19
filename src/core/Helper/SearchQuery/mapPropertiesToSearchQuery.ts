@@ -8,7 +8,7 @@ export function mapPropToSearchQuery(
   const currentDate = new Date();
   let date: Date = new Date(dateString);
 
-  if (date > currentDate) {
+  if (date < currentDate) {
     date = currentDate;
   }
   let dateToSendInQuery = `${date.getDate()}.${date.getMonth()}.${date.getFullYear()}`;

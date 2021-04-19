@@ -47,7 +47,7 @@ export function LocationInput() {
     suggestions,
     getSuggestionItemProps,
   }: any) => (
-    <div>
+    <>
       <CalendarLocationContainer
         className="menu-item location"
         leadingIcon={<PlaceIcon />}
@@ -62,11 +62,11 @@ export function LocationInput() {
       <div style={{ position: "absolute", marginLeft: "19px" }}>
         {filterAndMapSuggestions(suggestions, getSuggestionItemProps)}
       </div>
-    </div>
+    </>
   );
 
   return (
-    <div>
+    <>
       <PlacesAutocomplete
         value={location}
         onChange={onChange}
@@ -74,7 +74,7 @@ export function LocationInput() {
       >
         {generateLocationOptionsContainer}
       </PlacesAutocomplete>
-    </div>
+    </>
   );
 }
 
