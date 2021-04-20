@@ -78,12 +78,9 @@ export function fromJson(restaurantOrPubJSON: any): RestaurantOrPub {
     restaurantOrPubJSON.descriptionPageImg,
     weekArray
   );
-  let alternativeBookingHours =
-    restaurantOrPubJSON.length === 0
-      ? restaurantOrPubJSON.alternativeBookingHours.map(
-          _mapAlternativeBookingHours
-        )
-      : [];
+  let alternativeBookingHours = restaurantOrPubJSON.alternativeBookingHours.map(
+    _mapAlternativeBookingHours
+  );
 
   restaurantOrPubEntity.distance = restaurantOrPubJSON.distance;
   restaurantOrPubEntity.alternativeBookingHours = alternativeBookingHours;
