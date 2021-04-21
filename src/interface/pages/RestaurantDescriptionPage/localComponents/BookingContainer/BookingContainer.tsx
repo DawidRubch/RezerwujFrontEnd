@@ -44,36 +44,41 @@ export function BookingContainer({
   return (
     <div className="placeOrderContainer">
       <div className="placeOrderHeading">
-        <b style={{ padding: "5px", fontSize: "25px" }}>
-          Złóż rezerwacje w {name}
-        </b>
+        <b className="placeOrderHeadingLabel">Złóż rezerwację w {name}</b>
       </div>
-      <hr className="placeOrderhr" />
-      <div className="placeOrderSubHeading">
-        <b style={{ padding: "5px" }}>Data</b>
-      </div>
-      <div style={{ margin: "auto" }}>
-        <ReactCalendar onChange={onChange} />
-      </div>
-      <div className="placeOrderSubHeading">
-        <b style={{ padding: "5px" }}>Godzina</b>
-      </div>
+      <div className="placeOrderContent">
+        <div className="placeOrderSubHeading">
+          <b className="placeOrderSubHeadingLabel">Data</b>
+        </div>
+        <div className="placeOrderInputContainer">
+          <ReactCalendar onChange={onChange} />
+        </div>
 
-      <TimePicker onChange={onChange} />
-      <div className="placeOrderSubHeading">
-        <b style={{ padding: "5px" }}>Ilość osób</b>
-      </div>
-      <PeopleAmountPicker onChange={onChange} />
-      <div style={{ marginLeft: "20px", marginBottom: "20px" }}>
-        {reloadBookingArr ? (
-          <button onClick={getNewAltBookingHours}>Reload</button>
-        ) : (
-          <BookingHoursComponent
-            restaurantOrPub={state}
-            type="universal"
-            alternativeBookingHours={altBookTimes}
-          />
-        )}
+        <div className="placeOrderSubHeading">
+          <b className="placeOrderSubHeadingLabel">Godzina</b>
+        </div>
+        <div className="placeOrderInputContainer">
+          <TimePicker onChange={onChange} />
+        </div>
+        <div className="placeOrderSubHeading">
+          <b className="placeOrderSubHeadingLabel">Ilość osób</b>
+        </div>
+        <div className="placeOrderInputContainer">
+          <PeopleAmountPicker onChange={onChange} />
+        </div>
+        <div className="bookingHoursContainer">
+          {reloadBookingArr ? (
+            <button className="reloadButton" onClick={getNewAltBookingHours}>
+              Odśwież
+            </button>
+          ) : (
+            <BookingHoursComponent
+              restaurantOrPub={state}
+              type="universal"
+              alternativeBookingHours={altBookTimes}
+            />
+          )}
+        </div>
       </div>
     </div>
   );

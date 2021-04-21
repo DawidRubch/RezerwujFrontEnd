@@ -127,7 +127,7 @@ function BookingHoursArr({
   };
 
   return (
-    <div style={{ display: "flex", flexDirection: "row", marginTop: "10px" }}>
+    <div className="book-buttons">
       {alternativeBookingHours?.map(
         (btZeroOrNull: BookTime | null | 0, index: number) => {
           if (btZeroOrNull === null) {
