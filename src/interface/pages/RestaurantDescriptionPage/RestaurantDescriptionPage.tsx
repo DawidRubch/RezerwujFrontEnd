@@ -32,30 +32,43 @@ export default function RestaurantDescriptionPage() {
 
   if (information) {
     return (
-      <div style={{ marginTop: "0.5em", borderRadius: "15px" }}>
+      <>
         <ImageContainer information={information} />
         <div className="mainContainer">
-          <RestaurantDescriptionContainer information={information} />
-          <BookingContainer
-            state={information}
-            alternativeBookingHours={
-              restaurantDescriptionPageFunctions.mappingAltBookingHoursToBookTimeComponents
+          <RestaurantDescriptionContainer
+            information={information}
+            mobileBookingComponent={
+              <BookingContainer
+                state={information}
+                alternativeBookingHours={
+                  restaurantDescriptionPageFunctions.mappingAltBookingHoursToBookTimeComponents
+                }
+                nameString={information?.name}
+              />
             }
-            nameString={information?.name}
           />
+          <div className="restaurantBookingContainer">
+            <BookingContainer
+              state={information}
+              alternativeBookingHours={
+                restaurantDescriptionPageFunctions.mappingAltBookingHoursToBookTimeComponents
+              }
+              nameString={information?.name}
+            />
+          </div>
+          <div className="viewportBottomFakeMargin"></div>
         </div>
-      </div>
+      </>
     );
   }
-  return <div />;
+  return (
+    <h1 className="restaurantDescriptionAlert">Opis restauracji niedostępny</h1>
+  );
 }
 
 //ImageContainer
 const ImageContainer = ({ information }: any) => (
   <div className="imgContainer">
-    <img
-      style={{ height: "auto", width: "100%", borderRadius: "10px" }}
-      src={information?.descriptionPageImg}
-    />
+    <img className="restaurantImage" src={information?.descriptionPageImg} />
   </div>
 );

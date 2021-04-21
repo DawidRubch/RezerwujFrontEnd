@@ -1,36 +1,70 @@
 .mainContainer {
-    width: 90%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    position: absolute;
-    top: 25vh;
-    left: 50px;
-    gap: 5px;
-    margin: 0;
+  width: 90%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  position: absolute;
+  top: 25vh;
+  left: 50%;
+  transform: translateX(-50%);
+  gap: 5px;
+  margin: 0;
 }
 
 .imgContainer {
-    left: 0;
-    right: 0;
-    margin: 3em 10px;
-    height: 50vh;
-    overflow: hidden;
-    border-radius: 1vw;
+  margin: 3em 10px;
+  height: 50vh;
+  overflow: hidden;
+  border-radius: 1vw;
 }
 
-@media screen and (max-width: 750px) {
-    .mainContainer {
-        justify-content: center;
-        margin: auto 0.1em;
-        left: 50%;
-        transform: translateX(-50%);
-    }
-    .imgContainer {
-        margin: auto 1em;
-    }
-    .placeOrderContainer {
-        position: absolute;
-        top: 170px;
-    }
+.restaurantImage {
+  height: auto;
+  width: 100%;
+  border-radius: 10px;
+}
+
+.viewportBottomFakeMargin {
+  width: 100%;
+  height: 20px;
+  background-color: transparent;
+}
+
+.restaurantDescriptionAlert {
+  width: 100%;
+  text-align: center;
+  color: red;
+}
+
+@media screen and (max-width: 950px) {
+  .restaurantBookingContainer {
+    display: none;
+  }
+
+  .mainContainer {
+    justify-content: center;
+    left: 50%;
+    transform: translateX(-50%);
+    width: fit-content;
+  }
+  .imgContainer {
+    margin: auto 1em;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .mainContainer {
+    top: 18vh;
+  }
+}
+
+@media screen and (max-width: 414px) {
+  .imgContainer {
+    margin: 0;
+    border-radius: unset;
+  }
+
+  .restaurantImage {
+    border-radius: unset;
+  }
 }
