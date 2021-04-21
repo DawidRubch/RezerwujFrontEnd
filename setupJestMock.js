@@ -10,7 +10,7 @@ jest.mock("react-router-dom", () => ({
         key: "5nvxpbdafa",
     }),
     useHistory: jest.fn().mockReturnValue({
-        push: (mockString) => {},
+        push: () => {},
     }),
 }));
 //Mocking google object
