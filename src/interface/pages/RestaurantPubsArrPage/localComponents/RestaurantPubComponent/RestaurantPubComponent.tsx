@@ -15,11 +15,11 @@ export default function RestaurantPubComponent({
     <div className="restaurant-array">
       {restaurantPubArr?.map((RoP: RestaurantOrPub, index: number) => {
         return (
-          <div key={index}>
+          <div className="restaurant-component-wraper" key={index}>
             <div className="restaurant-component">
-              <img alt="Restaurant" src={RoP.image} />
-              <div className="rc-without-photo">
+              <div className="restaurant-basic-info-mobile">
                 <Link
+                  className="restaurant-description-link"
                   to={{
                     pathname: "/opis-restauracji",
                     state: RoP,
@@ -32,12 +32,33 @@ export default function RestaurantPubComponent({
                       ) + `&name=${RoP.name}`,
                   }}
                 >
-                  <b style={{ fontSize: "35px", color: "#e54949" }}>
-                    {RoP.name}
-                  </b>
+                  <b className="rop-name">{RoP.name}</b>
                 </Link>
 
-                <div className="restaurant-type">{RoP.type}</div>
+                <span className="restaurant-type">{RoP.type}</span>
+              </div>
+              <img alt="Restaurant" src={RoP.image} />
+              <div className="rc-without-photo">
+                <div className="restaurant-basic-info-pc">
+                  <Link
+                    className="restaurant-description-link"
+                    to={{
+                      pathname: "/opis-restauracji",
+                      state: RoP,
+                      search:
+                        mapPropToSearchQuery(
+                          location,
+                          date.toString(),
+                          hour,
+                          people
+                        ) + `&name=${RoP.name}`,
+                    }}
+                  >
+                    <b className="rop-name">{RoP.name}</b>
+                  </Link>
+
+                  <div className="restaurant-type">{RoP.type}</div>
+                </div>
                 <div className="tag-container pc">
                   {RoP.tags.map((tag, index: number) => {
                     return (
@@ -54,20 +75,6 @@ export default function RestaurantPubComponent({
                 />
               </div>
             </div>
-            <div className="tag-container mobile">
-              {RoP.tags.map((tag, index: number) => {
-                return (
-                  <div key={index} className="tag">
-                    {tag}
-                  </div>
-                );
-              })}
-            </div>
-            <BookingHoursComponent
-              restaurantOrPub={RoP}
-              type="mobile"
-              alternativeBookingHours={RoP.alternativeBookingHours}
-            />
             <hr />
           </div>
         );
@@ -88,9 +95,7 @@ export function BookingHoursComponent({
   restaurantOrPub,
 }: BookingHoursComponentInterface) {
   let cssMainClassName: string = "booking-hours-component-universal";
-  if (type === "mobile") {
-    cssMainClassName = "booking-hours-component-mobile";
-  } else if (type === "pc") {
+  if (type === "pc") {
     cssMainClassName = "booking-hours-component-pc";
   }
 
