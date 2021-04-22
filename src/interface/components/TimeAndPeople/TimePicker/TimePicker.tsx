@@ -55,20 +55,35 @@ export function TimePicker({ onChange }: TimeComponent) {
     );
   };
 
-  //Mapping options to JSX components
-  const optionsMapping = () =>
-    timeChoiceArray.map((hourStr: string, index: number) => (
-      <option key={index} selected={hourStr.slice(3) === hour}>
-        {hourStr}
-      </option>
-    ));
+  //Function returns the array of two elements
+  //First is defaultValue
+  //Second is optionArray
+  function returnDefaultValAndOptionsArr(): [string, JSX.Element[]] {
+    let defaultValue = "";
+    const optionsArray: JSX.Element[] = [];
+    for (let i in timeChoiceArray) {
+      //Text to show in option
+      const textInsideOption = timeChoiceArray[i];
+
+      //Setting default value if it equals the global state
+      if (timeChoiceArray[i].slice(3) === hour) {
+        defaultValue = textInsideOption;
+      }
+
+      const optionJSXComponent = <option key={i}>{textInsideOption}</option>;
+
+      optionsArray.push(optionJSXComponent);
+    }
+
+    return [defaultValue, optionsArray];
+  }
 
   useEffect(updateGlobalVariableHour, [date]);
 
   return (
     <TimePersonComponent
       onChange={onPickingHour}
-      optionMapping={optionsMapping()}
+      defaultValAndOptionsArr={returnDefaultValAndOptionsArr()}
     />
   );
 }
