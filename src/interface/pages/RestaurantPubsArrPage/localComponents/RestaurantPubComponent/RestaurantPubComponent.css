@@ -58,9 +58,22 @@
   margin-right: 30px;
 }
 
+.restaurant-basic-info-mobile {
+  display: none;
+}
+
 .rc-without-photo {
   display: flex;
   flex-direction: column;
+}
+
+.restaurant-description-link {
+  width: fit-content;
+}
+
+.rop-name {
+  font-size: 35px;
+  color: #e54949;
 }
 
 .restaurant-type {
@@ -72,12 +85,9 @@
   flex-wrap: wrap;
 }
 
-.tag-container.mobile {
-  display: none;
-}
-
 .tag-container.pc {
   display: flex;
+  max-width: 450px;
 }
 
 .tag {
@@ -97,11 +107,12 @@
 }
 
 .booking-hours-component-pc {
-  margin-top: 20px;
-}
-
-.booking-hours-component-mobile {
-  display: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 320px;
+  height: 80px;
+  margin-top: 30px;
 }
 
 hr {
@@ -110,23 +121,23 @@ hr {
   width: 750px;
 }
 
-a {
-  width: 100px;
+@media screen and (max-width: 1300px) {
+  .restaurant-array {
+    margin-left: 10vw;
+  }
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1024px) {
   .restaurant-array {
-    margin-left: 10px;
-  }
-  .restaurant-component b {
-    font-size: 10vw;
+    margin-left: 20px;
   }
 }
 
 @media screen and (max-width: 900px) {
   .restaurant-component img {
-    width: 40vw;
-    height: 28vw;
+    width: 320px;
+    min-width: 320px;
+    height: 200px;
   }
   hr {
     width: 100vw;
@@ -134,9 +145,87 @@ a {
   }
 }
 
+@media screen and (max-width: 768px) {
+  .restaurant-array {
+    margin: 0;
+  }
+
+  .restaurant-component-wraper {
+    margin: 0 auto;
+  }
+
+  .restaurant-component {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .rop-name {
+    font-size: 45px;
+  }
+
+  .restaurant-type {
+    margin: 10px 0;
+    font-size: 16px;
+  }
+
+  .restaurant-component img {
+    width: 400px;
+    min-width: 400px;
+    height: 250px;
+    margin: 0 auto;
+  }
+
+  .restaurant-basic-info-pc {
+    display: none;
+  }
+
+  .restaurant-basic-info-mobile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .rc-without-photo {
+    width: 100%;
+    max-width: 400px;
+    align-items: center;
+  }
+
+  .tag-container.pc {
+    justify-content: center;
+    margin-top: 15px;
+  }
+}
+
 @media screen and (max-width: 414px) {
+  .rop-name {
+    font-size: 40px;
+  }
+
+  .restaurant-type {
+    margin: 10px 0;
+    font-size: 15px;
+  }
+
+  .restaurant-component img {
+    width: 320px;
+    min-width: 320px;
+    height: 200px;
+  }
+
+  .tag-container.pc {
+    max-width: 320px;
+  }
+
   .booking-hours-component-universal {
     height: unset;
+  }
+
+  .booking-hours-component-pc {
+    width: 75%;
+    height: unset;
+    margin-top: 20px;
   }
 
   .book-buttons {
@@ -148,5 +237,25 @@ a {
     width: 90%;
     margin: 6px 0;
     height: 35px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .rop-name {
+    font-size: 36px;
+  }
+
+  .restaurant-type {
+    font-size: 14px;
+  }
+
+  .restaurant-component img {
+    width: 280px;
+    min-width: 280px;
+    height: 180px;
+  }
+
+  .tag-container.pc {
+    max-width: 280px;
   }
 }
