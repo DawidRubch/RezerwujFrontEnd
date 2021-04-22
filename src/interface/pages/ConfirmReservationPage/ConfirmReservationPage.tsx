@@ -9,6 +9,7 @@ import {
 import ConfirmReservationFunctions from "../../../InterfaceFunctions/PagesFunctions/ConfirmReservationPageFunctions/ConfirmReservationFunctions";
 import { AllInputsContainer } from "./localComponents/AllInputsContainer/AllInputsContainer";
 import { RoPNameAndBookTimeInfo } from "./localComponents/RoPNameAndBookTimeInfo/RoPNameAndBookTimeInfo";
+import { Loader } from "../../components/Loader/Loader";
 
 export function ConfirmReservationPage(): JSX.Element {
   const {
@@ -71,18 +72,7 @@ export function ConfirmReservationPage(): JSX.Element {
   }
 
   //Tutaj activity indicator
-  return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100%",
-      }}
-    >
-      Activity Indicator
-    </div>
-  );
+  return <Loader />;
 }
 
 //Place image

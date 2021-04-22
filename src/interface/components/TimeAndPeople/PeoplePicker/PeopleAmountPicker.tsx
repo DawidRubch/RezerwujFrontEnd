@@ -39,21 +39,38 @@ export function PeopleAmountPicker({ onChange }: PeopleAmountPickerProps) {
     dispatch(updatePeopleCount(+currentPeopleVal));
   };
 
-  //Mapping options array to JSX components
-  const optionMapping = PeopleArr.map((person, i) => {
-    const textInsideOption = `👨 ${PeopleNumberArr[i]} ${person}`;
+  //Function returns the array of two elements
+  //First is defaultValue
+  //Second is optionArray
+  function returnDefaultValAndOptionsArr(): [string, JSX.Element[]] {
+    let defaultValue = "";
+    const optionsArray: JSX.Element[] = [];
+    for (let i in PeopleArr) {
+      //Text to show in option
+      const textInsideOption = `👨 ${PeopleNumberArr[i]} ${PeopleArr[i]}`;
 
-    const isSelected = PeopleNumberArr[i] === people;
+      //Setting default value if it equals the global state
+      if (PeopleNumberArr[i] === people) {
+        defaultValue = textInsideOption;
+      }
 
-    return (
-      <option key={i} selected={isSelected}>
-        {textInsideOption}
-      </option>
-    );
-  });
+      const optionJSXComponent = (
+        <option key={i} value={i}>
+          {textInsideOption}
+        </option>
+      );
+
+      optionsArray.push(optionJSXComponent);
+    }
+
+    return [defaultValue, optionsArray];
+  }
 
   return (
-    <TimePersonComponent onChange={onPickingAmountOfPeople} optionMapping={optionMapping} />
+    <TimePersonComponent
+      onChange={onPickingAmountOfPeople}
+      defaultValAndOptionsArr={returnDefaultValAndOptionsArr()}
+    />
   );
 }
 
