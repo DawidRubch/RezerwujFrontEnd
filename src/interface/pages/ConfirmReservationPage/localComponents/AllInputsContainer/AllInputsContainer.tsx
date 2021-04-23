@@ -7,7 +7,7 @@ export const AllInputsContainer = ({ inputObject }: any) => {
       <InformationInput
         autoComplete={"first name"}
         name="fname"
-        placeHolder={"Imie"}
+        placeHolder={"Imię"}
         onChange={inputObject.setNameInput}
         value={inputObject.nameInput}
       />
@@ -21,7 +21,7 @@ export const AllInputsContainer = ({ inputObject }: any) => {
       <InformationInput
         autoComplete="tel"
         name="phone"
-        placeHolder={"Numer"}
+        placeHolder={"Telefon"}
         onChange={inputObject.setNumberInput}
         value={inputObject.numberInput}
       />
