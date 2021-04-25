@@ -38,9 +38,14 @@ export default class RestaurantOrPubRepository {
     surName: string,
     email?: string
   ) {
-    await this.restaurantOrPubRemoteDb
-      .saveBookTime(bookTime, restaurantName, number, name, surName, email)
-      .then((res) => console.log(res));
+    return await this.restaurantOrPubRemoteDb.saveBookTime(
+      bookTime,
+      restaurantName,
+      number,
+      name,
+      surName,
+      email
+    );
   }
 
   async deleteBookTime(bookTime: BookTime, restaurantName: string) {

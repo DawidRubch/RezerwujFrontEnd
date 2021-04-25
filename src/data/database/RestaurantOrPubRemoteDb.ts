@@ -88,7 +88,7 @@ export class RestaurantOrPubRemoteDb {
     surName: string,
     email?: string
   ) {
-    await manageReservations(
+    return await manageReservations(
       APIURLS.reservation.save,
       restaurantName,
       bookTime,
@@ -137,9 +137,17 @@ async function manageReservations(
     },
   };
 
+  const error = "forced-error";
+
   const URL = `${APIURLS.serverAddress}${APIURLS.reservation.reservation}${AddOrDeleteRoutePath}`;
 
-  const response = await axios.post(URL, bookTimeJsonWithName, config);
+  // let serverResponse;
 
-  return response;
+  try {
+    return await axios.post(URL, bookTimeJsonWithName, config);
+  } catch (err) {
+    return err;
+  }
+
+  // return response;
 }

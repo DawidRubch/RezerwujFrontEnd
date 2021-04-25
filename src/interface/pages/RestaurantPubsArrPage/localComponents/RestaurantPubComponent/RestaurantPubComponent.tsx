@@ -103,11 +103,7 @@ export function BookingHoursComponent({
     <div className={cssMainClassName}>
       <BookingHoursArr
         restaurantOrPub={restaurantOrPub}
-        alternativeBookingHours={alternativeBookingHours?.slice(0, 3)}
-      />
-      <BookingHoursArr
-        restaurantOrPub={restaurantOrPub}
-        alternativeBookingHours={alternativeBookingHours?.slice(3)}
+        alternativeBookingHours={alternativeBookingHours}
       />
     </div>
   );
