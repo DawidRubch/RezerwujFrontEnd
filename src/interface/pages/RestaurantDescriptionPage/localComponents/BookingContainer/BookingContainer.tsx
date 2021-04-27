@@ -6,10 +6,10 @@ import {
   ReactCalendar,
   TimePicker,
 } from "../../../../components";
-import { BookingHoursComponent } from "../../../RestaurantPubsArrPage/localComponents/RestaurantPubComponent/RestaurantPubComponent";
 import "./BookingContainer.css";
 import RestaurantOrPubRepository from "../../../../../domain/repository/RestaurantPubRepository";
 import { useBookTimeAndNameSearchParams } from "../../../../../core/Helper/SearchQuery/useBookTimeSearchParams";
+import { BookingHoursComponent } from "../../../../components/BookingHoursArray/BookingHoursArr";
 interface BookingContainerInterface {
   nameString: string;
   alternativeBookingHours: (BookTime | null | 0)[];

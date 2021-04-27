@@ -1,9 +1,4 @@
-import {
-  screen,
-  render,
-  cleanup,
-  getByLabelText,
-} from "@testing-library/react";
+import { screen, render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import React from "react";
@@ -15,8 +10,6 @@ import { store } from "../../../../../stateManagment/store";
 jest.mock("../../../../../core/ImportantVariables/variables", () => ({
   PeopleArr: ["1", "2", "3", "4", "5"],
 }));
-
-beforeEach(cleanup);
 
 describe("PeopleAmountPicker", () => {
   const renderPeopleAmountPicker = () =>

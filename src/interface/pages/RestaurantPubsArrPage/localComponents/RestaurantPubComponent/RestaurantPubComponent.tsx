@@ -1,8 +1,9 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
-import { BookTime, RestaurantOrPub } from "../../../../../core/Entities";
+import { Link } from "react-router-dom";
+import { RestaurantOrPub } from "../../../../../core/Entities";
 import { mapPropToSearchQuery } from "../../../../../core/Helper/SearchQuery/mapPropertiesToSearchQuery";
+import { BookingHoursComponent } from "../../../../components/BookingHoursArray/BookingHoursArr";
 import "./RestaurantPubComponent.css";
 interface RestaurantPubComponent {
   restaurantPubArr: RestaurantOrPub[] | undefined;
@@ -79,76 +80,6 @@ export default function RestaurantPubComponent({
           </div>
         );
       })}
-    </div>
-  );
-}
-
-interface BookingHoursComponentInterface {
-  alternativeBookingHours: (BookTime | null | 0)[];
-  type: "mobile" | "pc" | "universal";
-  restaurantOrPub: RestaurantOrPub;
-}
-
-export function BookingHoursComponent({
-  alternativeBookingHours,
-  type,
-  restaurantOrPub,
-}: BookingHoursComponentInterface) {
-  let cssMainClassName: string = "booking-hours-component-universal";
-  if (type === "pc") {
-    cssMainClassName = "booking-hours-component-pc";
-  }
-
-  return (
-    <div className={cssMainClassName}>
-      <BookingHoursArr
-        restaurantOrPub={restaurantOrPub}
-        alternativeBookingHours={alternativeBookingHours}
-      />
-    </div>
-  );
-}
-interface BookingHoursArrInterface {
-  alternativeBookingHours: (BookTime | null | 0)[];
-  restaurantOrPub: RestaurantOrPub;
-}
-
-function BookingHoursArr({
-  alternativeBookingHours,
-  restaurantOrPub,
-}: BookingHoursArrInterface) {
-  let history = useHistory();
-
-  const bookReservation = (bookTime: BookTime) => {
-    history.push({
-      pathname: "/potwierdz-rezerwacje",
-      state: { restaurantOrPub, bookTime },
-      search: `?&hour=${bookTime.hour}&minute=${bookTime.minute}&day=${bookTime.day}&month=${bookTime.month}&year=${bookTime.year}&people=${bookTime.people}&name=${restaurantOrPub.name}`,
-    });
-  };
-
-  return (
-    <div className="book-buttons">
-      {alternativeBookingHours?.map(
-        (btZeroOrNull: BookTime | null | 0, index: number) => {
-          if (btZeroOrNull === null) {
-            return <div key={index} className="book-button booked" />;
-          }
-
-          if (btZeroOrNull === 0) {
-            return <button key={index} className="book-button closed" />;
-          }
-          return (
-            <button
-              onClick={() => bookReservation(btZeroOrNull)}
-              key={index}
-              className="book-button free"
-            >
-              {btZeroOrNull.hour}:{btZeroOrNull.minute === 30 ? "30" : "00"}
-            </button>
-          );
-        }
-      )}
     </div>
   );
 }
