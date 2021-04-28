@@ -1,5 +1,5 @@
 import React, { ChangeEvent } from "react";
-import "./HourMinutePeoplePicker.css";
+import "./HourMinutePeoplePicker.scss";
 interface TimePersonComponent {
   onChange: (e: ChangeEvent<HTMLSelectElement>) => void;
   defaultValAndOptionsArr: [string, JSX.Element[]];
@@ -13,7 +13,7 @@ export default function TimePersonComponent({
 
   return (
     <div className="people-hour" >
-      <select data-testid="select" defaultValue={defaultValue} onChange={onChange}>
+      <select className="people-hour__select" data-testid="select" defaultValue={defaultValue} onChange={onChange}>
         {optionsArray}
       </select>
     </div>
