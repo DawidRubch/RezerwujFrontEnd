@@ -1,5 +1,5 @@
 import React from "react";
-import "./InformationInput.css";
+import "./InformationInput.scss";
 interface InformationInputInterface {
   placeHolder: string;
   value: any;

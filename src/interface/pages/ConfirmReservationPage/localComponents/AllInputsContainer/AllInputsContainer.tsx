@@ -1,6 +1,6 @@
 import React from "react";
 import { InformationInput } from "../InformationInput/InformationInput";
-import "./AllInputsContainer.css";
+import "./AllInputsContainer.scss";
 export const AllInputsContainer = ({ inputObject }: any) => {
   return (
     <div className="input-container">

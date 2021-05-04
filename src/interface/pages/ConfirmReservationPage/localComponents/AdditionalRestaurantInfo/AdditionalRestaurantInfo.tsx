@@ -1,4 +1,4 @@
-import "./AdditionalRestaurantInfo.css";
+import "./AdditionalRestaurantInfo.scss";
 import React from "react";
 
 export function AdditionalRestaurantInfo() {

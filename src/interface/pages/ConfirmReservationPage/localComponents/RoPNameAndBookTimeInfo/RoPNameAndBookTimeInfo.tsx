@@ -1,5 +1,5 @@
 import React from "react";
-import "./RoPNameAndBookTimeInfo.css";
+import "./RoPNameAndBookTimeInfo.scss";
 import ConfirmReservationFunctions from "../../../../../InterfaceFunctions/PagesFunctions/ConfirmReservationPageFunctions/ConfirmReservationFunctions";
 import { SmallBookingInfo } from "../SmallBookingInfo/SmallBookingInfo";
 import CalendarIcon from "../../../../../images/calendar.svg";
@@ -16,20 +16,20 @@ export const RoPNameAndBookTimeInfo = ({
   name,
 }: RoPNameAndBookTimeInfoInterface) => {
   return (
-    <div className="restaurant-name-and-info">
-      <b className="restaurant-name">{name}</b>
-      <div className="restaurant-info">
+    <div className="restaurantDetails">
+      <b className="restaurantDetails__name">{name}</b>
+      <div className="restaurantDetails__info">
         <SmallBookingInfo
           insideText={confirmReservationFunctions.textInsideCalendarBookingInfo}
-          icon={<img className="restaurant-info-icon" src={CalendarIcon} />}
+          icon={<img className="restaurantDetails__info__icon" src={CalendarIcon} />}
         />
         <SmallBookingInfo
           insideText={confirmReservationFunctions.textInsideHourBookingInfo}
-          icon={<img className="restaurant-info-icon" src={ClockIcon} />}
+          icon={<img className="restaurantDetails__info__icon" src={ClockIcon} />}
         />
         <SmallBookingInfo
           insideText={confirmReservationFunctions.textInsidePeopleBookingInfo}
-          icon={<img className="restaurant-info-icon" src={PeopleIcon} />}
+          icon={<img className="restaurantDetails__info__icon" src={PeopleIcon} />}
         />
       </div>
     </div>
