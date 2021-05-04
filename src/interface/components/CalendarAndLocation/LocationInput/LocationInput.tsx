@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { ReactComponent as PlaceIcon } from "../../../../images/placeIc.svg";
 import PlacesAutocomplete, { Suggestion } from "react-places-autocomplete";
-import "./LocationInput.css";
+import "./LocationInput.scss";
 import CalendarLocationContainer from "../CalendarLocationContainer/CalendarLocationContainer";
 import { useDispatch, useSelector } from "react-redux";
 import { updateLocation } from "../../../../stateManagment/action";
@@ -52,7 +52,7 @@ export function LocationInput() {
         className="menu-item location"
         leadingIcon={<PlaceIcon />}
       >
-        <input
+        <input className="calendarContainer__input"
           {...getInputProps({
             placeholder: "Adres, np. Plac Rodła",
           })}
