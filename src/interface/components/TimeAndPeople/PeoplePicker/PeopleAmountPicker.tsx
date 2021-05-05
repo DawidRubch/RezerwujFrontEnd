@@ -28,7 +28,8 @@ export function PeopleAmountPicker({ onChange }: PeopleAmountPickerProps) {
   // Function runs on changing amount of people
   const onPickingAmountOfPeople = (e: React.ChangeEvent<HTMLSelectElement>) => {
     if (onChange) onChange(e);
-    let currentPeopleVal = e.currentTarget.value.slice(3, 5);
+    
+    let currentPeopleVal = e.currentTarget.value;
     searchQueryAndLocalStoreUpdate(
       hour,
       location,
@@ -43,19 +44,15 @@ export function PeopleAmountPicker({ onChange }: PeopleAmountPickerProps) {
   //First is defaultValue
   //Second is optionArray
   function returnDefaultValAndOptionsArr(): [string, JSX.Element[]] {
-    let defaultValue = "";
+    let defaultValue = people.toString() || '2';
     const optionsArray: JSX.Element[] = [];
     for (let i in PeopleArr) {
+      
       //Text to show in option
       const textInsideOption = `👨 ${PeopleNumberArr[i]} ${PeopleArr[i]}`;
 
-      //Setting default value if it equals the global state
-      if (PeopleNumberArr[i] === people) {
-        defaultValue = textInsideOption;
-      }
-
       const optionJSXComponent = (
-        <option key={i} value={i}>
+        <option key={i} value={parseInt(i) + 1}>
           {textInsideOption}
         </option>
       );
