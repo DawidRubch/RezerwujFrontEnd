@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { ReactComponent as CheckIcon } from "../../../../../images/check-circle.svg";
-import "./Confirmation.css";
+import "./Confirmation.scss";
 
 export const ConfirmationSuccess = () => {
   return (
@@ -10,22 +10,22 @@ export const ConfirmationSuccess = () => {
         <CheckIcon />
       </div>
       <div className="modalContent">
-        <h6 className="modalMainText">Dziękujemy za rezerwację!</h6>
-        <p className="modalSecondaryText">
+        <h6 className="modalContent__mainText">Dziękujemy za rezerwację!</h6>
+        <p className="modalContent__text">
           Twoja rezerwacja w restauracji
-          <mark className="modalMarkedText">RESTAURACJA</mark>w dniu
-          <mark className="modalMarkedText">xx-xx-xxxx</mark>
+          <mark className="modalContent__text__marked">RESTAURACJA</mark>w dniu
+          <mark className="modalContent__text__marked">xx-xx-xxxx</mark>
           na
-          <mark className="modalMarkedText">x osób</mark>
+          <mark className="modalContent__text__marked">x osób</mark>
           została potwierdzona!
         </p>
-        <span className="modalRedirectLabel">
+        <span className="modalContent__redirectLabel">
           Za chwilę zostaniesz przekierowany do
-          <Link className="modalRedirectLink" to="/">
+          <Link className="modalContent__redirectLink" to="/">
             strony głównej.
           </Link>
         </span>
-        <div className="modalRedirectProgressBar"></div>
+        <div className="modalContent__redirectBar"></div>
       </div>
     </>
   );

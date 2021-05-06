@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Redirect } from "react-router-dom";
-import "./ConfirmReservationPage.css";
+import "./ConfirmReservationPage.scss";
 import { AdditionalRestaurantInfo } from "./localComponents/AdditionalRestaurantInfo/AdditionalRestaurantInfo";
 import { BookTime } from "../../../core/Entities";
 import {

@@ -1,7 +1,7 @@
 import React from "react";
 import { ConfirmationSuccess } from "./ConfirmationSuccess";
 import { ConfirmationError } from "./ConfirmationError";
-import "./ConfirmationModal.css";
+import "./ConfirmationModal.scss";
 
 interface ConfirmationModal {
   open: boolean;

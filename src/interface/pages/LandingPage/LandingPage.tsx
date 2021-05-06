@@ -1,5 +1,5 @@
 import React from "react";
-import "./LandingPage.css";
+import "./LandingPage.scss";
 import image from "../../../images/Image 7.png";
 import HowToBookPage from "./localPages/HowToBookPage";
 import { ReactCalendar } from "../../components/CalendarAndLocation/Calendar/Calendar";

@@ -9,9 +9,21 @@ img {
   height: 30px;
 }
 
-.calendarLocationContainer {
+.calendarContainer {
   width: 100%;
   cursor: pointer;
+  &__button {
+    --button-size: 30px;
+    width: var(--button-size);
+    height: var(--button-size);
+    border-radius: 50%;
+    padding: 10px;
+    margin: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: filter 300ms;
+  }
 }
 
 .menu-item {
@@ -25,14 +37,14 @@ img {
   font-weight: 700;
   box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
     0 17px 50px 0 rgba(0, 0, 0, 0.19);
-}
-
-.menu-item.location {
-  width: 100%;
-}
-
-.menu-item.calendar:hover {
-  background-color: lightgray;
+  &.location {
+    width: 100%;
+  }
+  &.calendar {
+    &:hover {
+      background-color: lightgray;
+    }
+  }
 }
 
 .leading-icon {
@@ -42,19 +54,6 @@ img {
   align-items: center;
   justify-content: center;
   width: 25px;
-}
-
-.icon-button {
-  --button-size: 30px;
-  width: var(--button-size);
-  height: var(--button-size);
-  border-radius: 50%;
-  padding: 10px;
-  margin: 2px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: filter 300ms;
 }
 
 @media screen and (max-width: 320px) {

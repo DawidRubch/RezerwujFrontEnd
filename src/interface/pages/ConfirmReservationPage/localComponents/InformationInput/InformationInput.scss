@@ -6,11 +6,10 @@
   border-radius: 8px;
   font-size: 20px;
   opacity: 0.51;
-}
-
-.information-input:nth-child(2),
-.information-input:nth-child(4) {
-  justify-self: flex-end;
+  &:nth-child(2),
+  &:nth-child(4) {
+    justify-self: flex-end;
+  }
 }
 
 @media screen and (max-width: 900px) {
@@ -25,11 +24,10 @@
   .information-input {
     width: 90%;
     box-sizing: border-box;
-  }
-
-  .information-input:nth-child(2),
-  .information-input:nth-child(4) {
-    justify-self: initial;
+    &:nth-child(2),
+    &:nth-child(4) {
+      justify-self: initial;
+    }
   }
 }
 

@@ -1,7 +1,7 @@
 import { useHistory } from "react-router-dom";
 import { BookTime } from "../../../core/Entities/BookTime";
 import { RestaurantOrPub } from "../../../core/Entities/RestaurantOrPub";
-import "./BookingHoursArr.css";
+import "./BookingHoursArr.scss";
 import React from "react";
 interface BookingHoursComponentInterface {
   alternativeBookingHours: (BookTime | null | 0)[];
@@ -49,7 +49,7 @@ function BookingHoursArr({
   };
 
   return (
-    <div className="book-buttons">
+    <div className="book__buttons">
       {alternativeBookingHours?.map(
         (btZeroOrNull: BookTime | null | 0, index: number) => {
           if (btZeroOrNull === null) {
@@ -57,7 +57,7 @@ function BookingHoursArr({
               <div
                 data-testid="booked"
                 key={index}
-                className="book-button booked"
+                className="book__buttons__button--booked"
               />
             );
           }
@@ -67,7 +67,7 @@ function BookingHoursArr({
               <div
                 data-testid="closed"
                 key={index}
-                className="book-button closed"
+                className="book__buttons__button--closed"
               />
             );
           }
@@ -76,7 +76,7 @@ function BookingHoursArr({
               data-testid="free"
               onClick={() => bookReservation(btZeroOrNull)}
               key={index}
-              className="book-button free"
+              className="book__buttons__button--free"
             >
               {btZeroOrNull.hour}:{btZeroOrNull.minute === 30 ? "30" : "00"}
             </button>
