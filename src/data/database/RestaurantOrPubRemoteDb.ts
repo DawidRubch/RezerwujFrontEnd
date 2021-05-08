@@ -67,13 +67,13 @@ export class RestaurantOrPubRemoteDb {
 
     const responseData: (
       | {
-          minute: number;
-          hour: number;
-          day: number;
-          month: number;
-          year: number;
-          people: number;
-        }
+        minute: number;
+        hour: number;
+        day: number;
+        month: number;
+        year: number;
+        people: number;
+      }
       | null
       | 0
     )[] = data;
@@ -137,11 +137,7 @@ async function manageReservations(
     },
   };
 
-  const error = "forced-error";
-
   const URL = `${APIURLS.serverAddress}${APIURLS.reservation.reservation}${AddOrDeleteRoutePath}`;
-
-  // let serverResponse;
 
   try {
     return await axios.post(URL, bookTimeJsonWithName, config);

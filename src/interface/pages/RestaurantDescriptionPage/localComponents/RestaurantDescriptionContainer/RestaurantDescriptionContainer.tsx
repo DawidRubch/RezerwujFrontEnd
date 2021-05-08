@@ -13,7 +13,7 @@ export function RestaurantDescriptionContainer({
 }: RestaurantDescriptionContainerInterface) {
   //Mapping place tags to JSX components
   const placeTagsMappingToJSXComponents: JSX.Element[] = information?.tags.map(
-    (tag: any) => <div className="tag">{tag}</div>
+    (tag: any, index: number) => <div className="tag" key={index} >{tag}</div>
   );
 
   return (
