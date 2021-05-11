@@ -53,12 +53,12 @@ export const ReactCalendar = ({ onChange }: any) => {
       name
     );
 
-    //Search query object
-    let searchQuery = {
-      search: mappingPropsToSearchQueries,
-    };
+    const fromLocation = sessionStorage.setItem('from', history.location.pathname);
 
-    history.push(searchQuery);
+    history.push({
+      search: mappingPropsToSearchQueries,
+      state: fromLocation
+    });
   };
 
   //Calendar style is used here, due to dynamic value showCalendar
@@ -71,12 +71,12 @@ export const ReactCalendar = ({ onChange }: any) => {
       <CalendarLocationContainer
         styling={calendarLocationContainerStyle}
         className="menu-item calendar"
-        leadingIcon={<img alt="calendar icon"src={CalendarIcon} />}
+        leadingIcon={<img alt="calendar icon" src={CalendarIcon} />}
         onClick={hideOrShowCalendar}
       >
         <div className="menu-item__text">{date.toLocaleDateString()}</div>
         <span className="menu-item__right">
-          <img alt="menu-item__arrow"src={ArrowDownIcon} />
+          <img alt="menu-item__arrow" src={ArrowDownIcon} />
         </span>
       </CalendarLocationContainer>
       <div className="absoluteContainer">
