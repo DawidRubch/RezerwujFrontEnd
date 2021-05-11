@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./RestaurantDescriptionPage.css";
-import { useLocation, useHistory } from "react-router-dom";
 import { BookingContainer } from "./localComponents/BookingContainer/BookingContainer";
 import { useBookTimeAndNameSearchParams } from "../../../core/Helper/SearchQuery/useBookTimeSearchParams";
 import { RestaurantDescriptionPageFunctions } from "../../../InterfaceFunctions/PagesFunctions/RestaurantDescriptionPage/RestaurantDescriptionPageFunctions";
@@ -10,11 +9,6 @@ import { RestaurantDescriptionError } from './localComponents/RestaurantDescript
 import { AxiosError } from "axios";
 
 export default function RestaurantDescriptionPage() {
-
-  //State passed from RestaurantPubComponent, when pressed on the restaurant name.
-  //Consists of previous location path. Used to prevent entering this page by pasting a URL in browser adress bar.
-
-  const { state } = useLocation();
 
   //Params from search query
 
@@ -46,7 +40,10 @@ export default function RestaurantDescriptionPage() {
     return <Loader />
   }
 
-  return (error || !state ? <RestaurantDescriptionError /> :
+  // Lack of this value prevents entering this page by pasting URL
+  const previousLocation = sessionStorage.getItem('from');
+
+  return (error || !previousLocation ? <RestaurantDescriptionError /> :
     <>
       <ImageContainer descriptionPageImg={information?.descriptionPageImg} />
       <div className="mainContainer">
