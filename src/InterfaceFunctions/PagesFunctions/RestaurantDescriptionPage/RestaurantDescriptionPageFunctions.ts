@@ -1,57 +1,54 @@
 import { BookTime, bookTimeFromJson } from "../../../core/Entities";
 import RestaurantOrPubRepository from "../../../domain/repository/RestaurantPubRepository";
 import React from "react";
+import { AxiosError } from "axios";
 export class RestaurantDescriptionPageFunctions {
-  state: any;
   restaurantOrPubRepository: RestaurantOrPubRepository;
   bookTime: BookTime;
   name: string;
   setInformation: React.Dispatch<any>;
   information: any;
+  setError: React.Dispatch<any>;
+  error: any;
+  setPending: React.Dispatch<any>;
+  pending: boolean;
   mappingAltBookingHoursToBookTimeComponents;
   constructor(
-    state: any,
     bookTime: BookTime,
     name: string,
     setInformation: React.Dispatch<any>,
-    information: any
+    information: any,
+    setError: React.Dispatch<any>,
+    error: any,
+    setPending: React.Dispatch<any>,
+    pending: boolean
   ) {
-    this.state = state;
     this.restaurantOrPubRepository = new RestaurantOrPubRepository();
     this.bookTime = bookTime;
     this.name = name;
     this.setInformation = setInformation;
     this.information = information;
+    this.setError = setError;
+    this.error = error;
+    this.setPending = setPending;
+    this.pending = pending;
     this.mappingAltBookingHoursToBookTimeComponents = this.information?.alternativeBookingHours.map(
       (bt: any) => bookTimeFromJson(bt)
     );
   }
 
-  //Takes state from local storage, if it doesnt exists call api for data
   manageState = () => {
-    let localStorageKey = "RoP";
-
-    //Saves the state to localStorage if it exists
-    if (this.state) {
-      let JSONStringifiedState = JSON.stringify(this.state);
-      localStorage.setItem(localStorageKey, JSONStringifiedState);
-      this.setInformation(this.state);
-    }
-
-    //Gets item from the localStorage if it doesnt exists or calls api for data
-    if (!this.state) {
-        
-      let getItem = localStorage.getItem(localStorageKey);
-
-      if (getItem) {
-        this.state = JSON.parse(getItem);
-        this.setInformation(this.state);
-      } else {
-        //Calls api for data if it doesnt receives data from local storage
-        this.restaurantOrPubRepository
-          .getRestaurantInfoDescriptionPage(this.name, this.bookTime)
-          .then((res) => this.setInformation(res));
-      }
-    }
+    //Calls api for data
+    this.restaurantOrPubRepository
+      .getRestaurantInfoDescriptionPage(this.name, this.bookTime)
+      .then((res) => {
+        this.setInformation(res)
+        this.setPending(false);
+      })
+      .catch((err: AxiosError) => {
+        this.setError(err);
+        this.setPending(false)
+      });
   };
+
 }

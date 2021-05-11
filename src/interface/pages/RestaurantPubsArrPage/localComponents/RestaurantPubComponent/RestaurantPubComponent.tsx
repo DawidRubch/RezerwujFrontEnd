@@ -23,7 +23,9 @@ export default function RestaurantPubComponent({
                   className="restaurant-description-link"
                   to={{
                     pathname: "/opis-restauracji",
-                    state: RoP,
+                    state: {
+                      from: 'lista-restauracji'
+                    },
                     search:
                       mapPropToSearchQuery(
                         location,
@@ -45,7 +47,9 @@ export default function RestaurantPubComponent({
                     className="restaurant-description-link"
                     to={{
                       pathname: "/opis-restauracji",
-                      state: RoP,
+                      state: {
+                        from: 'lista-restauracji'
+                      },
                       search:
                         mapPropToSearchQuery(
                           location,
