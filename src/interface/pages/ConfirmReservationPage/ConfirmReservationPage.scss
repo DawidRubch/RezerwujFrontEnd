@@ -14,7 +14,7 @@
 
 .reservation-container {
   width: 40vw;
-  min-width: 700px;
+  min-width: 675px;
   margin: 40px 20px 40px 40px;
 }
 
@@ -52,15 +52,15 @@
   }
 
   .reservation-container {
-    width: 60vw;
+    width: 55vw;
     margin: 40px;
   }
 }
 
 @media screen and (max-width: 900px) {
   .reservation-container {
-    width: 70vw;
-    min-width: 620px;
+    width: 65vw;
+    min-width: 600px;
     margin: 20px;
   }
 
@@ -86,9 +86,11 @@
     align-items: center;
     width: 80vw;
     min-width: unset;
+    margin-top: 0;
   }
 
   .image-and-restaurant-info {
+    width: 100%;
     padding: 0;
   }
 

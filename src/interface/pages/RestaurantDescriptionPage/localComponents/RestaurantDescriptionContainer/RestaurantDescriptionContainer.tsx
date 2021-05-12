@@ -28,7 +28,7 @@ export function RestaurantDescriptionContainer({
       <div className="shortDescription">{information?.shortDescription}</div>
       <hr className="restaurantContainerhr" />
       <div className="restaurantMenuLinkContainer">
-        <a className="restaurantMenuLink" href="#">
+        <a className="restaurantMenuLink" href="/">
           Zobacz menu restauracji
           <div className="restaurantMenuIconContainer">
             <RestaurantMenuIcon className="restaurantMenuIcon" />

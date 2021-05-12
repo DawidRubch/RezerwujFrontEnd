@@ -9,11 +9,11 @@ import {
   TimePicker,
 } from "../../../../components";
 
-interface NavBar {
+interface NavBarProps {
   getRoPArr?: () => void;
 }
 
-export default function NavBar({ getRoPArr }: NavBar) {
+export default function NavBar({ getRoPArr }: NavBarProps) {
   return (
     <nav className="navbar">
       <ul className="navbar__list">

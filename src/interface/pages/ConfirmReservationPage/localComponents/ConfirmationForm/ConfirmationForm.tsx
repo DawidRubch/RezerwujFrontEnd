@@ -1,9 +1,9 @@
 import React from "react";
 import { InformationInput } from "../InformationInput/InformationInput";
-import "./AllInputsContainer.scss";
-export const AllInputsContainer = ({ inputObject }: any) => {
+import "./ConfirmationForm.scss";
+export const ConfirmationForm = ({ inputObject, onFormSubmit }: any) => {
   return (
-    <div className="input-container">
+    <form className="confirmation-form">
       <InformationInput
         autoComplete={"first name"}
         name="fname"
@@ -35,6 +35,12 @@ export const AllInputsContainer = ({ inputObject }: any) => {
         onChange={inputObject.setEmailInput}
         value={inputObject.emailInput}
       />
-    </div>
+      <button
+        onSubmit={() => onFormSubmit()}
+        className="confirm-reservation-button"
+      >
+        Potwierdź rezerwację
+      </button>
+    </form>
   );
 };
