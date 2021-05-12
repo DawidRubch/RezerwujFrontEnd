@@ -11,7 +11,7 @@ import RestaurantOrPubRepository from "../../../../../domain/repository/Restaura
 import { useBookTimeAndNameSearchParams } from "../../../../../core/Helper/SearchQuery/useBookTimeSearchParams";
 import { BookingHoursComponent } from "../../../../components/BookingHoursArray/BookingHoursArr";
 interface BookingContainerInterface {
-  nameString: string;
+  nameString: string | unknown;
   alternativeBookingHours: (BookTime | null | 0)[];
   state: any;
 }
