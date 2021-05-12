@@ -8,7 +8,7 @@ import {
   useInput,
 } from "../../../InterfaceFunctions/PagesFunctions/ConfirmReservationPageFunctions/ConfirmReservationHooks";
 import ConfirmReservationFunctions from "../../../InterfaceFunctions/PagesFunctions/ConfirmReservationPageFunctions/ConfirmReservationFunctions";
-import { AllInputsContainer } from "./localComponents/AllInputsContainer/AllInputsContainer";
+import { ConfirmationForm } from "./localComponents/ConfirmationForm/ConfirmationForm";
 import { RoPNameAndBookTimeInfo } from "./localComponents/RoPNameAndBookTimeInfo/RoPNameAndBookTimeInfo";
 import { ConfirmationModal } from "./localComponents/ConfirmationModal/ConfirmationModal";
 import { Loader } from "../../components/Loader/Loader";
@@ -78,13 +78,7 @@ export function ConfirmReservationPage(): JSX.Element {
                 confirmReservationFunctions={confirmReservationFunctions}
               />
             </div>
-            <AllInputsContainer inputObject={InputObject} />
-            <button
-              onClick={() => onConfirm()}
-              className="confirm-reservation-button"
-            >
-              Potwierdź rezerwację
-            </button>
+            <ConfirmationForm inputObject={InputObject} onFormSubmit={onConfirm} />
           </div>
           <AdditionalRestaurantInfo />
         </div>
