@@ -27,10 +27,10 @@ export default function HowToBookPage() {
         <div className="threePointsContainer">
           <StepToMakeReservation
             SVG={EnterIcon}
-            inputText="Wpisz datę, godzinę, liczbę osób. Opcjonalnie adres. Obecnie działamy
-        tylko na terenie Szczecina!"
-          />
-          <StepToMakeReservation
+            inputText="Wpisz datę, godzinę, liczbę osób. Opcjonalnie adres." 
+            boldText= "Obecnie działamy tylko na terenie Szczecina."
+            />                  
+            <StepToMakeReservation
             SVG={ListIcon}
             inputText="Z listy miejsc wybierz te najbardziej odpowiednie i najlepiej pasujący dla ciebie termin!"
           />
