@@ -101,7 +101,7 @@ const RoPImage = ({ inputObject }: any) => {
   return (
     <img
       className="restaurant-image"
-      alt="Restaurant photo"
+      alt="retaurant"
       src={locationState.image || locationState.restaurantOrPub.image}
     />
   );

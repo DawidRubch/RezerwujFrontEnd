@@ -1,6 +1,7 @@
 import React, { ChangeEvent } from "react";
 import "./HourMinutePeoplePicker.scss";
-interface TimePersonComponent {
+
+interface TimePersonComponentProps {
   onChange: (e: ChangeEvent<HTMLSelectElement>) => void;
   defaultValAndOptionsArr: [string, JSX.Element[]];
 }
@@ -8,7 +9,7 @@ interface TimePersonComponent {
 export default function TimePersonComponent({
   onChange,
   defaultValAndOptionsArr,
-}: TimePersonComponent) {
+}: TimePersonComponentProps) {
   const [defaultValue, optionsArray] = defaultValAndOptionsArr;
 
   return (

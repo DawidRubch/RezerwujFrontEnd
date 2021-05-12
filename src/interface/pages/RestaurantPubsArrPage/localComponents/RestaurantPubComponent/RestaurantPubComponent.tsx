@@ -5,12 +5,12 @@ import { RestaurantOrPub } from "../../../../../core/Entities";
 import { mapPropToSearchQuery } from "../../../../../core/Helper/SearchQuery/mapPropertiesToSearchQuery";
 import { BookingHoursComponent } from "../../../../components/BookingHoursArray/BookingHoursArr";
 import "./RestaurantPubComponent.css";
-interface RestaurantPubComponent {
+interface RestaurantPubComponentProps {
   restaurantPubArr: RestaurantOrPub[] | undefined;
 }
 export default function RestaurantPubComponent({
   restaurantPubArr,
-}: RestaurantPubComponent) {
+}: RestaurantPubComponentProps) {
   const { hour, people, date, location }: any = useSelector((state) => state);
   return (
     <div className="restaurant-array">

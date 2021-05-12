@@ -1,13 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { ReactComponent as AlertIcon } from "../../../../../images/alert-circle.svg";
 import "./Confirmation.scss";
 
-interface ConfirmationError {
+interface ConfirmationErrorProps {
   onClose: () => void;
 }
 
-export const ConfirmationError = ({ onClose }: ConfirmationError) => {
+export const ConfirmationError = ({ onClose }: ConfirmationErrorProps) => {
   return (
     <>
       <div className="modalIconContainer">

@@ -87,7 +87,7 @@ function filterAndMapSuggestions(
     suggestion.description.includes("Szczecin")
   );
 
-  suggestionsFromSzczecin.map((suggestion) => {
+  suggestionsFromSzczecin.forEach((suggestion) => {
     const style = {
       backgroundColor: suggestion.active ? "#41b6e6" : "#fff",
 
@@ -102,12 +102,14 @@ function filterAndMapSuggestions(
 
     suggestionsArray.push(
       <div
-        key={suggestion.id}
+        key={suggestion.index}
         {...getSuggestionItemProps(suggestion, { style })}
       >
         {suggestion.description.replace(", Poland", "")}
       </div>
     );
+
+    return
   });
   return suggestionsArray;
 }

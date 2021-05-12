@@ -3,7 +3,7 @@ import { ConfirmationSuccess } from "./ConfirmationSuccess";
 import { ConfirmationError } from "./ConfirmationError";
 import "./ConfirmationModal.scss";
 
-interface ConfirmationModal {
+interface ConfirmationModalProps {
   open: boolean;
   success: boolean;
   onClose: () => void;
@@ -13,7 +13,7 @@ export const ConfirmationModal = ({
   open,
   success,
   onClose,
-}: ConfirmationModal) => {
+}: ConfirmationModalProps) => {
   return (
     <div className={open ? "modalBackgroundOverlay" : "modalHidden"}>
       <div className="modalContainer">
