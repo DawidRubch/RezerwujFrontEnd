@@ -53,12 +53,12 @@ export const ReactCalendar = ({ onChange }: any) => {
       name
     );
 
-    const fromLocation = sessionStorage.setItem('from', history.location.pathname);
-
-    history.push({
+    //Search query object
+    let searchQuery = {
       search: mappingPropsToSearchQueries,
-      state: fromLocation
-    });
+    };
+
+    history.push(searchQuery);
   };
 
   //Calendar style is used here, due to dynamic value showCalendar

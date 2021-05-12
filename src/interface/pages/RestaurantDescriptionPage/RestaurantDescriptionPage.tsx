@@ -3,9 +3,10 @@ import "./RestaurantDescriptionPage.css";
 import { BookingContainer } from "./localComponents/BookingContainer/BookingContainer";
 import { useBookTimeAndNameSearchParams } from "../../../core/Helper/SearchQuery/useBookTimeSearchParams";
 import { RestaurantDescriptionPageFunctions } from "../../../InterfaceFunctions/PagesFunctions/RestaurantDescriptionPage/RestaurantDescriptionPageFunctions";
+import { RestaurantDescriptionInfoResponse } from "../../../core/Interfaces/RestaurantDescriptionInfoResponse";
 import { RestaurantDescriptionContainer } from "./localComponents/RestaurantDescriptionContainer/RestaurantDescriptionContainer";
-import { Loader } from '../../components/Loader/Loader';
-import { RestaurantDescriptionError } from './localComponents/RestaurantDescriptionError/RestaurantDescriptionError';
+import { Loader } from "../../components/Loader/Loader";
+import { RestaurantDescriptionError } from "./localComponents/RestaurantDescriptionError/RestaurantDescriptionError";
 import { AxiosError } from "axios";
 
 export default function RestaurantDescriptionPage() {
@@ -16,9 +17,8 @@ export default function RestaurantDescriptionPage() {
 
   //Information consists of tags, descriptionPageImage,
   // name, type,shortDescription, alternative book time array
-  //This should be implemented with a interface
 
-  const [information, setInformation] = useState<any>();
+  const [information, setInformation] = useState<RestaurantDescriptionInfoResponse>();
   const [error, setError] = useState<AxiosError>();
   const [pending, setPending] = useState(true);
 
@@ -40,10 +40,7 @@ export default function RestaurantDescriptionPage() {
     return <Loader />
   }
 
-  // Lack of this value prevents entering this page by pasting URL
-  const previousLocation = sessionStorage.getItem('from');
-
-  return (error || !previousLocation ? <RestaurantDescriptionError /> :
+  return (error ? <RestaurantDescriptionError /> :
     <>
       <ImageContainer descriptionPageImg={information?.descriptionPageImg} />
       <div className="mainContainer">
