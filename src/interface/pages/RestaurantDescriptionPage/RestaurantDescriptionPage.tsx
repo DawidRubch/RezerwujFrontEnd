@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./RestaurantDescriptionPage.css";
+import "./RestaurantDescriptionPage.scss";
 import { BookingContainer } from "./localComponents/BookingContainer/BookingContainer";
 import { useBookTimeAndNameSearchParams } from "../../../core/Helper/SearchQuery/useBookTimeSearchParams";
 import { RestaurantDescriptionPageFunctions } from "../../../InterfaceFunctions/PagesFunctions/RestaurantDescriptionPage/RestaurantDescriptionPageFunctions";
@@ -56,7 +56,7 @@ export default function RestaurantDescriptionPage() {
             />
           }
         />
-        <div className="restaurantBookingContainer">
+        <div className="mainContainer__bookingContainer">
           <BookingContainer
             state={information}
             alternativeBookingHours={
@@ -65,15 +65,21 @@ export default function RestaurantDescriptionPage() {
             nameString={information?.name}
           />
         </div>
-        <div className="viewportBottomFakeMargin"></div>
+        <div className="mainContainer__viewportBottomFakeMargin"></div>
       </div>
     </>
   );
 }
 
 //ImageContainer
-const ImageContainer = ({ descriptionPageImg }: any) => (
-  <div className="imgContainer">
-    <img className="restaurantImage" src={descriptionPageImg} alt="restaurant" />
+
+interface ImageContainerProps {
+  descriptionPageImg: string | undefined;
+}
+
+const ImageContainer = ({ descriptionPageImg }: ImageContainerProps) => (
+  <div className="mainContainer__imgContainer">
+    <img className="mainContainer__imgContainer__img"
+      src={descriptionPageImg} alt="restaurant" />
   </div>
 );

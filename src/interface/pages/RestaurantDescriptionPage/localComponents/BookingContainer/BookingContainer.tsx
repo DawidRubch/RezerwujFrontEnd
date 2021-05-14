@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import "./BookingContainer.css";
 import { BookTime, bookTimeFromJson } from "../../../../../core/Entities";
 import {
   PeopleAmountPicker,
   ReactCalendar,
   TimePicker,
 } from "../../../../components";
-import "./BookingContainer.css";
+import "./BookingContainer.scss";
 import RestaurantOrPubRepository from "../../../../../domain/repository/RestaurantPubRepository";
 import { useBookTimeAndNameSearchParams } from "../../../../../core/Helper/SearchQuery/useBookTimeSearchParams";
 import { BookingHoursComponent } from "../../../../components/BookingHoursArray/BookingHoursArr";
@@ -41,34 +40,34 @@ export function BookingContainer({
   };
 
   const onChange = () => setReloadBookingArr(true);
+
   return (
-    <div className="placeOrderContainer">
-      <div className="placeOrderHeading">
-        <b className="placeOrderHeadingLabel">Złóż rezerwację w {name}</b>
+    <div className="placeOrder">
+      <div className="placeOrder__header">
+        <b className="placeOrder__header__label">Złóż rezerwację w {name}</b>
       </div>
-      <div className="placeOrderContent">
-        <div className="placeOrderSubHeading">
-          <b className="placeOrderSubHeadingLabel">Data</b>
+      <div className="placeOrder__innerContainer">
+        <div className="placeOrder__innerContainer__param">
+          <b className="placeOrder__innerContainer__param__label">Data</b>
         </div>
-        <div className="placeOrderInputContainer">
+        <div className="placeOrder__innerContainer__inputContainer">
           <ReactCalendar onChange={onChange} />
         </div>
-
-        <div className="placeOrderSubHeading">
-          <b className="placeOrderSubHeadingLabel">Godzina</b>
+        <div className="placeOrder__innerContainer__param">
+          <b className="placeOrder__innerContainer__param__label">Godzina</b>
         </div>
-        <div className="placeOrderInputContainer">
+        <div className="placeOrder__innerContainer__inputContainer">
           <TimePicker onChange={onChange} />
         </div>
-        <div className="placeOrderSubHeading">
-          <b className="placeOrderSubHeadingLabel">Ilość osób</b>
+        <div className="placeOrder__innerContainer__param">
+          <b className="placeOrder__innerContainer__param__label">Ilość osób</b>
         </div>
-        <div className="placeOrderInputContainer">
+        <div className="placeOrder__innerContainer__inputContainer">
           <PeopleAmountPicker onChange={onChange} />
         </div>
-        <div className="bookingHoursContainer">
+        <div className="placeOrder__innerContainer__bookingHours">
           {reloadBookingArr ? (
-            <button className="reloadButton" onClick={getNewAltBookingHours}>
+            <button className="placeOrder__innerContainer__bookingHours__reloadButton" onClick={getNewAltBookingHours}>
               Odśwież
             </button>
           ) : (

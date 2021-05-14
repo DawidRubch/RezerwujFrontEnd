@@ -1,36 +1,29 @@
 import React from "react";
 import { StepToMakeReservation } from "../localComponents/StepToMakeReservation";
-import "./HowToBookPage.css";
+import "./HowToBookPage.scss";
 import { ReactComponent as EnterIcon } from "../../../../images/enter.svg";
 import { ReactComponent as ListIcon } from "../../../../images/choices.svg";
 import { ReactComponent as RestaurantIcon } from "../../../../images/restaurant.svg";
 import { ReactComponent as TwoPeopleAtRestaurantVector } from "../../../../images/PeopleAtRestaurant.svg";
 export default function HowToBookPage() {
   return (
-    <div style={{ backgroundColor: "white" }}>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          marginTop: "0px",
-          flexDirection: "column",
-        }}
+    <div className="howToBookPage">
+      <header
+        className="howToBookPage__header"
       >
-        <div className="topText">
-          <div>Jak to działa?</div>
-        </div>
-        <b className="instructionHeading">
+        <span className="howToBookPage__header__primaryText" >Jak to działa?</span>
+        <b className="howToBookPage__header__secondaryText">
           Od zarezerwowania stolika dzielą cie 3 kroki!
         </b>
-      </div>
-      <div className="threePointsContainerWithVectorGraphic">
-        <div className="threePointsContainer">
+      </header>
+      <div className="howToBookPage__mainContainer">
+        <div className="howToBookPage__threeStepsContainer">
           <StepToMakeReservation
             SVG={EnterIcon}
-            inputText="Wpisz datę, godzinę, liczbę osób. Opcjonalnie adres." 
-            boldText= "Obecnie działamy tylko na terenie Szczecina."
-            />                  
-            <StepToMakeReservation
+            inputText="Wpisz datę, godzinę, liczbę osób. Opcjonalnie adres."
+            boldText="Obecnie działamy tylko na terenie Szczecina."
+          />
+          <StepToMakeReservation
             SVG={ListIcon}
             inputText="Z listy miejsc wybierz te najbardziej odpowiednie i najlepiej pasujący dla ciebie termin!"
           />
@@ -40,7 +33,7 @@ export default function HowToBookPage() {
           />
         </div>
         <TwoPeopleAtRestaurantVector
-          className="vectorGraphic"
+          className="howToBookPage__vectorGraphic"
         />
       </div>
     </div>
