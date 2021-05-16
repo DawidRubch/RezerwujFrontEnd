@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./RestaurantPubArr.css";
+import "./RestaurantPubArr.scss";
 import RestaurantOrPubRepository from "../../../domain/repository/RestaurantPubRepository";
 import { BookTime, RestaurantOrPub } from "../../../core/Entities";
 import { Loader } from "../../components/Loader/Loader";

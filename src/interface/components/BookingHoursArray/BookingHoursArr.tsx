@@ -57,7 +57,7 @@ function BookingHoursArr({
               <div
                 data-testid="booked"
                 key={index}
-                className="book__buttons__button--booked"
+                className="book__buttons__button book__buttons__button--booked"
               />
             );
           }
@@ -67,7 +67,7 @@ function BookingHoursArr({
               <div
                 data-testid="closed"
                 key={index}
-                className="book__buttons__button--closed"
+                className="book__buttons__button book__buttons__button--closed"
               />
             );
           }
@@ -76,7 +76,7 @@ function BookingHoursArr({
               data-testid="free"
               onClick={() => bookReservation(btZeroOrNull)}
               key={index}
-              className="book__buttons__button--free"
+              className="book__buttons__button book__buttons__button--free"
             >
               {btZeroOrNull.hour}:{btZeroOrNull.minute === 30 ? "30" : "00"}
             </button>

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { RestaurantOrPub } from "../../../../../core/Entities";
 import { mapPropToSearchQuery } from "../../../../../core/Helper/SearchQuery/mapPropertiesToSearchQuery";
 import { BookingHoursComponent } from "../../../../components/BookingHoursArray/BookingHoursArr";
-import "./RestaurantPubComponent.css";
+import "./RestaurantPubComponent.scss";
 interface RestaurantPubComponentProps {
   restaurantPubArr: RestaurantOrPub[] | undefined;
 }
@@ -13,14 +13,14 @@ export default function RestaurantPubComponent({
 }: RestaurantPubComponentProps) {
   const { hour, people, date, location }: any = useSelector((state) => state);
   return (
-    <div className="restaurant-array">
+    <div className="restaurantArray">
       {restaurantPubArr?.map((RoP: RestaurantOrPub, index: number) => {
         return (
-          <div className="restaurant-component-wraper" key={index}>
-            <div className="restaurant-component">
-              <div className="restaurant-basic-info-mobile">
+          <div className="restaurantComponentWraper" key={index}>
+            <div className="restaurantComponent">
+              <div className="restaurantComponent__basicInfo_mobile">
                 <Link
-                  className="restaurant-description-link"
+                  className="restaurantComponent__link"
                   to={{
                     pathname: "/opis-restauracji",
                     state: {
@@ -35,16 +35,15 @@ export default function RestaurantPubComponent({
                       ) + `&name=${RoP.name}`,
                   }}
                 >
-                  <b className="rop-name">{RoP.name}</b>
+                  <b className="restaurantComponent__link__name">{RoP.name}</b>
                 </Link>
-
-                <span className="restaurant-type">{RoP.type}</span>
+                <span className="restaurantComponent__type">{RoP.type}</span>
               </div>
-              <img alt="Restaurant" src={RoP.image} />
-              <div className="rc-without-photo">
-                <div className="restaurant-basic-info-pc">
+              <img className="restaurantComponent__img" alt="Restaurant" src={RoP.image} />
+              <div className="restaurantComponent__additionalInfo">
+                <div className="restaurantComponent__basicInfo_pc">
                   <Link
-                    className="restaurant-description-link"
+                    className="restaurantComponent__link"
                     to={{
                       pathname: "/opis-restauracji",
                       state: {
@@ -59,15 +58,14 @@ export default function RestaurantPubComponent({
                         ) + `&name=${RoP.name}`,
                     }}
                   >
-                    <b className="rop-name">{RoP.name}</b>
+                    <b className="restaurantComponent__link__name">{RoP.name}</b>
                   </Link>
-
-                  <div className="restaurant-type">{RoP.type}</div>
+                  <div className="restaurantComponent__type">{RoP.type}</div>
                 </div>
-                <div className="tag-container pc">
+                <div className="restaurantComponent__additionalInfo__tagContainer">
                   {RoP.tags.map((tag, index: number) => {
                     return (
-                      <div key={index} className="tag">
+                      <div key={index} className="restaurantComponent__additionalInfo__tagContainer__tag">
                         {tag}
                       </div>
                     );
@@ -80,7 +78,7 @@ export default function RestaurantPubComponent({
                 />
               </div>
             </div>
-            <hr />
+            <hr className="restaurantComponentWraper__hr" />
           </div>
         );
       })}
