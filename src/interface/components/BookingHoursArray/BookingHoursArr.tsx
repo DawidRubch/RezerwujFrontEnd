@@ -1,8 +1,8 @@
+import React from "react";
 import { useHistory } from "react-router-dom";
 import { BookTime } from "../../../core/Entities/BookTime";
 import { RestaurantOrPub } from "../../../core/Entities/RestaurantOrPub";
 import "./BookingHoursArr.scss";
-import React from "react";
 interface BookingHoursComponentInterface {
   alternativeBookingHours: (BookTime | null | 0)[];
   type: "mobile" | "pc" | "universal";
@@ -47,6 +47,16 @@ function BookingHoursArr({
       search: `?&hour=${bookTime.hour}&minute=${bookTime.minute}&day=${bookTime.day}&month=${bookTime.month}&year=${bookTime.year}&people=${bookTime.people}&name=${restaurantOrPub.name}`,
     });
   };
+
+  if (alternativeBookingHours.length < 1) {
+    return (
+      <span className="booking-hours_unavailable">
+        Brak możliwości rezerwacji w podanym terminie!
+        <br />
+        Wybierz inną datę i / lub godzinę.
+      </span>
+    );
+  }
 
   return (
     <div className="book__buttons">
