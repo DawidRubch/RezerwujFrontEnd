@@ -7,6 +7,7 @@
     border: none;
     border-radius: 8px;
     font-size: 20px;
+    background-color: #fff;
     box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
       0 17px 50px 0 rgba(0, 0, 0, 0.19);
     cursor: pointer;
@@ -24,6 +25,17 @@ option {
   text-decoration: none;
   border: none;
   font-size: 20px;
+}
+
+@media (hover: none) {
+  .people-hour {
+    &__select {
+      &:hover,
+      &:active {
+        background-color: #fff;
+      }
+    }
+  }
 }
 
 @media screen and (max-width: 320px) {
