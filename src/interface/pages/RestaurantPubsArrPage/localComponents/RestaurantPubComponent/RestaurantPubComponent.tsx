@@ -12,6 +12,7 @@ export default function RestaurantPubComponent({
   restaurantPubArr,
 }: RestaurantPubComponentProps) {
   const { hour, people, date, location }: any = useSelector((state) => state);
+
   return (
     <div className="restaurantArray">
       {restaurantPubArr?.map((RoP: RestaurantOrPub, index: number) => {
@@ -24,7 +25,7 @@ export default function RestaurantPubComponent({
                   to={{
                     pathname: "/opis-restauracji",
                     state: {
-                      from: 'lista-restauracji'
+                      from: "lista-restauracji",
                     },
                     search:
                       mapPropToSearchQuery(
@@ -39,7 +40,11 @@ export default function RestaurantPubComponent({
                 </Link>
                 <span className="restaurantComponent__type">{RoP.type}</span>
               </div>
-              <img className="restaurantComponent__img" alt="Restaurant" src={RoP.image} />
+              <img
+                className="restaurantComponent__img"
+                alt="Restaurant"
+                src={RoP.image}
+              />
               <div className="restaurantComponent__additionalInfo">
                 <div className="restaurantComponent__basicInfo_pc">
                   <Link
@@ -47,7 +52,7 @@ export default function RestaurantPubComponent({
                     to={{
                       pathname: "/opis-restauracji",
                       state: {
-                        from: 'lista-restauracji'
+                        from: "lista-restauracji",
                       },
                       search:
                         mapPropToSearchQuery(
@@ -58,16 +63,21 @@ export default function RestaurantPubComponent({
                         ) + `&name=${RoP.name}`,
                     }}
                   >
-                    <b className="restaurantComponent__link__name">{RoP.name}</b>
+                    <b className="restaurantComponent__link__name">
+                      {RoP.name}
+                    </b>
                   </Link>
                   <div className="restaurantComponent__type">{RoP.type}</div>
                 </div>
                 <div className="restaurantComponent__additionalInfo__tagContainer">
                   {RoP.tags.map((tag, index: number) => {
                     return (
-                      <div key={index} className="restaurantComponent__additionalInfo__tagContainer__tag">
+                      <span
+                        key={index}
+                        className="restaurantComponent__additionalInfo__tagContainer__tag"
+                      >
                         {tag}
-                      </div>
+                      </span>
                     );
                   })}
                 </div>
