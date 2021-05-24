@@ -67,7 +67,10 @@ export function BookingContainer({
         </div>
         <div className="placeOrder__innerContainer__bookingHours">
           {reloadBookingArr ? (
-            <button className="placeOrder__innerContainer__bookingHours__reloadButton" onClick={getNewAltBookingHours}>
+            <button
+              className="placeOrder__innerContainer__bookingHours__reloadButton"
+              onClick={getNewAltBookingHours}
+            >
               Odśwież
             </button>
           ) : (

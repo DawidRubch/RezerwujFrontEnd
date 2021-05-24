@@ -18,16 +18,8 @@ export function ConfirmReservationPage(): JSX.Element {
   const [confirmationSuccess, setConfirmationSuccess] = useState(false);
   const [redirectToMainPage, setRedirectToMainPage] = useState(false);
 
-  const {
-    minute,
-    hour,
-    day,
-    month,
-    year,
-    people,
-    state,
-    name,
-  } = useConfirmPageSearchQueriesAndState();
+  const { minute, hour, day, month, year, people, state, name } =
+    useConfirmPageSearchQueriesAndState();
 
   //Creating bookTime object out of search query data
   let bookTime = new BookTime(+minute, +hour, +day, +month, +year, +people);
@@ -39,10 +31,11 @@ export function ConfirmReservationPage(): JSX.Element {
   const InputObject = useInput(state);
 
   const onConfirm = async () => {
-    const response = await confirmReservationFunctions.onClickConfirmReservation(
-      name,
-      InputObject
-    );
+    const response =
+      await confirmReservationFunctions.onClickConfirmReservation(
+        name,
+        InputObject
+      );
 
     if (response.data === "Success") {
       setConfirmationSuccess(true);
@@ -69,19 +62,22 @@ export function ConfirmReservationPage(): JSX.Element {
   if (InputObject.locationState) {
     return (
       <>
-        <div className="main-container">
+        <main className="main-container">
           <div className="reservation-container">
-            <div className="image-and-restaurant-info">
+            <header className="image-and-restaurant-info">
               <RoPImage inputObject={InputObject} />
               <RoPNameAndBookTimeInfo
                 name={name.toString()}
                 confirmReservationFunctions={confirmReservationFunctions}
               />
-            </div>
-            <ConfirmationForm inputObject={InputObject} onFormSubmit={onConfirm} />
+            </header>
+            <ConfirmationForm
+              inputObject={InputObject}
+              onFormSubmit={onConfirm}
+            />
           </div>
           <AdditionalRestaurantInfo />
-        </div>
+        </main>
         <ConfirmationModal
           open={modalOpen}
           success={confirmationSuccess}

@@ -10,15 +10,16 @@
   padding: 10px 0 0 10px;
 
   &__name {
-    margin-left: 10px;
+    margin: 0 0 0 10px;
     font-size: 50px;
     color: #e54949;
     font-weight: bold;
   }
 
   &__type {
+    font-size: inherit;
     font-weight: bold;
-    margin-left: 10px;
+    margin: 0 0 0 10px;
   }
 
   &__tags {

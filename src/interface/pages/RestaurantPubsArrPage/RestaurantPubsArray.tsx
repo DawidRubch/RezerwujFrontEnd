@@ -3,7 +3,7 @@ import "./RestaurantPubArr.scss";
 import RestaurantOrPubRepository from "../../../domain/repository/RestaurantPubRepository";
 import { BookTime, RestaurantOrPub } from "../../../core/Entities";
 import { Loader } from "../../components/Loader/Loader";
-import NavBar from "./localComponents/Navbar/NavBar";
+import SearchBar from "./localComponents/SearchBar/SearchBar";
 import RestaurantPubComponent from "./localComponents/RestaurantPubComponent/RestaurantPubComponent";
 import { useSearchParams } from "../../../core/Helper/SearchQuery/useSearchParams";
 
@@ -46,7 +46,7 @@ export default function RestaurantPubsArrayPage() {
   return (
     <div className="restaurantPubContainer">
       <input type="checkbox" id="check" />
-      <NavBar getRoPArr={getRoPArr} />
+      <SearchBar getRoPArr={getRoPArr} />
       {loading ? (
         <Loader />
       ) : (
