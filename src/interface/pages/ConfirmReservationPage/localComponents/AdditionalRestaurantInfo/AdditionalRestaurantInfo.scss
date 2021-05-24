@@ -9,6 +9,16 @@
   border-radius: 10px;
   padding: 30px 30px;
   margin: 40px;
+
+  &__heading {
+    margin: 20px;
+    font-size: 20px;
+    text-align: center;
+  }
+
+  &__text {
+    word-spacing: 5px;
+  }
 }
 
 @media screen and (max-width: 1250px) {

@@ -12,18 +12,18 @@ export const LandingPage: React.FC = () => {
   return (
     <>
       <div className="mainPageContainer">
-        <div className="pickingBookTimeContainer">
-          <div className="logo">REZERWUJ</div>
+        <main className="pickingBookTimeContainer">
+          <h1 className="logo">REZERWUJ</h1>
 
-          <div className="headingAndSubHeadingContainer">
+          <header className="headingAndSubHeadingContainer">
             <div className="bgImage" />
 
-            <div className="heading">Znajdź swój stolik</div>
-            <div className="mainPageSubHeading">
+            <h2 className="heading">Znajdź swój stolik</h2>
+            <h6 className="mainPageSubHeading">
               Wpisz datę, godzinę, liczbę osób i znajdź stolik w swoim ulubionym
               miejscu.
-            </div>
-          </div>
+            </h6>
+          </header>
 
           <div className="pickingContainer">
             <div className="inputContainer--landing">
@@ -42,7 +42,7 @@ export const LandingPage: React.FC = () => {
           <div className="searchButtonContainer--landing">
             <SearchButton additionalClassName="searchButton--landing" />
           </div>
-        </div>
+        </main>
         <div className="mainPageImageContainer">
           <img src={image} alt="Restaurant" />
         </div>

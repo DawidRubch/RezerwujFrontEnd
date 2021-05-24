@@ -5,7 +5,8 @@ li {
 .liBlock {
   display: inline-block;
 }
-.navbar {
+
+.searchbar {
   justify-content: center;
   background: #575f98;
   border-radius: 0 0 20px 20px;
@@ -54,7 +55,7 @@ li {
 /* Setting style to ul all child elements
 Cannot use gap on flexbox here, because at the time safari doesn't support it
 */
-.navbar__list > * {
+.searchbar__list > * {
   margin: 0 15px;
 }
 
@@ -68,13 +69,13 @@ Cannot use gap on flexbox here, because at the time safari doesn't support it
     margin: 0 10px;
   }
 
-  .navbar__list__search {
+  .searchbar__list__search {
     width: 220px;
   }
 }
 
 @media screen and (max-width: 900px) {
-  .navbar {
+  .searchbar {
     display: flex;
     flex-direction: column;
     align-items: center;

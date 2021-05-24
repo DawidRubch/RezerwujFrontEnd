@@ -14,7 +14,7 @@ export default function RestaurantPubComponent({
   const { hour, people, date, location }: any = useSelector((state) => state);
 
   return (
-    <div className="restaurantArray">
+    <main className="restaurantArray">
       {restaurantPubArr?.map((RoP: RestaurantOrPub, index: number) => {
         return (
           <div className="restaurantComponentWraper" key={index}>
@@ -92,6 +92,6 @@ export default function RestaurantPubComponent({
           </div>
         );
       })}
-    </div>
+    </main>
   );
 }

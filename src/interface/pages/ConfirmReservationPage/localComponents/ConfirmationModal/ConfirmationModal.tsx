@@ -15,7 +15,7 @@ export const ConfirmationModal = ({
   onClose,
 }: ConfirmationModalProps) => {
   return (
-    <div className={open ? "modalBackgroundOverlay" : "modalHidden"}>
+    <aside className={open ? "modalBackgroundOverlay" : "modalHidden"}>
       <div className="modalContainer">
         {success ? (
           <ConfirmationSuccess />
@@ -23,6 +23,6 @@ export const ConfirmationModal = ({
           <ConfirmationError onClose={onClose} />
         )}
       </div>
-    </div>
+    </aside>
   );
 };

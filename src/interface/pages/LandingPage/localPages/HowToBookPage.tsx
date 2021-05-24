@@ -7,17 +7,15 @@ import { ReactComponent as RestaurantIcon } from "../../../../images/restaurant.
 import { ReactComponent as TwoPeopleAtRestaurantVector } from "../../../../images/PeopleAtRestaurant.svg";
 export default function HowToBookPage() {
   return (
-    <div className="howToBookPage">
-      <header
-        className="howToBookPage__header"
-      >
-        <span className="howToBookPage__header__primaryText" >Jak to działa?</span>
-        <b className="howToBookPage__header__secondaryText">
+    <aside className="howToBookPage">
+      <header className="howToBookPage__header">
+        <h3 className="howToBookPage__header__primaryText">Jak to działa?</h3>
+        <h2 className="howToBookPage__header__secondaryText">
           Od zarezerwowania stolika dzielą cie 3 kroki!
-        </b>
+        </h2>
       </header>
       <div className="howToBookPage__mainContainer">
-        <div className="howToBookPage__threeStepsContainer">
+        <section className="howToBookPage__threeStepsContainer">
           <StepToMakeReservation
             SVG={EnterIcon}
             inputText="Wpisz datę, godzinę, liczbę osób. Opcjonalnie adres."
@@ -31,11 +29,9 @@ export default function HowToBookPage() {
             SVG={RestaurantIcon}
             inputText="Potwierdź swoje zamówienie i ciesz się przyjemnie spędzonym czasem!"
           />
-        </div>
-        <TwoPeopleAtRestaurantVector
-          className="howToBookPage__vectorGraphic"
-        />
+        </section>
+        <TwoPeopleAtRestaurantVector className="howToBookPage__vectorGraphic" />
       </div>
-    </div>
+    </aside>
   );
 }

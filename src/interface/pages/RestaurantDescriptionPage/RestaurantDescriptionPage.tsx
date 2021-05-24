@@ -10,7 +10,6 @@ import { RestaurantDescriptionError } from "./localComponents/RestaurantDescript
 import { AxiosError } from "axios";
 
 export default function RestaurantDescriptionPage() {
-
   //Params from search query
 
   const { bookTime, name } = useBookTimeAndNameSearchParams();
@@ -18,29 +17,33 @@ export default function RestaurantDescriptionPage() {
   //Information consists of tags, descriptionPageImage,
   // name, type,shortDescription, alternative book time array
 
-  const [information, setInformation] = useState<RestaurantDescriptionInfoResponse>();
+  const [information, setInformation] =
+    useState<RestaurantDescriptionInfoResponse>();
   const [error, setError] = useState<AxiosError>();
   const [pending, setPending] = useState(true);
 
   //Repository with Functions for this page
-  let restaurantDescriptionPageFunctions = new RestaurantDescriptionPageFunctions(
-    bookTime,
-    name,
-    setInformation,
-    information,
-    setError,
-    error,
-    setPending,
-    pending
-  );
+  let restaurantDescriptionPageFunctions =
+    new RestaurantDescriptionPageFunctions(
+      bookTime,
+      name,
+      setInformation,
+      information,
+      setError,
+      error,
+      setPending,
+      pending
+    );
 
   useEffect(restaurantDescriptionPageFunctions.manageState, []);
 
   if (pending) {
-    return <Loader />
+    return <Loader />;
   }
 
-  return (error ? <RestaurantDescriptionError /> :
+  return error ? (
+    <RestaurantDescriptionError />
+  ) : (
     <>
       <ImageContainer descriptionPageImg={information?.descriptionPageImg} />
       <div className="mainContainer">
@@ -56,7 +59,7 @@ export default function RestaurantDescriptionPage() {
             />
           }
         />
-        <div className="mainContainer__bookingContainer">
+        <section className="mainContainer__bookingContainer">
           <BookingContainer
             state={information}
             alternativeBookingHours={
@@ -64,7 +67,7 @@ export default function RestaurantDescriptionPage() {
             }
             nameString={information?.name}
           />
-        </div>
+        </section>
         <div className="mainContainer__viewportBottomFakeMargin"></div>
       </div>
     </>
@@ -79,7 +82,10 @@ interface ImageContainerProps {
 
 const ImageContainer = ({ descriptionPageImg }: ImageContainerProps) => (
   <div className="mainContainer__imgContainer">
-    <img className="mainContainer__imgContainer__img"
-      src={descriptionPageImg} alt="restaurant" />
+    <img
+      className="mainContainer__imgContainer__img"
+      src={descriptionPageImg}
+      alt="restaurant"
+    />
   </div>
 );
