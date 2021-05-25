@@ -39,9 +39,6 @@ export function ConfirmReservationPage(): JSX.Element {
 
     if (response.data === "Success") {
       setConfirmationSuccess(true);
-      setTimeout(() => {
-        setRedirectToMainPage(true);
-      }, 6000);
     }
     setModalOpen(true);
   };

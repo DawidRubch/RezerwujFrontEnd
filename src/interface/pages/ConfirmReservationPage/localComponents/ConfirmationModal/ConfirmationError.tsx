@@ -10,10 +10,12 @@ export const ConfirmationError = ({ onClose }: ConfirmationErrorProps) => {
   return (
     <>
       <div className="modalIconContainer">
-        <AlertIcon />
+        <AlertIcon className="modalIconContainer__Icon" />
       </div>
       <div className="modalContent">
-        <h6 className="modalContent__mainText">Ups! Coś poszło nie tak!</h6>
+        <h6 className="modalContent__mainText modalContent__mainText_err">
+          Ups! Coś poszło nie tak!
+        </h6>
         <p className="modalContent__text">
           Nie udało się potwierdzić twojej rezerwacji. Sprawdź swoje połączenie
           internetowe i spróbuj ponownie.
