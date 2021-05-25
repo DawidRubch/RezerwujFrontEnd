@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { Redirect } from "react-router-dom";
+import React, { FormEvent, useEffect, useState } from "react";
 import "./ConfirmReservationPage.scss";
 import { AdditionalRestaurantInfo } from "./localComponents/AdditionalRestaurantInfo/AdditionalRestaurantInfo";
 import { BookTime } from "../../../core/Entities";
@@ -16,7 +15,6 @@ import { Loader } from "../../components/Loader/Loader";
 export function ConfirmReservationPage(): JSX.Element {
   const [modalOpen, setModalOpen] = useState(false);
   const [confirmationSuccess, setConfirmationSuccess] = useState(false);
-  const [redirectToMainPage, setRedirectToMainPage] = useState(false);
 
   const { minute, hour, day, month, year, people, state, name } =
     useConfirmPageSearchQueriesAndState();
@@ -30,7 +28,9 @@ export function ConfirmReservationPage(): JSX.Element {
   //Input use state hooks
   const InputObject = useInput(state);
 
-  const onConfirm = async () => {
+  const onConfirm = async (event: FormEvent) => {
+    event.preventDefault();
+
     const response =
       await confirmReservationFunctions.onClickConfirmReservation(
         name,
@@ -39,9 +39,6 @@ export function ConfirmReservationPage(): JSX.Element {
 
     if (response.data === "Success") {
       setConfirmationSuccess(true);
-      setTimeout(() => {
-        setRedirectToMainPage(true);
-      }, 6000);
     }
     setModalOpen(true);
   };
@@ -55,10 +52,6 @@ export function ConfirmReservationPage(): JSX.Element {
     );
   }, []);
 
-  if (redirectToMainPage) {
-    return <Redirect to="/" />;
-  }
-
   if (InputObject.locationState) {
     return (
       <>
@@ -71,10 +64,7 @@ export function ConfirmReservationPage(): JSX.Element {
                 confirmReservationFunctions={confirmReservationFunctions}
               />
             </header>
-            <ConfirmationForm
-              inputObject={InputObject}
-              onFormSubmit={onConfirm}
-            />
+            <ConfirmationForm inputObject={InputObject} onSubmit={onConfirm} />
           </div>
           <AdditionalRestaurantInfo />
         </main>

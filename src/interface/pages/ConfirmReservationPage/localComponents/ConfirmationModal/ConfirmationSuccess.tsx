@@ -7,25 +7,22 @@ export const ConfirmationSuccess = () => {
   return (
     <>
       <div className="modalIconContainer">
-        <CheckIcon />
+        <CheckIcon className="modalIconContainer__Icon" />
       </div>
       <div className="modalContent">
-        <h6 className="modalContent__mainText">Dziękujemy za rezerwację!</h6>
+        <h6 className="modalContent__mainText modalContent__mainText_success">
+          Dziękujemy!
+        </h6>
         <p className="modalContent__text">
-          Twoja rezerwacja w restauracji
-          <mark className="modalContent__text__marked">RESTAURACJA</mark>w dniu
-          <mark className="modalContent__text__marked">xx-xx-xxxx</mark>
-          na
-          <mark className="modalContent__text__marked">x osób</mark>
-          została potwierdzona!
+          Wysłaliśmy zapytanie do restauracji. <br /> Proszę oczekiwać SMS z
+          potwierdzeniem.
         </p>
         <span className="modalContent__redirectLabel">
-          Za chwilę zostaniesz przekierowany do
+          Powrót do
           <Link className="modalContent__redirectLink" to="/">
             strony głównej.
           </Link>
         </span>
-        <div className="modalContent__redirectBar"></div>
       </div>
     </>
   );

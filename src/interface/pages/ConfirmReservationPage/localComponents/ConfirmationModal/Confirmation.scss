@@ -3,7 +3,12 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  margin: 50px 0;
+  margin: 35px 0;
+
+  &__Icon {
+    width: 80px;
+    height: 80px;
+  }
 }
 
 .modalContent {
@@ -13,11 +18,19 @@
     font-size: 20px;
     text-align: center;
     margin-top: 0;
+    margin-bottom: 30px;
+    &_success {
+      color: #575f98;
+    }
+    &_err {
+      color: #e54949;
+    }
   }
   &__text {
-    font-size: 17px;
+    font-size: 16px;
     text-align: center;
-    line-height: 200%;
+    line-height: 180%;
+    font-weight: bold;
     &__marked {
       margin: 0 4px;
       background-color: unset;
@@ -27,7 +40,7 @@
   &__button {
     display: block;
     width: 50%;
-    margin: 30px auto 10px auto;
+    margin: 30px auto 35px auto;
     padding: 15px 0;
     border-radius: 18px;
     outline: none;
@@ -43,8 +56,8 @@
   &__redirectLabel {
     display: block;
     width: 100%;
-    margin: 20px 0 10px;
-    font-size: 14px;
+    margin: 35px 0 35px;
+    font-size: 15px;
     text-align: center;
     font-weight: bold;
   }
@@ -53,28 +66,36 @@
     color: #575f98;
     cursor: pointer;
   }
-  &__redirectBar {
-    width: 90%;
-    height: 5px;
-    margin: 20px auto;
-    box-sizing: border-box;
-    background-color: #575f98;
-    border-radius: 3px;
-    animation: countDown 6s linear forwards 1;
+}
+
+@media screen and (max-width: 376px) {
+  .modalIconContainer {
+    &__Icon {
+      width: 70px;
+      height: 70px;
+    }
+  }
+
+  .modalContent {
+    &__mainText {
+      font-size: 18px;
+    }
+    &__text {
+      font-size: 15px;
+      &__button {
+        width: 50%;
+        padding: 12px 5px;
+        font-size: 15px;
+      }
+    }
   }
 }
 
-@keyframes countDown {
-  0% {
-    width: 90%;
-  }
-
-  99.99% {
-    height: 5px;
-  }
-
-  100% {
-    width: 0%;
-    height: 0;
+@media screen and (max-width: 320px) {
+  .modalIconContainer {
+    &__Icon {
+      width: 65px;
+      height: 65px;
+    }
   }
 }
