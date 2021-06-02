@@ -1,0 +1,15 @@
+.Option {
+  position: relative;
+  font-family: "Font Awesome", "Arial";
+}
+
+.OptionIconContainer {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  & > * {
+    width: 20px;
+    height: 20px;
+  }
+}

@@ -4,8 +4,10 @@ import { useDispatch } from "react-redux";
 import { useGlobalVariables } from "../../../../core/Helper/ReduxCustomHooks/useGlobalVariables";
 import { updateHour } from "../../../../stateManagment/action";
 import { TimePickerFunctions } from "../../../../InterfaceFunctions/ComponentFunctions/TimePickerFunctions/TimePickerFunctions";
-import TimePersonComponent from "../HourMinutePicker/HourMinutePeoplePicker";
+import HourPeopleMinutePicker from "../HourMinutePicker/HourMinutePeoplePicker";
 import { useSearchQueryAndReduxStoreUpdate } from "../LocalHooks/useSearchQueryAndReduxStoreUpdate";
+import { ReactComponent as ClockIcon } from "../../../../images/clock2.svg";
+import "./TimePicker.scss";
 
 interface TimeComponent {
   onChange?: (e: ChangeEvent<HTMLSelectElement>) => void;
@@ -25,6 +27,8 @@ export function TimePicker({ onChange }: TimeComponent) {
 
   //Generating time choices f.e 10:00, 10:30 etc
   let timeChoiceArray = timePickerFunctions.generateTime(date);
+
+  // console.log(timeChoiceArray);
 
   //Compares the hour searchQuery to hours in timeChoiceArray
   //Sets the time
@@ -58,22 +62,30 @@ export function TimePicker({ onChange }: TimeComponent) {
   //Function returns the array of two elements
   //First is defaultValue
   //Second is optionArray
-  function returnDefaultValAndOptionsArr(): [string, JSX.Element[]] {
+  function returnDefaultValAndOptionsArr(): [string, any] {
     let defaultValue = "";
-    const optionsArray: JSX.Element[] = [];
+    const optionsArray = [];
+    console.log(timeChoiceArray, "timeChoiceArray");
+
     for (let i in timeChoiceArray) {
       //Text to show in option
       const textInsideOption = timeChoiceArray[i];
 
       //Setting default value if it equals the global state
       if (timeChoiceArray[i].slice(3) === hour) {
+        // console.log("%c TRUE", "color: #0f0");
+
         defaultValue = textInsideOption;
       }
 
-      const optionJSXComponent = <option key={i}>{textInsideOption}</option>;
-
-      optionsArray.push(optionJSXComponent);
+      optionsArray.push({
+        value: timeChoiceArray[i],
+        label: timeChoiceArray[i],
+        icon: <ClockIcon />,
+      });
     }
+
+    // console.log([defaultValue, optionsArray]);
 
     return [defaultValue, optionsArray];
   }
@@ -81,9 +93,10 @@ export function TimePicker({ onChange }: TimeComponent) {
   useEffect(updateGlobalVariableHour, [date]);
 
   return (
-    <TimePersonComponent
+    <HourPeopleMinutePicker
       onChange={onPickingHour}
       defaultValAndOptionsArr={returnDefaultValAndOptionsArr()}
+      type="time"
     />
   );
 }

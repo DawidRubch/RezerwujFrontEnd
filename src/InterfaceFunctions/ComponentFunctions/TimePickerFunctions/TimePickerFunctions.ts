@@ -17,7 +17,7 @@ export class TimePickerFunctions {
     let hourAndMinutesArr: string[] = [];
 
     for (var i = 0; i < 48; i++) {
-      let hourAndMinutesString = `🕒 ${hour}:${minutes === 0 ? "00" : "30"}`;
+      let hourAndMinutesString = `${hour}:${minutes === 0 ? "00" : "30"}`;
 
       hourAndMinutesArr.push(hourAndMinutesString);
       minutes += 30;

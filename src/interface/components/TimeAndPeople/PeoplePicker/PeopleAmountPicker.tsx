@@ -1,11 +1,11 @@
 import React, { ChangeEvent } from "react";
-
 import TimePersonComponent from "../HourMinutePicker/HourMinutePeoplePicker";
 import { PeopleArr } from "../../../../core/ImportantVariables/variables";
 import { useSearchQueryAndReduxStoreUpdate } from "../LocalHooks/useSearchQueryAndReduxStoreUpdate";
 import { useGlobalVariables } from "../../../../core/Helper/ReduxCustomHooks/useGlobalVariables";
 import { useDispatch } from "react-redux";
 import { updatePeopleCount } from "../../../../stateManagment/action";
+import { ReactComponent as PersonIcon } from "../../../../images/person.svg";
 
 interface PeopleAmountPickerProps {
   onChange?: (e: ChangeEvent<HTMLSelectElement>) => void;
@@ -28,7 +28,7 @@ export function PeopleAmountPicker({ onChange }: PeopleAmountPickerProps) {
   // Function runs on changing amount of people
   const onPickingAmountOfPeople = (e: React.ChangeEvent<HTMLSelectElement>) => {
     if (onChange) onChange(e);
-    
+
     let currentPeopleVal = e.currentTarget.value;
     searchQueryAndLocalStoreUpdate(
       hour,
@@ -43,21 +43,18 @@ export function PeopleAmountPicker({ onChange }: PeopleAmountPickerProps) {
   //Function returns the array of two elements
   //First is defaultValue
   //Second is optionArray
-  function returnDefaultValAndOptionsArr(): [string, JSX.Element[]] {
-    let defaultValue = people.toString() || '2';
-    const optionsArray: JSX.Element[] = [];
+  function returnDefaultValAndOptionsArr(): [string, any] {
+    let defaultValue = people.toString() || "2";
+    const optionsArray = [];
     for (let i in PeopleArr) {
-      
       //Text to show in option
-      const textInsideOption = `👨 ${PeopleNumberArr[i]} ${PeopleArr[i]}`;
+      const textInsideOption = `${PeopleNumberArr[i]} ${PeopleArr[i]}`;
 
-      const optionJSXComponent = (
-        <option key={i} value={parseInt(i) + 1}>
-          {textInsideOption}
-        </option>
-      );
-
-      optionsArray.push(optionJSXComponent);
+      optionsArray.push({
+        value: textInsideOption,
+        label: textInsideOption,
+        icon: <PersonIcon />,
+      });
     }
 
     return [defaultValue, optionsArray];
@@ -67,6 +64,7 @@ export function PeopleAmountPicker({ onChange }: PeopleAmountPickerProps) {
     <TimePersonComponent
       onChange={onPickingAmountOfPeople}
       defaultValAndOptionsArr={returnDefaultValAndOptionsArr()}
+      type="people"
     />
   );
 }
