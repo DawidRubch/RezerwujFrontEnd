@@ -22,6 +22,7 @@ export function useGlobalVariables(): GlobalVariablesInterface {
     useSearchParams();
 
   const { hour, location, date, people }: any = useSelector((state) => state);
+
   const dispatch = useDispatch();
 
   useEffect(() => {

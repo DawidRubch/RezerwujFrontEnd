@@ -3,16 +3,26 @@ import TimePersonComponent from "../HourMinutePicker/HourMinutePeoplePicker";
 import { PeopleArr } from "../../../../core/ImportantVariables/variables";
 import { useSearchQueryAndReduxStoreUpdate } from "../LocalHooks/useSearchQueryAndReduxStoreUpdate";
 import { useGlobalVariables } from "../../../../core/Helper/ReduxCustomHooks/useGlobalVariables";
+import { useSearchParams } from "../../../../core/Helper/SearchQuery/useSearchParams";
 import { useDispatch } from "react-redux";
 import { updatePeopleCount } from "../../../../stateManagment/action";
 import { ReactComponent as PersonIcon } from "../../../../images/person.svg";
 
+interface selectedValueObj {
+  value: string;
+  label: string;
+  icon: Symbol;
+}
+
 interface PeopleAmountPickerProps {
-  onChange?: (e: ChangeEvent<HTMLSelectElement>) => void;
+  onChange?: (e: selectedValueObj) => void;
   people?: number;
 }
 
 export function PeopleAmountPicker({ onChange }: PeopleAmountPickerProps) {
+  //Takes people from query string
+  const { peopleParam } = useSearchParams();
+
   //Updates Redux store
   const dispatch = useDispatch();
 
@@ -26,10 +36,11 @@ export function PeopleAmountPicker({ onChange }: PeopleAmountPickerProps) {
   const { location, date, hour, people, name } = useGlobalVariables();
 
   // Function runs on changing amount of people
-  const onPickingAmountOfPeople = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const onPickingAmountOfPeople = (e: selectedValueObj) => {
     if (onChange) onChange(e);
 
-    let currentPeopleVal = e.currentTarget.value;
+    let currentPeopleVal = e.value;
+
     searchQueryAndLocalStoreUpdate(
       hour,
       location,
@@ -43,15 +54,23 @@ export function PeopleAmountPicker({ onChange }: PeopleAmountPickerProps) {
   //Function returns the array of two elements
   //First is defaultValue
   //Second is optionArray
-  function returnDefaultValAndOptionsArr(): [string, any] {
-    let defaultValue = people.toString() || "2";
+  function returnDefaultValAndOptionsArr(): [any, any] {
+    let defaultValue = {
+      value: peopleParam === 0 ? "4" : peopleParam,
+      label:
+        peopleParam === 0
+          ? "4 osoby"
+          : `${peopleParam} ${PeopleArr[peopleParam]}`,
+      icon: <PersonIcon />,
+    };
+
     const optionsArray = [];
     for (let i in PeopleArr) {
       //Text to show in option
       const textInsideOption = `${PeopleNumberArr[i]} ${PeopleArr[i]}`;
 
       optionsArray.push({
-        value: textInsideOption,
+        value: PeopleNumberArr[i],
         label: textInsideOption,
         icon: <PersonIcon />,
       });

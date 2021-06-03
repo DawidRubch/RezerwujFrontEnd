@@ -1,21 +1,31 @@
 import React, { useEffect } from "react";
-import { ChangeEvent } from "react";
 import { useDispatch } from "react-redux";
 import { useGlobalVariables } from "../../../../core/Helper/ReduxCustomHooks/useGlobalVariables";
 import { updateHour } from "../../../../stateManagment/action";
 import { TimePickerFunctions } from "../../../../InterfaceFunctions/ComponentFunctions/TimePickerFunctions/TimePickerFunctions";
 import HourPeopleMinutePicker from "../HourMinutePicker/HourMinutePeoplePicker";
 import { useSearchQueryAndReduxStoreUpdate } from "../LocalHooks/useSearchQueryAndReduxStoreUpdate";
-import { ReactComponent as ClockIcon } from "../../../../images/clock2.svg";
+import { useSearchParams } from "../../../../core/Helper/SearchQuery/useSearchParams";
+import { ReactComponent as ClockIcon } from "../../../../images/clock.svg";
 import "./TimePicker.scss";
 
+interface selectedValueObj {
+  value: string;
+  label: string;
+  icon: Symbol;
+}
+
 interface TimeComponent {
-  onChange?: (e: ChangeEvent<HTMLSelectElement>) => void;
+  onChange?: (e: selectedValueObj) => void;
   currentDate?: Date;
 }
 
 export function TimePicker({ onChange }: TimeComponent) {
   let timePickerFunctions = new TimePickerFunctions();
+
+  //Takes hour from query string
+  const { hourParam } = useSearchParams();
+
   //Takes updates search queries to ReduxStore and returns updated
   const { location, people, date, hour, name } = useGlobalVariables();
 
@@ -28,28 +38,29 @@ export function TimePicker({ onChange }: TimeComponent) {
   //Generating time choices f.e 10:00, 10:30 etc
   let timeChoiceArray = timePickerFunctions.generateTime(date);
 
-  // console.log(timeChoiceArray);
-
   //Compares the hour searchQuery to hours in timeChoiceArray
   //Sets the time
   const updateGlobalVariableHour = () => {
     let isTimeChoiceInArray = false;
+
     for (let timeChoice of timeChoiceArray) {
-      if (timeChoice.slice(3) === hour) {
+      if (timeChoice === hour) {
         isTimeChoiceInArray = true;
         break;
       }
     }
     let [firstTimeChoice] = timeChoiceArray;
 
-    if (!isTimeChoiceInArray) dispatch(updateHour(firstTimeChoice.slice(3)));
+    if (!isTimeChoiceInArray) dispatch(updateHour(firstTimeChoice));
   };
 
   //Function runs when the amount of people is changed
-  const onPickingHour = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const onPickingHour = (e: selectedValueObj) => {
     if (onChange) onChange(e);
-    let currentHourVal = e.currentTarget.value.slice(3);
+
+    const currentHourVal = e.value;
     dispatch(updateHour(currentHourVal));
+
     searchQueryAndLocalStoreUpdate(
       currentHourVal,
       location,
@@ -59,33 +70,38 @@ export function TimePicker({ onChange }: TimeComponent) {
     );
   };
 
+  function getMaxTimeOr17() {
+    let date = new Date();
+    let hour = 17;
+    let minutes = 0;
+    if (date.getHours() > 17) {
+      hour = date.getHours();
+      if (date.getMinutes() > 30) {
+        hour += 1;
+        minutes = 0;
+      }
+    }
+    return `${hour}:${minutes === 30 ? "30" : "00"}`;
+  }
+
   //Function returns the array of two elements
   //First is defaultValue
   //Second is optionArray
-  function returnDefaultValAndOptionsArr(): [string, any] {
-    let defaultValue = "";
+  function returnDefaultValAndOptionsArr(): [any, any] {
+    let defaultValue = {
+      value: hourParam || getMaxTimeOr17(),
+      label: hourParam || getMaxTimeOr17(),
+      icon: <ClockIcon />,
+    };
     const optionsArray = [];
-    console.log(timeChoiceArray, "timeChoiceArray");
 
     for (let i in timeChoiceArray) {
-      //Text to show in option
-      const textInsideOption = timeChoiceArray[i];
-
-      //Setting default value if it equals the global state
-      if (timeChoiceArray[i].slice(3) === hour) {
-        // console.log("%c TRUE", "color: #0f0");
-
-        defaultValue = textInsideOption;
-      }
-
       optionsArray.push({
         value: timeChoiceArray[i],
         label: timeChoiceArray[i],
         icon: <ClockIcon />,
       });
     }
-
-    // console.log([defaultValue, optionsArray]);
 
     return [defaultValue, optionsArray];
   }

@@ -11,6 +11,7 @@ interface ParamsInterface {
 export function useSearchParams(): ParamsInterface {
   const { search } = useLocation();
   let { dateString, location, hour, people, name } = queryString.parse(search);
+
   let date = new Date();
 
   let [day, month, year] =

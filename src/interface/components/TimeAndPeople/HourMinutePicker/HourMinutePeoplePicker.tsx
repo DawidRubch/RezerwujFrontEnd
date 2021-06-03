@@ -1,12 +1,12 @@
-import React, { ChangeEvent } from "react";
+import React from "react";
 import Select, { components } from "react-select";
 import { ReactComponent as ClockIcon } from "../../../../images/clock.svg";
 import { ReactComponent as PersonIcon } from "../../../../images/person.svg";
 import "./HourMinutePeoplePicker.scss";
 
 interface TimePersonComponentProps {
-  onChange: (e: ChangeEvent<HTMLSelectElement>) => void;
-  defaultValAndOptionsArr: [string, JSX.Element[]];
+  onChange: (e: any) => void;
+  defaultValAndOptionsArr: [JSX.Element, JSX.Element[]];
   type: "time" | "people";
 }
 
@@ -49,7 +49,7 @@ export default function TimePersonComponent({
     </div>
   );
 
-  const costumSelectStyles = {
+  const customSelectStyles = {
     control: (styles: any) => ({
       ...styles,
       height: "50px",
@@ -72,13 +72,13 @@ export default function TimePersonComponent({
     <Select
       options={optionsArray}
       data-testid="select"
-      defaultValue={optionsArray[0]}
-      onChange={() => onChange}
+      defaultValue={defaultValue}
+      onChange={(event) => onChange(event)}
       components={{
         Option: customOptionComponent,
         SingleValue: customSingleValueComponent,
       }}
-      styles={costumSelectStyles}
+      styles={customSelectStyles}
     >
       {optionsArray}
     </Select>

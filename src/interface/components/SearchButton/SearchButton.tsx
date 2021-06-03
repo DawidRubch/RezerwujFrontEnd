@@ -10,7 +10,6 @@ interface SearchButtonProps {
   additionalClassName?: string;
 }
 export function SearchButton({
-  searchParams,
   onPressed,
   additionalClassName,
 }: SearchButtonProps) {
@@ -23,6 +22,7 @@ export function SearchButton({
     hour,
     people.toString()
   );
+
   const pathname = "/lista-restauracji";
   return (
     <Link
