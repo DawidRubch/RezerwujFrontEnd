@@ -1,0 +1,67 @@
+.howToBookPage {
+
+    background-color: #fff;
+
+    &__header {
+        display: flex;
+        align-items: center;
+        margin-top: 0;
+        flex-direction: column;
+
+        &__primaryText {
+            margin-top: 20px;
+            font-size: 25px;
+        }
+
+        &__secondaryText {
+            font-size: 35px;
+            margin-top: 25px;
+            color: #e54949;
+            word-wrap: break-word;
+            width: 650px;
+            text-align: center;
+        }
+    }
+
+    &__mainContainer {
+        display: flex;
+        align-items: center;
+    }
+
+    &__threeStepsContainer {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__vectorGraphic {
+        height: 600px;
+        width: 6000px;
+    }
+}
+
+@media screen and (max-width: 700px) {
+
+    .howToBookPage {
+        &__header {
+            &__primaryText {
+                font-size: 20px;
+            }
+
+            &__secondaryText {
+                width: 250px;
+                font-size: 25px;
+            }
+        }
+
+        &__mainContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        &__vectorGraphic {
+            width: 300px;
+            height: 300px;
+        }
+    }
+}

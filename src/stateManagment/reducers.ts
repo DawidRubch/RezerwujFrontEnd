@@ -1,5 +1,4 @@
 import { combineReducers } from "redux";
-import { useSearchParams } from "../core/Helper/SearchQuery/useSearchParams";
 
 function getMaxTimeOr17() {
   let date = new Date();

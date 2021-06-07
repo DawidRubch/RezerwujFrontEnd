@@ -1,0 +1,13 @@
+.calendarContainer {
+  &__input {
+    width: 100%;
+    font-size: 18px;
+    border-width: 0px;
+    border: none;
+    font-weight: 700;
+    font-family: "Montserrat", sans-serif;
+    &:focus {
+      outline: none;
+    }
+  }
+}

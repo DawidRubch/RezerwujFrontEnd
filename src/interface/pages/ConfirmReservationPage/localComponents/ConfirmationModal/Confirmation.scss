@@ -1,0 +1,101 @@
+.modalIconContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 35px 0;
+
+  &__Icon {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+.modalContent {
+  box-sizing: border-box;
+  padding: 0 5%;
+  &__mainText {
+    font-size: 20px;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 30px;
+    &_success {
+      color: #575f98;
+    }
+    &_err {
+      color: #e54949;
+    }
+  }
+  &__text {
+    font-size: 16px;
+    text-align: center;
+    line-height: 180%;
+    font-weight: bold;
+    &__marked {
+      margin: 0 4px;
+      background-color: unset;
+      font-weight: bold;
+    }
+  }
+  &__button {
+    display: block;
+    width: 50%;
+    margin: 30px auto 35px auto;
+    padding: 15px 0;
+    border-radius: 18px;
+    outline: none;
+    border: none;
+    background-color: #e54949;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    &:hover {
+      background-color: #d29696;
+    }
+  }
+  &__redirectLabel {
+    display: block;
+    width: 100%;
+    margin: 35px 0 35px;
+    font-size: 15px;
+    text-align: center;
+    font-weight: bold;
+  }
+  &__redirectLink {
+    margin-left: 5px;
+    color: #575f98;
+    cursor: pointer;
+  }
+}
+
+@media screen and (max-width: 376px) {
+  .modalIconContainer {
+    &__Icon {
+      width: 70px;
+      height: 70px;
+    }
+  }
+
+  .modalContent {
+    &__mainText {
+      font-size: 18px;
+    }
+    &__text {
+      font-size: 15px;
+      &__button {
+        width: 50%;
+        padding: 12px 5px;
+        font-size: 15px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .modalIconContainer {
+    &__Icon {
+      width: 65px;
+      height: 65px;
+    }
+  }
+}

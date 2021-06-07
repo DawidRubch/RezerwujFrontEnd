@@ -1,28 +1,32 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
-import { BookTime, RestaurantOrPub } from "../../../../../core/Entities";
+import { Link } from "react-router-dom";
+import { RestaurantOrPub } from "../../../../../core/Entities";
 import { mapPropToSearchQuery } from "../../../../../core/Helper/SearchQuery/mapPropertiesToSearchQuery";
-import "./RestaurantPubComponent.css";
-interface RestaurantPubComponent {
+import { BookingHoursComponent } from "../../../../components/BookingHoursArray/BookingHoursArr";
+import "./RestaurantPubComponent.scss";
+interface RestaurantPubComponentProps {
   restaurantPubArr: RestaurantOrPub[] | undefined;
 }
 export default function RestaurantPubComponent({
   restaurantPubArr,
-}: RestaurantPubComponent) {
+}: RestaurantPubComponentProps) {
   const { hour, people, date, location }: any = useSelector((state) => state);
+
   return (
-    <div className="restaurant-array">
+    <main className="restaurantArray">
       {restaurantPubArr?.map((RoP: RestaurantOrPub, index: number) => {
         return (
-          <div key={index}>
-            <div className="restaurant-component">
-              <img alt="Restaurant" src={RoP.image} />
-              <div className="rc-without-photo">
+          <div className="restaurantComponentWraper" key={index}>
+            <div className="restaurantComponent">
+              <div className="restaurantComponent__basicInfo_mobile">
                 <Link
+                  className="restaurantComponent__link"
                   to={{
                     pathname: "/opis-restauracji",
-                    state: RoP,
+                    state: {
+                      from: "lista-restauracji",
+                    },
                     search:
                       mapPropToSearchQuery(
                         location,
@@ -32,18 +36,48 @@ export default function RestaurantPubComponent({
                       ) + `&name=${RoP.name}`,
                   }}
                 >
-                  <b style={{ fontSize: "35px", color: "#e54949" }}>
-                    {RoP.name}
-                  </b>
+                  <b className="restaurantComponent__link__name">{RoP.name}</b>
                 </Link>
-
-                <div className="restaurant-type">{RoP.type}</div>
-                <div className="tag-container pc">
+                <span className="restaurantComponent__type">{RoP.type}</span>
+              </div>
+              <img
+                className="restaurantComponent__img"
+                alt="Restaurant"
+                src={RoP.image}
+              />
+              <div className="restaurantComponent__additionalInfo">
+                <div className="restaurantComponent__basicInfo_pc">
+                  <Link
+                    className="restaurantComponent__link"
+                    to={{
+                      pathname: "/opis-restauracji",
+                      state: {
+                        from: "lista-restauracji",
+                      },
+                      search:
+                        mapPropToSearchQuery(
+                          location,
+                          date.toString(),
+                          hour,
+                          people
+                        ) + `&name=${RoP.name}`,
+                    }}
+                  >
+                    <b className="restaurantComponent__link__name">
+                      {RoP.name}
+                    </b>
+                  </Link>
+                  <div className="restaurantComponent__type">{RoP.type}</div>
+                </div>
+                <div className="restaurantComponent__additionalInfo__tagContainer">
                   {RoP.tags.map((tag, index: number) => {
                     return (
-                      <div key={index} className="tag">
+                      <span
+                        key={index}
+                        className="restaurantComponent__additionalInfo__tagContainer__tag"
+                      >
                         {tag}
-                      </div>
+                      </span>
                     );
                   })}
                 </div>
@@ -54,100 +88,10 @@ export default function RestaurantPubComponent({
                 />
               </div>
             </div>
-            <div className="tag-container mobile">
-              {RoP.tags.map((tag, index: number) => {
-                return (
-                  <div key={index} className="tag">
-                    {tag}
-                  </div>
-                );
-              })}
-            </div>
-            <BookingHoursComponent
-              restaurantOrPub={RoP}
-              type="mobile"
-              alternativeBookingHours={RoP.alternativeBookingHours}
-            />
-            <hr />
+            <hr className="restaurantComponentWraper__hr" />
           </div>
         );
       })}
-    </div>
-  );
-}
-
-interface BookingHoursComponentInterface {
-  alternativeBookingHours: (BookTime | null | 0)[];
-  type: "mobile" | "pc" | "universal";
-  restaurantOrPub: RestaurantOrPub;
-}
-
-export function BookingHoursComponent({
-  alternativeBookingHours,
-  type,
-  restaurantOrPub,
-}: BookingHoursComponentInterface) {
-  let cssMainClassName: string = "booking-hours-component-universal";
-  if (type === "mobile") {
-    cssMainClassName = "booking-hours-component-mobile";
-  } else if (type === "pc") {
-    cssMainClassName = "booking-hours-component-pc";
-  }
-
-  return (
-    <div className={cssMainClassName}>
-      <BookingHoursArr
-        restaurantOrPub={restaurantOrPub}
-        alternativeBookingHours={alternativeBookingHours?.slice(0, 3)}
-      />
-      <BookingHoursArr
-        restaurantOrPub={restaurantOrPub}
-        alternativeBookingHours={alternativeBookingHours?.slice(3)}
-      />
-    </div>
-  );
-}
-interface BookingHoursArrInterface {
-  alternativeBookingHours: (BookTime | null | 0)[];
-  restaurantOrPub: RestaurantOrPub;
-}
-
-function BookingHoursArr({
-  alternativeBookingHours,
-  restaurantOrPub,
-}: BookingHoursArrInterface) {
-  let history = useHistory();
-
-  const bookReservation = (bookTime: BookTime) => {
-    history.push({
-      pathname: "/potwierdz-rezerwacje",
-      state: { restaurantOrPub, bookTime },
-      search: `?&hour=${bookTime.hour}&minute=${bookTime.minute}&day=${bookTime.day}&month=${bookTime.month}&year=${bookTime.year}&people=${bookTime.people}&name=${restaurantOrPub.name}`,
-    });
-  };
-
-  return (
-    <div style={{ display: "flex", flexDirection: "row", marginTop: "10px" }}>
-      {alternativeBookingHours?.map(
-        (btZeroOrNull: BookTime | null | 0, index: number) => {
-          if (btZeroOrNull === null) {
-            return <div key={index} className="book-button booked" />;
-          }
-
-          if (btZeroOrNull === 0) {
-            return <button key={index} className="book-button closed" />;
-          }
-          return (
-            <button
-              onClick={() => bookReservation(btZeroOrNull)}
-              key={index}
-              className="book-button free"
-            >
-              {btZeroOrNull.hour}:{btZeroOrNull.minute === 30 ? "30" : "00"}
-            </button>
-          );
-        }
-      )}
-    </div>
+    </main>
   );
 }

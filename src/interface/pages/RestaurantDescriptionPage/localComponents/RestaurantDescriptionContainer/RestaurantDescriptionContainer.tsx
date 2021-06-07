@@ -1,31 +1,48 @@
 import React from "react";
-import "./RestaurantDescriptionContainer.css";
+import { ReactComponent as RestaurantMenuIcon } from "../../../../../images/restaurant-menu.svg";
+import "./RestaurantDescriptionContainer.scss";
 
 interface RestaurantDescriptionContainerInterface {
   information: any;
+  mobileBookingComponent: JSX.Element;
 }
 
 export function RestaurantDescriptionContainer({
   information,
+  mobileBookingComponent,
 }: RestaurantDescriptionContainerInterface) {
   //Mapping place tags to JSX components
   const placeTagsMappingToJSXComponents: JSX.Element[] = information?.tags.map(
-    (tag: any) => <div className="tag">{tag}</div>
+    (tag: any, index: number) => (
+      <div className="restaurantDescription__tags__tag" key={index}>
+        {tag}
+      </div>
+    )
   );
 
   return (
-    <div className="restaurantContainer">
-      <div className="restaurantName">{information?.name}</div>
-      <div style={{ fontWeight: "bold", marginLeft: "10px" }}>
-        {information?.type}
+    <section className="restaurantDescription">
+      <h1 className="restaurantDescription__name">{information?.name}</h1>
+      <h6 className="restaurantDescription__type">{information?.type}</h6>
+      <div className="restaurantDescription__tags">
+        {placeTagsMappingToJSXComponents}
       </div>
-      <div className="tagContainer">{placeTagsMappingToJSXComponents}</div>
-      <hr className="restaurantContainerhr" />
-      <div className="shortDescription">{information?.shortDescription}</div>
-      <hr className="restaurantContainerhr" />
-      <div className="restaurantMenuLink">
-        Zobacz menu restauracji na stronie
+      <hr className="restaurantDescription__hr" />
+      <div className="restaurantDescription__bookingContainer_mobile">
+        {mobileBookingComponent}
       </div>
-    </div>
+      <p className="restaurantDescription__descriptionText">
+        {information?.shortDescription}
+      </p>
+      <hr className="restaurantDescription__hr" />
+      <div className="restaurantDescription__linkContainer">
+        <a className="restaurantDescription__linkContainer__link" href="/">
+          Zobacz menu restauracji
+          <div className="restaurantDescription__linkContainer__link__iconContainer">
+            <RestaurantMenuIcon className="restaurantDescription__linkContainer__link__iconContainer__icon" />
+          </div>
+        </a>
+      </div>
+    </section>
   );
 }

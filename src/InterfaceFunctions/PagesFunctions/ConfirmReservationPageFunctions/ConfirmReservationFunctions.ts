@@ -52,11 +52,14 @@ export default class ConfirmReservationFunctions {
   };
 
   //Function called when confirm reservation button is pressed
-  onClickConfirmReservation = (name: string | string[], inputObject: any) => {
+  onClickConfirmReservation = async (
+    name: string | string[],
+    inputObject: any
+  ) => {
     let { numberInput, nameInput, surNameInput, emailInput } = inputObject;
 
     //Saving book time to database
-    this.restaurantPubRepository.saveBookTime(
+    const response = await this.restaurantPubRepository.saveBookTime(
       this.bookTime,
       name.toString(),
       numberInput as string,
@@ -65,20 +68,22 @@ export default class ConfirmReservationFunctions {
       emailInput
     );
 
-    //Text saying that you managed to book a table
-    const uManagedToBookTheTableText = `Udało się zamówiłeś stolik dla ${
-      this.bookTime.people
-    } ${PeopleArr[this.bookTime.people]}`;
+    // //Text saying that you managed to book a table
+    // const uManagedToBookTheTableText = `Udało się zamówiłeś stolik dla ${
+    //   this.bookTime.people
+    // } ${PeopleArr[this.bookTime.people]}`;
 
-    //Text saying the date you booked your table for
-    const reservationTimeText = `.\nDnia ${this.bookTime.day}.${
-      this.bookTime.month < 10 ? "0" + this.bookTime.month : this.bookTime.month
-    } o godzinie ${this.bookTime.hour}:${
-      this.bookTime.minute === 0 ? "00" : "30"
-    }.`;
+    // //Text saying the date you booked your table for
+    // const reservationTimeText = `.\nDnia ${this.bookTime.day}.${
+    //   this.bookTime.month < 10 ? "0" + this.bookTime.month : this.bookTime.month
+    // } o godzinie ${this.bookTime.hour}:${
+    //   this.bookTime.minute === 0 ? "00" : "30"
+    // }.`;
 
-    const textToAlert = uManagedToBookTheTableText + reservationTimeText;
+    // const textToAlert = uManagedToBookTheTableText + reservationTimeText;
 
-    alert(textToAlert);
+    // alert(textToAlert);
+
+    return response;
   };
 }

@@ -1,0 +1,42 @@
+.additional-info-container {
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
+    0 17px 50px 0 rgba(0, 0, 0, 0.19);
+  left: 100px;
+  width: 40vw;
+  background: white;
+  min-width: 350px;
+  color: black;
+  border-radius: 10px;
+  padding: 30px 30px;
+  margin: 40px;
+
+  &__heading {
+    margin: 20px;
+    font-size: 20px;
+    text-align: center;
+  }
+
+  &__text {
+    word-spacing: 5px;
+  }
+}
+
+@media screen and (max-width: 1250px) {
+  .additional-info-container {
+    width: 75vw;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .additional-info-container {
+    width: 80vw;
+    margin: 20px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .additional-info-container {
+    margin: 20px 0;
+    min-width: unset;
+  }
+}

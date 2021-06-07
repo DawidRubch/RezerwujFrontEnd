@@ -1,10 +1,10 @@
 import React from "react";
-import "./RoPNameAndBookTimeInfo.css";
+import "./RoPNameAndBookTimeInfo.scss";
 import ConfirmReservationFunctions from "../../../../../InterfaceFunctions/PagesFunctions/ConfirmReservationPageFunctions/ConfirmReservationFunctions";
 import { SmallBookingInfo } from "../SmallBookingInfo/SmallBookingInfo";
-import { ReactComponent as CalendarIcon } from "../../../../../images/calendar.svg";
-import { ReactComponent as PeopleIcon } from "../../../../../images/group.svg";
-import { ReactComponent as ClockIcon } from "../../../../../images/clock.svg";
+import CalendarIcon from "../../../../../images/calendar.svg";
+import PeopleIcon from "../../../../../images/group.svg";
+import ClockIcon from "../../../../../images/clock.svg";
 
 interface RoPNameAndBookTimeInfoInterface {
   confirmReservationFunctions: ConfirmReservationFunctions;
@@ -16,20 +16,20 @@ export const RoPNameAndBookTimeInfo = ({
   name,
 }: RoPNameAndBookTimeInfoInterface) => {
   return (
-    <div className="restaurant-name-and-info">
-      <b className="restaurant-name">{name}</b>
-      <div className="restaurant-info">
+    <div className="restaurantDetails">
+      <b className="restaurantDetails__name">{name}</b>
+      <div className="restaurantDetails__info">
         <SmallBookingInfo
           insideText={confirmReservationFunctions.textInsideCalendarBookingInfo}
-          icon={<CalendarIcon className="restaurant-info-icon" />}
+          icon={<img className="restaurantDetails__info__icon" src={CalendarIcon} alt="calendar-icon" />}
         />
         <SmallBookingInfo
           insideText={confirmReservationFunctions.textInsideHourBookingInfo}
-          icon={<ClockIcon className="restaurant-info-icon" />}
+          icon={<img className="restaurantDetails__info__icon" src={ClockIcon} alt="clock-icon" />}
         />
         <SmallBookingInfo
           insideText={confirmReservationFunctions.textInsidePeopleBookingInfo}
-          icon={<PeopleIcon className="restaurant-info-icon" />}
+          icon={<img className="restaurantDetails__info__icon" src={PeopleIcon} alt="people-icon" />}
         />
       </div>
     </div>

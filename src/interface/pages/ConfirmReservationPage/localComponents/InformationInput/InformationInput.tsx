@@ -1,11 +1,12 @@
 import React from "react";
-import "./InformationInput.css";
+import "./InformationInput.scss";
 interface InformationInputInterface {
   placeHolder: string;
   value: any;
   onChange: any;
   autoComplete: string;
   name: string;
+  required?: boolean;
 }
 export function InformationInput({
   placeHolder,
@@ -13,6 +14,7 @@ export function InformationInput({
   onChange,
   autoComplete,
   name,
+  required,
 }: InformationInputInterface) {
   //FunctionExecuted on input change
   const inputOnChange = (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -25,6 +27,7 @@ export function InformationInput({
       value={value}
       onChange={inputOnChange}
       placeholder={placeHolder}
+      required={required}
     />
   );
 }

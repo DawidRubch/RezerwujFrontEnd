@@ -1,0 +1,67 @@
+.mainContainer {
+  width: 90%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  position: absolute;
+  top: 25vh;
+  left: 50%;
+  transform: translateX(-50%);
+  gap: 5px;
+  margin: 0;
+
+  &__imgContainer {
+    margin: 3em 10px;
+    height: 50vh;
+    overflow: hidden;
+    border-radius: 1vw;
+
+    &__img {
+      height: auto;
+      width: 100%;
+      border-radius: 10px;
+    }
+  }
+
+  &__viewportBottomFakeMargin {
+    width: 100%;
+    height: 20px;
+    background-color: transparent;
+  }
+}
+
+@media screen and (max-width: 950px) {
+  .mainContainer {
+    justify-content: center;
+    left: 50%;
+    transform: translateX(-50%);
+    width: fit-content;
+
+    &__imgContainer {
+      margin: auto 1em;
+    }
+
+    &__bookingContainer {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .mainContainer {
+    top: 18vh;
+  }
+}
+
+@media screen and (max-width: 414px) {
+  .mainContainer {
+    &__imgContainer {
+      margin: 0;
+      border-radius: unset;
+
+      &__img {
+        border-radius: unset;
+      }
+    }
+  }
+}
