@@ -6,7 +6,7 @@ import {
   RestaurantOrPub,
 } from "../../../core/Entities/RestaurantOrPub";
 
-export const tRestaurantOrPub = new RestaurantOrPub(
+const tRestaurantOrPub = new RestaurantOrPub(
   "Restauracja",
   "polska",
   ["fajna","mila"],

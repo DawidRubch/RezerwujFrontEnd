@@ -28,8 +28,7 @@ export function PeopleAmountPicker({ onChange }: PeopleAmountPickerProps) {
   // Function runs on changing amount of people
   const onPickingAmountOfPeople = (e: React.ChangeEvent<HTMLSelectElement>) => {
     if (onChange) onChange(e);
-    
-    let currentPeopleVal = e.currentTarget.value;
+    let currentPeopleVal = e.currentTarget.value.slice(3, 5);
     searchQueryAndLocalStoreUpdate(
       hour,
       location,
@@ -40,34 +39,21 @@ export function PeopleAmountPicker({ onChange }: PeopleAmountPickerProps) {
     dispatch(updatePeopleCount(+currentPeopleVal));
   };
 
-  //Function returns the array of two elements
-  //First is defaultValue
-  //Second is optionArray
-  function returnDefaultValAndOptionsArr(): [string, JSX.Element[]] {
-    let defaultValue = people.toString() || '2';
-    const optionsArray: JSX.Element[] = [];
-    for (let i in PeopleArr) {
-      
-      //Text to show in option
-      const textInsideOption = `👨 ${PeopleNumberArr[i]} ${PeopleArr[i]}`;
+  //Mapping options array to JSX components
+  const optionMapping = PeopleArr.map((person, i) => {
+    const textInsideOption = `👨 ${PeopleNumberArr[i]} ${person}`;
 
-      const optionJSXComponent = (
-        <option key={i} value={parseInt(i) + 1}>
-          {textInsideOption}
-        </option>
-      );
+    const isSelected = PeopleNumberArr[i] === people;
 
-      optionsArray.push(optionJSXComponent);
-    }
-
-    return [defaultValue, optionsArray];
-  }
+    return (
+      <option key={i} selected={isSelected}>
+        {textInsideOption}
+      </option>
+    );
+  });
 
   return (
-    <TimePersonComponent
-      onChange={onPickingAmountOfPeople}
-      defaultValAndOptionsArr={returnDefaultValAndOptionsArr()}
-    />
+    <TimePersonComponent onChange={onPickingAmountOfPeople} optionMapping={optionMapping} />
   );
 }
 

@@ -5,7 +5,7 @@ import { CSSTransition } from "react-transition-group";
 
 import { default as CalendarIcon } from "../../../../images/calendar.svg";
 import { default as ArrowDownIcon } from "../../../../images/arrowDown.svg";
-import "./Calendar.scss";
+import "./Calendar.css";
 import CalendarLocationContainer from "../CalendarLocationContainer/CalendarLocationContainer";
 import { useHistory } from "react-router-dom";
 import { mapPropToSearchQuery } from "../../../../core/Helper/SearchQuery/mapPropertiesToSearchQuery";
@@ -71,15 +71,15 @@ export const ReactCalendar = ({ onChange }: any) => {
       <CalendarLocationContainer
         styling={calendarLocationContainerStyle}
         className="menu-item calendar"
-        leadingIcon={<img alt="calendar icon" src={CalendarIcon} />}
+        leadingIcon={<img src={CalendarIcon} />}
         onClick={hideOrShowCalendar}
       >
-        <div className="menu-item__text">{date.toLocaleDateString()}</div>
-        <span className="menu-item__right">
-          <img alt="menu-item__arrow" src={ArrowDownIcon} />
+        <div className="icon-text">{date.toLocaleDateString()}</div>
+        <span className="icon-right">
+          <img src={ArrowDownIcon} />
         </span>
       </CalendarLocationContainer>
-      <div className="absoluteContainer">
+      <div style={{ position: "absolute", marginLeft: "25px" }}>
         <CSSTransition in={showCalendar} unmountOnExit timeout={100}>
           <Calendar
             onClickDay={hideOrShowCalendar}

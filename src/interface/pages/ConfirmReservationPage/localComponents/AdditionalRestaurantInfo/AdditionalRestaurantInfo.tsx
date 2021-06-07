@@ -1,14 +1,15 @@
-import "./AdditionalRestaurantInfo.scss";
+import "./AdditionalRestaurantInfo.css";
 import React from "react";
 
 export function AdditionalRestaurantInfo() {
   return (
-    <section className="additional-info-container">
-      <h2 className="additional-info-container__heading">
-        Ważne informacje dotyczące rezerwacji
-      </h2>
-
-      <p className="additional-info-container__text">
+    <div className="additional-info-container">
+      <b style={{ fontSize: "20px" }}>
+        <div style={{ textAlign: "center", margin: "20px" }}>
+          Ważne informacje dotyczące rezerwacji
+        </div>
+      </b>
+      <div style={{ wordSpacing: "5px" }}>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pulvinar
         elit sed bibendum sagittis. Duis velit dolor, ornare ac massa et, auctor
         semper augue. Suspendisse iaculis cursus felis, vitae convallis tellus
@@ -40,7 +41,7 @@ export function AdditionalRestaurantInfo() {
         ullamcorper vel. Morbi elementum nec enim vel congue. Curabitur id
         pharetra tellus, vel rutrum velit. Donec convallis augue eget finibus
         maximus.
-      </p>
-    </section>
+      </div>
+    </div>
   );
 }

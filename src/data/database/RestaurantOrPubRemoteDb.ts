@@ -67,13 +67,13 @@ export class RestaurantOrPubRemoteDb {
 
     const responseData: (
       | {
-        minute: number;
-        hour: number;
-        day: number;
-        month: number;
-        year: number;
-        people: number;
-      }
+          minute: number;
+          hour: number;
+          day: number;
+          month: number;
+          year: number;
+          people: number;
+        }
       | null
       | 0
     )[] = data;
@@ -88,7 +88,7 @@ export class RestaurantOrPubRemoteDb {
     surName: string,
     email?: string
   ) {
-    return await manageReservations(
+    await manageReservations(
       APIURLS.reservation.save,
       restaurantName,
       bookTime,
@@ -139,11 +139,7 @@ async function manageReservations(
 
   const URL = `${APIURLS.serverAddress}${APIURLS.reservation.reservation}${AddOrDeleteRoutePath}`;
 
-  try {
-    return await axios.post(URL, bookTimeJsonWithName, config);
-  } catch (err) {
-    return err;
-  }
+  const response = await axios.post(URL, bookTimeJsonWithName, config);
 
-  // return response;
+  return response;
 }

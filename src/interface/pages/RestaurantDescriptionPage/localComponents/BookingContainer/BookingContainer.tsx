@@ -1,16 +1,17 @@
 import React, { useState } from "react";
+import "./BookingContainer.css";
 import { BookTime, bookTimeFromJson } from "../../../../../core/Entities";
 import {
   PeopleAmountPicker,
   ReactCalendar,
   TimePicker,
 } from "../../../../components";
-import "./BookingContainer.scss";
+import { BookingHoursComponent } from "../../../RestaurantPubsArrPage/localComponents/RestaurantPubComponent/RestaurantPubComponent";
+import "./BookingContainer.css";
 import RestaurantOrPubRepository from "../../../../../domain/repository/RestaurantPubRepository";
 import { useBookTimeAndNameSearchParams } from "../../../../../core/Helper/SearchQuery/useBookTimeSearchParams";
-import { BookingHoursComponent } from "../../../../components/BookingHoursArray/BookingHoursArr";
 interface BookingContainerInterface {
-  nameString: string | unknown;
+  nameString: string;
   alternativeBookingHours: (BookTime | null | 0)[];
   state: any;
 }
@@ -40,47 +41,39 @@ export function BookingContainer({
   };
 
   const onChange = () => setReloadBookingArr(true);
-
   return (
-    <div className="placeOrder">
-      <div className="placeOrder__header">
-        <b className="placeOrder__header__label">Złóż rezerwację w {name}</b>
+    <div className="placeOrderContainer">
+      <div className="placeOrderHeading">
+        <b style={{ padding: "5px", fontSize: "25px" }}>
+          Złóż rezerwacje w {name}
+        </b>
       </div>
-      <div className="placeOrder__innerContainer">
-        <div className="placeOrder__innerContainer__param">
-          <b className="placeOrder__innerContainer__param__label">Data</b>
-        </div>
-        <div className="placeOrder__innerContainer__inputContainer">
-          <ReactCalendar onChange={onChange} />
-        </div>
-        <div className="placeOrder__innerContainer__param">
-          <b className="placeOrder__innerContainer__param__label">Godzina</b>
-        </div>
-        <div className="placeOrder__innerContainer__inputContainer">
-          <TimePicker onChange={onChange} />
-        </div>
-        <div className="placeOrder__innerContainer__param">
-          <b className="placeOrder__innerContainer__param__label">Ilość osób</b>
-        </div>
-        <div className="placeOrder__innerContainer__inputContainer">
-          <PeopleAmountPicker onChange={onChange} />
-        </div>
-        <div className="placeOrder__innerContainer__bookingHours">
-          {reloadBookingArr ? (
-            <button
-              className="placeOrder__innerContainer__bookingHours__reloadButton"
-              onClick={getNewAltBookingHours}
-            >
-              Odśwież
-            </button>
-          ) : (
-            <BookingHoursComponent
-              restaurantOrPub={state}
-              type="universal"
-              alternativeBookingHours={altBookTimes}
-            />
-          )}
-        </div>
+      <hr className="placeOrderhr" />
+      <div className="placeOrderSubHeading">
+        <b style={{ padding: "5px" }}>Data</b>
+      </div>
+      <div style={{ margin: "auto" }}>
+        <ReactCalendar onChange={onChange} />
+      </div>
+      <div className="placeOrderSubHeading">
+        <b style={{ padding: "5px" }}>Godzina</b>
+      </div>
+
+      <TimePicker onChange={onChange} />
+      <div className="placeOrderSubHeading">
+        <b style={{ padding: "5px" }}>Ilość osób</b>
+      </div>
+      <PeopleAmountPicker onChange={onChange} />
+      <div style={{ marginLeft: "20px", marginBottom: "20px" }}>
+        {reloadBookingArr ? (
+          <button onClick={getNewAltBookingHours}>Reload</button>
+        ) : (
+          <BookingHoursComponent
+            restaurantOrPub={state}
+            type="universal"
+            alternativeBookingHours={altBookTimes}
+          />
+        )}
       </div>
     </div>
   );

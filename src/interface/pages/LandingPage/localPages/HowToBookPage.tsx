@@ -1,25 +1,34 @@
 import React from "react";
 import { StepToMakeReservation } from "../localComponents/StepToMakeReservation";
-import "./HowToBookPage.scss";
+import "./HowToBookPage.css";
 import { ReactComponent as EnterIcon } from "../../../../images/enter.svg";
 import { ReactComponent as ListIcon } from "../../../../images/choices.svg";
 import { ReactComponent as RestaurantIcon } from "../../../../images/restaurant.svg";
 import { ReactComponent as TwoPeopleAtRestaurantVector } from "../../../../images/PeopleAtRestaurant.svg";
 export default function HowToBookPage() {
   return (
-    <aside className="howToBookPage">
-      <header className="howToBookPage__header">
-        <h3 className="howToBookPage__header__primaryText">Jak to działa?</h3>
-        <h2 className="howToBookPage__header__secondaryText">
+    <div style={{ backgroundColor: "white" }}>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          marginTop: "0px",
+          flexDirection: "column",
+        }}
+      >
+        <div className="topText">
+          <div>Jak to działa?</div>
+        </div>
+        <b className="instructionHeading">
           Od zarezerwowania stolika dzielą cie 3 kroki!
-        </h2>
-      </header>
-      <div className="howToBookPage__mainContainer">
-        <section className="howToBookPage__threeStepsContainer">
+        </b>
+      </div>
+      <div className="threePointsContainerWithVectorGraphic">
+        <div className="threePointsContainer">
           <StepToMakeReservation
             SVG={EnterIcon}
-            inputText="Wpisz datę, godzinę, liczbę osób. Opcjonalnie adres."
-            boldText="Obecnie działamy tylko na terenie Szczecina."
+            inputText="Wpisz datę, godzinę, liczbę osób. Opcjonalnie adres. Obecnie działamy
+        tylko na terenie Szczecina!"
           />
           <StepToMakeReservation
             SVG={ListIcon}
@@ -29,9 +38,11 @@ export default function HowToBookPage() {
             SVG={RestaurantIcon}
             inputText="Potwierdź swoje zamówienie i ciesz się przyjemnie spędzonym czasem!"
           />
-        </section>
-        <TwoPeopleAtRestaurantVector className="howToBookPage__vectorGraphic" />
+        </div>
+        <TwoPeopleAtRestaurantVector
+          className="vectorGraphic"
+        />
       </div>
-    </aside>
+    </div>
   );
 }

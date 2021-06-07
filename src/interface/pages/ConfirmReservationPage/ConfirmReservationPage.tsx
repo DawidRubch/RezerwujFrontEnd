@@ -1,5 +1,5 @@
-import React, { FormEvent, useEffect, useState } from "react";
-import "./ConfirmReservationPage.scss";
+import React, { useEffect } from "react";
+import "./ConfirmReservationPage.css";
 import { AdditionalRestaurantInfo } from "./localComponents/AdditionalRestaurantInfo/AdditionalRestaurantInfo";
 import { BookTime } from "../../../core/Entities";
 import {
@@ -7,17 +7,20 @@ import {
   useInput,
 } from "../../../InterfaceFunctions/PagesFunctions/ConfirmReservationPageFunctions/ConfirmReservationHooks";
 import ConfirmReservationFunctions from "../../../InterfaceFunctions/PagesFunctions/ConfirmReservationPageFunctions/ConfirmReservationFunctions";
-import { ConfirmationForm } from "./localComponents/ConfirmationForm/ConfirmationForm";
+import { AllInputsContainer } from "./localComponents/AllInputsContainer/AllInputsContainer";
 import { RoPNameAndBookTimeInfo } from "./localComponents/RoPNameAndBookTimeInfo/RoPNameAndBookTimeInfo";
-import { ConfirmationModal } from "./localComponents/ConfirmationModal/ConfirmationModal";
-import { Loader } from "../../components/Loader/Loader";
 
 export function ConfirmReservationPage(): JSX.Element {
-  const [modalOpen, setModalOpen] = useState(false);
-  const [confirmationSuccess, setConfirmationSuccess] = useState(false);
-
-  const { minute, hour, day, month, year, people, state, name } =
-    useConfirmPageSearchQueriesAndState();
+  const {
+    minute,
+    hour,
+    day,
+    month,
+    year,
+    people,
+    state,
+    name,
+  } = useConfirmPageSearchQueriesAndState();
 
   //Creating bookTime object out of search query data
   let bookTime = new BookTime(+minute, +hour, +day, +month, +year, +people);
@@ -27,21 +30,6 @@ export function ConfirmReservationPage(): JSX.Element {
 
   //Input use state hooks
   const InputObject = useInput(state);
-
-  const onConfirm = async (event: FormEvent) => {
-    event.preventDefault();
-
-    const response =
-      await confirmReservationFunctions.onClickConfirmReservation(
-        name,
-        InputObject
-      );
-
-    if (response.data === "Success") {
-      setConfirmationSuccess(true);
-    }
-    setModalOpen(true);
-  };
 
   //Function runs only on component initial render
   useEffect(() => {
@@ -54,31 +42,47 @@ export function ConfirmReservationPage(): JSX.Element {
 
   if (InputObject.locationState) {
     return (
-      <>
-        <main className="main-container">
-          <div className="reservation-container">
-            <header className="image-and-restaurant-info">
-              <RoPImage inputObject={InputObject} />
-              <RoPNameAndBookTimeInfo
-                name={name.toString()}
-                confirmReservationFunctions={confirmReservationFunctions}
-              />
-            </header>
-            <ConfirmationForm inputObject={InputObject} onSubmit={onConfirm} />
+      <div className="main-container">
+        <div className="reservation-container">
+          <div className="image-and-restaurant-info">
+            <RoPImage inputObject={InputObject} />
+            <RoPNameAndBookTimeInfo
+              name={name.toString()}
+              confirmReservationFunctions={confirmReservationFunctions}
+            />
           </div>
-          <AdditionalRestaurantInfo />
-        </main>
-        <ConfirmationModal
-          open={modalOpen}
-          success={confirmationSuccess}
-          onClose={() => setModalOpen(false)}
-        />
-      </>
+
+          <AllInputsContainer inputObject={InputObject} />
+          <button
+            onClick={() =>
+              confirmReservationFunctions.onClickConfirmReservation(
+                name,
+                InputObject
+              )
+            }
+            className="confirm-reservation-button"
+          >
+            Potwierdź rezerwację
+          </button>
+        </div>
+        <AdditionalRestaurantInfo />
+      </div>
     );
   }
 
   //Tutaj activity indicator
-  return <Loader />;
+  return (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100%",
+      }}
+    >
+      Activity Indicator
+    </div>
+  );
 }
 
 //Place image
@@ -87,7 +91,7 @@ const RoPImage = ({ inputObject }: any) => {
   return (
     <img
       className="restaurant-image"
-      alt="retaurant"
+      alt="Restaurant photo"
       src={locationState.image || locationState.restaurantOrPub.image}
     />
   );

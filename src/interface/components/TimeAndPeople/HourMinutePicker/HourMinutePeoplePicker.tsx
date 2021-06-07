@@ -1,22 +1,17 @@
 import React, { ChangeEvent } from "react";
-import "./HourMinutePeoplePicker.scss";
-
-interface TimePersonComponentProps {
+import "./HourMinutePeoplePicker.css";
+interface TimePersonComponent {
   onChange: (e: ChangeEvent<HTMLSelectElement>) => void;
-  defaultValAndOptionsArr: [string, JSX.Element[]];
+  optionMapping: JSX.Element[];
 }
 
 export default function TimePersonComponent({
   onChange,
-  defaultValAndOptionsArr,
-}: TimePersonComponentProps) {
-  const [defaultValue, optionsArray] = defaultValAndOptionsArr;
-
+  optionMapping,
+}: TimePersonComponent) {
   return (
-    <div className="people-hour" >
-      <select className="people-hour__select" data-testid="select" defaultValue={defaultValue} onChange={onChange}>
-        {optionsArray}
-      </select>
+    <div className="people-hour">
+      <select onChange={onChange}>{optionMapping}</select>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import "./SearchButton.scss";
+import "./SearchButton.css";
 import { Link } from "react-router-dom";
 import { useGlobalVariables } from "../../../core/Helper/ReduxCustomHooks/useGlobalVariables";
 import { mapPropToSearchQuery } from "../../../core/Helper/SearchQuery/mapPropertiesToSearchQuery";

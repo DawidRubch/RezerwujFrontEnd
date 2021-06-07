@@ -1,11 +1,11 @@
 import React from "react";
-import "./StepToMakeReservation.scss";
+import "./StepToMakeReservation.css";
 
-export function StepToMakeReservation({ SVG, inputText, boldText="" }: any) {
+export function StepToMakeReservation({ SVG, inputText }: any) {
   return (
     <div className="textAndIconContainer">
-      <SVG className="textAndIconContainer__icon" />
-      <div className="textAndIconContainer__text">{inputText}<br/><b>{boldText}</b></div>
+      <SVG className="icon" />
+      <div className="text">{inputText}</div>
     </div>
   );
 }

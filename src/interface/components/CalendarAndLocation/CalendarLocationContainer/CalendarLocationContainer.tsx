@@ -1,6 +1,5 @@
 import React from "react";
-import "./CalendarLocationContainer.scss";
-
+import "./CalendarLocationContainer.css";
 interface CalendarLocationContainerProps {
   className: string;
   leadingIcon: JSX.Element;
@@ -21,11 +20,11 @@ export default function CalendarLocationContainer({
   children,
 }: CalendarLocationContainerProps) {
   return (
-    <div className="calendarContainer">
-      <div className={className} style={styling} onClick={onClick}>
-        <span className="calendarContainer__button">{leadingIcon}</span>
+    <div className="calendarLocationContainer">
+      <a className={className} style={styling} onClick={onClick}>
+        <span className="icon-button">{leadingIcon}</span>
         {children}
-      </div>
+      </a>
     </div>
   );
 }
