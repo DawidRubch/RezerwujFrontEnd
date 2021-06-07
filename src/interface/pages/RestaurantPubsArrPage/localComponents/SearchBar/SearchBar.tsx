@@ -3,7 +3,6 @@ import { ReactComponent as MenuIcon } from "../../../../../images/arrowDown.svg"
 import { ReactCalendar } from "../../../../components/CalendarAndLocation/Calendar/Calendar";
 import "./SearchBar.scss";
 import {
-  LocationInput,
   PeopleAmountPicker,
   SearchButton,
   TimePicker,
@@ -26,9 +25,7 @@ export default function SearchBar({ getRoPArr }: SearchBarProps) {
         <li className="searchbar__list__input">
           <TimePicker />
         </li>
-        <li className="searchbar__list__input">
-          <LocationInput />
-        </li>
+
         <li className="searchbar__list__search">
           <SearchButton
             onPressed={getRoPArr}

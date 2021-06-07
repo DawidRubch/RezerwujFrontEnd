@@ -8,8 +8,7 @@ import { ReduxProvider } from "../../../../../stateManagment/ReduxProvider";
 
 jest.mock("react-places-autocomplete");
 
-//Component is based on google maps API
-//That's why we only test, if it renders
+//Component is currently unused
 describe("LocationInput", () => {
   const renderLocationInput = () =>
     render(

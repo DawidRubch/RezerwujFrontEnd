@@ -4,7 +4,7 @@ import image from "../../../images/Image 7.png";
 import HowToBookPage from "./localPages/HowToBookPage";
 import { ReactCalendar } from "../../components/CalendarAndLocation/Calendar/Calendar";
 import { TimePicker } from "../../components/TimeAndPeople/TimePicker/TimePicker";
-import { LocationInput } from "../../components/CalendarAndLocation/LocationInput/LocationInput";
+
 import { PeopleAmountPicker } from "../../components/TimeAndPeople/PeoplePicker/PeopleAmountPicker";
 import { SearchButton } from "../../components/SearchButton/SearchButton";
 
@@ -32,9 +32,7 @@ export const LandingPage: React.FC = () => {
             <div className="inputContainer--landing">
               <TimePicker />
             </div>
-            <div className="inputContainer--landing">
-              <LocationInput />
-            </div>
+
             <div className="inputContainer--landing">
               <PeopleAmountPicker />
             </div>
