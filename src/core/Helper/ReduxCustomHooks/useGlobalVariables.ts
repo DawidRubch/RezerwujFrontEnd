@@ -1,12 +1,13 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useSearchParams } from "../SearchQuery/useSearchParams";
 import {
   updateDate,
   updateHour,
   updateLocation,
   updatePeopleCount,
 } from "../../../stateManagment/action";
-import { useSearchParams } from "../SearchQuery/useSearchParams";
+
 interface GlobalVariablesInterface {
   hour: string;
   location: string;
@@ -17,15 +18,11 @@ interface GlobalVariablesInterface {
 
 //Hook takes search parametes and updates them to the redux store
 export function useGlobalVariables(): GlobalVariablesInterface {
-  const {
-    hourParam,
-    locationParam,
-    peopleParam,
-    dateParam,
-    name,
-  } = useSearchParams();
+  const { hourParam, locationParam, peopleParam, dateParam, name } =
+    useSearchParams();
 
   const { hour, location, date, people }: any = useSelector((state) => state);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
