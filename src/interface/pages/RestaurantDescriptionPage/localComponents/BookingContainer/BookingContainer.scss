@@ -1,111 +1,98 @@
 .placeOrder {
-  background: white;
-  min-width: 350px;
-  height: fit-content;
-  min-height: 450px;
-  border-radius: 8px;
-  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
-    0 17px 50px 0 rgba(0, 0, 0, 0.19);
-
+    background: white;
+    min-width: 350px;
+    height: fit-content;
+    min-height: 450px;
+    border-radius: 8px;
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
     &__header {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 16px 10px;
-      border-top-left-radius: 8px;
-      border-top-right-radius: 8px;
-      background-color: #575f98;
-
-      &__label {
-        font-size: 24px;
-        text-align: center;
-        color: #fff;
-      }
-    }
-
-    &__innerContainer {
-      padding: 10px 10% 0;
-    
-      &__param {
-        text-align: left;
-        margin: 5px 10px 5px 15px;
-
-        &__label {
-          padding: 5px;
-        }
-      }
-
-      &__inputContainer {
-        width: 280px;
-      }
-
-      &__bookingHours {
         display: flex;
         align-items: center;
         justify-content: center;
-        height: fit-content;
-        margin-top: 30px;
-        
-        &__reloadButton {
-          width: 75%;
-          height: 50px;
-          margin-top: 20px;
-          padding: 12px;
-          border-radius: 10px;
-          background-color: #e54949;
-          font-size: 16px;
-          outline: none;
-          border: none;
-          color: #fff;
-          cursor: pointer;
-          
-          &:hover {
-            background-color: #d29696;
-          }
+        padding: 16px 10px;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        background-color: #575f98;
+        &__label {
+            font-size: 24px;
+            text-align: center;
+            color: #fff;
         }
-      }
+    }
+    &__innerContainer {
+        padding: 10px 10px 0;
+        &__param {
+            text-align: left;
+            margin: 5px 10px 5px 15px;
+            &__label {
+                padding: 5px;
+            }
+        }
+        &__inputContainer {
+            width: 280px;
+        }
+        &__bookingHours {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: fit-content;
+            margin-top: 30px;
+            &__reloadButton {
+                width: 75%;
+                height: 50px;
+                margin-top: 20px;
+                padding: 12px;
+                border-radius: 10px;
+                background-color: #e54949;
+                font-size: 16px;
+                outline: none;
+                border: none;
+                color: #fff;
+                cursor: pointer;
+                &:hover {
+                    background-color: #d29696;
+                }
+            }
+        }
     }
 }
 
 @media screen and (max-width: 950px) {
-  .placeOrder {
-    width: 100%;
-
-    &__innerContainer {
-      &__bookingHours {
-        width: 90%;
-        margin: 30px auto;
-      }
+    .placeOrder {
+        width: 100%;
+        &__innerContainer {
+            &__bookingHours {
+                width: 90%;
+                margin: 30px auto;
+            }
+        }
     }
-  }
 }
 
 @media screen and (max-width: 600px) {
-
-  .placeOrder {
-    &__header {
-      &__label {
-        font-size: 20px;
-        text-align: center;
-      }
+    .placeOrder {
+        &__header {
+            &__label {
+                font-size: 20px;
+                text-align: center;
+            }
+        }
+        &__innerContainer {
+            &__bookingHours {
+                width: 100%;
+            }
+        }
     }
-
-    &__innerContainer {
-      &__bookingHours {
-        width: 100%;
-      }
-    }
-  }
 }
 
 @media screen and (max-width: 414px) {
-  .placeOrder {
-    min-width: 300px;
-  }
+    .placeOrder {
+        min-width: 300px;
+    }
 }
 
 @media screen and (max-width: 320px) {
-  .placeOrder {
-    min-width: 280px;
-  }
+    .placeOrder {
+        min-width: 280px;
+    }
 }

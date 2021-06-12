@@ -73,7 +73,7 @@ export default function TimePersonComponent({
       options={optionsArray}
       data-testid="select"
       defaultValue={defaultValue}
-      onChange={(event) => onChange(event)}
+      onChange={(event: any) => onChange(event)}
       components={{
         Option: customOptionComponent,
         SingleValue: customSingleValueComponent,
