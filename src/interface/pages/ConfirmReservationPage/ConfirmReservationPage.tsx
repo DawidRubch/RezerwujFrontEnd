@@ -39,6 +39,7 @@ export function ConfirmReservationPage(): JSX.Element {
         InputObject
       );
 
+    console.log(response);
     if (response.data === "Success") {
       setConfirmationSuccess(true);
     }
