@@ -28,6 +28,8 @@ export function ConfirmReservationPage(): JSX.Element {
   //Input use state hooks
   const InputObject = useInput(state);
 
+  console.log(InputObject);
+
   const onConfirm = async (event: FormEvent) => {
     event.preventDefault();
 
@@ -83,7 +85,7 @@ export function ConfirmReservationPage(): JSX.Element {
 
 //Place image
 const RoPImage = ({ inputObject }: any) => {
-  let { locationState } = inputObject;
+  const { locationState } = inputObject;
   return (
     <img
       className="restaurant-image"

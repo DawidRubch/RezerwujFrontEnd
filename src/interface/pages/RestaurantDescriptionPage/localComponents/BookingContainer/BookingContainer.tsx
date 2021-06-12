@@ -39,6 +39,8 @@ export function BookingContainer({
       });
   };
 
+  console.log(state);
+
   const onChange = () => setReloadBookingArr(true);
 
   return (

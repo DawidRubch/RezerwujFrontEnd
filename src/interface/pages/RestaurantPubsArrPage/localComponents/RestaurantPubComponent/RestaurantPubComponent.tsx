@@ -1,4 +1,5 @@
 import React from "react";
+import { useCallback } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { RestaurantOrPub } from "../../../../../core/Entities";
@@ -26,14 +27,15 @@ export default function RestaurantPubComponent({
                     pathname: "/opis-restauracji",
                     state: {
                       from: "lista-restauracji",
+                      RoP,
                     },
-                    search:
-                      mapPropToSearchQuery(
-                        location,
-                        date.toString(),
-                        hour,
-                        people
-                      ) + `&name=${RoP.name}`,
+                    search: mapPropToSearchQuery(
+                      location,
+                      date.toString(),
+                      hour,
+                      people,
+                      RoP.name
+                    ),
                   }}
                 >
                   <b className="restaurantComponent__link__name">{RoP.name}</b>
@@ -53,6 +55,7 @@ export default function RestaurantPubComponent({
                       pathname: "/opis-restauracji",
                       state: {
                         from: "lista-restauracji",
+                        RoP,
                       },
                       search:
                         mapPropToSearchQuery(
