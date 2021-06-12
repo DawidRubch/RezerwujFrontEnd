@@ -23,7 +23,7 @@ export default function RestaurantDescriptionPage() {
   const [pending, setPending] = useState(true);
 
   //Repository with Functions for this page
-  let restaurantDescriptionPageFunctions =
+  const restaurantDescriptionPageFunctions =
     new RestaurantDescriptionPageFunctions(
       bookTime,
       name,
