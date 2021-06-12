@@ -8,10 +8,14 @@ import { RestaurantDescriptionContainer } from "./localComponents/RestaurantDesc
 import { Loader } from "../../components/Loader/Loader";
 import { RestaurantDescriptionError } from "./localComponents/RestaurantDescriptionError/RestaurantDescriptionError";
 import { AxiosError } from "axios";
+import { useLocation } from "react-router-dom";
 
 export default function RestaurantDescriptionPage() {
   //Params from search query
 
+  const { state }: { state: any } = useLocation();
+
+  
   const { bookTime, name } = useBookTimeAndNameSearchParams();
 
   //Information consists of tags, descriptionPageImage,
@@ -51,7 +55,7 @@ export default function RestaurantDescriptionPage() {
           information={information}
           mobileBookingComponent={
             <BookingContainer
-              state={information}
+              state={state.RoP || information}
               alternativeBookingHours={
                 restaurantDescriptionPageFunctions.mappingAltBookingHoursToBookTimeComponents
               }
@@ -61,7 +65,7 @@ export default function RestaurantDescriptionPage() {
         />
         <section className="mainContainer__bookingContainer">
           <BookingContainer
-            state={information}
+            state={state.RoP ||information}
             alternativeBookingHours={
               restaurantDescriptionPageFunctions.mappingAltBookingHoursToBookTimeComponents
             }
