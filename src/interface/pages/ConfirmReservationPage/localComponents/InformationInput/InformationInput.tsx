@@ -6,6 +6,8 @@ interface InformationInputInterface {
   onChange: any;
   autoComplete: string;
   name: string;
+  pattern?: string;
+  errorTitle?: string;
   required?: boolean;
 }
 export function InformationInput({
@@ -14,6 +16,8 @@ export function InformationInput({
   onChange,
   autoComplete,
   name,
+  pattern,
+  errorTitle,
   required,
 }: InformationInputInterface) {
   //FunctionExecuted on input change
@@ -27,6 +31,8 @@ export function InformationInput({
       value={value}
       onChange={inputOnChange}
       placeholder={placeHolder}
+      pattern={pattern}
+      title={errorTitle}
       required={required}
     />
   );
