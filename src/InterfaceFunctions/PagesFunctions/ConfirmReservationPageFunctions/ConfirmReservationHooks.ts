@@ -8,8 +8,22 @@ export function useInput(state: any) {
   const [locationState, setLocationState] = useState(state || undefined);
   const [nameInput, setNameInput] = useState<string | undefined>();
   const [surNameInput, setSurNameInput] = useState<string | undefined>();
-  const [numberInput, setNumberInput] = useState<string | undefined>();
+  const [numberInput, setNumberInput] = useState<string | undefined>("");
   const [emailInput, setEmailInput] = useState<string | undefined>();
+
+  const onNumberInputChange = (phoneNumber: string) => {
+    const ONLY_NUMBER_REGEX = /^\d+$/;
+
+    if (phoneNumber.length === 0) {
+      return setNumberInput("");
+    }
+
+    if (!phoneNumber.match(ONLY_NUMBER_REGEX) || phoneNumber.length > 9) {
+      return;
+    }
+
+    setNumberInput(phoneNumber);
+  };
 
   return {
     locationState,
@@ -19,7 +33,7 @@ export function useInput(state: any) {
     surNameInput,
     setSurNameInput,
     numberInput,
-    setNumberInput,
+    onNumberInputChange,
     emailInput,
     setEmailInput,
   };
@@ -32,9 +46,8 @@ export function useConfirmPageSearchQueriesAndState() {
   const { state, search }: any = useLocation();
 
   //Taking parameters from search query
-  const { hour, minute, day, month, year, people, name } = queryString.parse(
-    search
-  );
+  const { hour, minute, day, month, year, people, name } =
+    queryString.parse(search);
 
   return { hour, minute, day, month, year, people, name, state };
 }

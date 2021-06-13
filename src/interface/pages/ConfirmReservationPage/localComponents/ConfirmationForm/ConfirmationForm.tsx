@@ -24,8 +24,10 @@ export const ConfirmationForm = ({ inputObject, onSubmit }: any) => {
         autoComplete="tel"
         name="phone"
         placeHolder={"Telefon"}
-        onChange={inputObject.setNumberInput}
+        onChange={inputObject.onNumberInputChange}
         value={inputObject.numberInput}
+        pattern=".{9,}"
+        errorTitle="Numer musi składać się z 9 cyfr!"
         required={true}
       />
       <InformationInput

@@ -68,22 +68,6 @@ export default class ConfirmReservationFunctions {
       emailInput
     );
 
-    // //Text saying that you managed to book a table
-    // const uManagedToBookTheTableText = `Udało się zamówiłeś stolik dla ${
-    //   this.bookTime.people
-    // } ${PeopleArr[this.bookTime.people]}`;
-
-    // //Text saying the date you booked your table for
-    // const reservationTimeText = `.\nDnia ${this.bookTime.day}.${
-    //   this.bookTime.month < 10 ? "0" + this.bookTime.month : this.bookTime.month
-    // } o godzinie ${this.bookTime.hour}:${
-    //   this.bookTime.minute === 0 ? "00" : "30"
-    // }.`;
-
-    // const textToAlert = uManagedToBookTheTableText + reservationTimeText;
-
-    // alert(textToAlert);
-
     return response;
   };
 }
