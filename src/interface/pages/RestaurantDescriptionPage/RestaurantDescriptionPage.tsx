@@ -15,7 +15,6 @@ export default function RestaurantDescriptionPage() {
 
   const { state }: { state: any } = useLocation();
 
-  
   const { bookTime, name } = useBookTimeAndNameSearchParams();
 
   //Information consists of tags, descriptionPageImage,
@@ -41,6 +40,16 @@ export default function RestaurantDescriptionPage() {
 
   useEffect(restaurantDescriptionPageFunctions.manageState, []);
 
+  const BookingContainerComponent = (
+    <BookingContainer
+      state={state?.RoP || information}
+      alternativeBookingHours={
+        restaurantDescriptionPageFunctions.mappingAltBookingHoursToBookTimeComponents
+      }
+      nameString={information?.name}
+    />
+  );
+
   if (pending) {
     return <Loader />;
   }
@@ -53,24 +62,10 @@ export default function RestaurantDescriptionPage() {
       <div className="mainContainer">
         <RestaurantDescriptionContainer
           information={information}
-          mobileBookingComponent={
-            <BookingContainer
-              state={state.RoP || information}
-              alternativeBookingHours={
-                restaurantDescriptionPageFunctions.mappingAltBookingHoursToBookTimeComponents
-              }
-              nameString={information?.name}
-            />
-          }
+          mobileBookingComponent={BookingContainerComponent}
         />
         <section className="mainContainer__bookingContainer">
-          <BookingContainer
-            state={state.RoP ||information}
-            alternativeBookingHours={
-              restaurantDescriptionPageFunctions.mappingAltBookingHoursToBookTimeComponents
-            }
-            nameString={information?.name}
-          />
+          {BookingContainerComponent}
         </section>
         <div className="mainContainer__viewportBottomFakeMargin"></div>
       </div>
