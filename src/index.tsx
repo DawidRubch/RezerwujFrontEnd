@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { LandingPage } from "./interface/pages/LandingPage/LandingPage";
 import RestaurantPubsArrayPage from "./interface/pages/RestaurantPubsArrPage/RestaurantPubsArray";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -11,9 +11,10 @@ import { ConfirmReservationPage } from "./interface/pages/ConfirmReservationPage
 import { ReduxProvider } from "./stateManagment/ReduxProvider";
 import GA from "./data/trackers/GA";
 
-GA.initialize();
-
 export function App() {
+
+  useEffect(GA.initialize, []);
+  
   return (
     <Router>
       <Switch>
