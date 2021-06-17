@@ -11,6 +11,8 @@ import { ConfirmationForm } from "./localComponents/ConfirmationForm/Confirmatio
 import { RoPNameAndBookTimeInfo } from "./localComponents/RoPNameAndBookTimeInfo/RoPNameAndBookTimeInfo";
 import { ConfirmationModal } from "./localComponents/ConfirmationModal/ConfirmationModal";
 import { Loader } from "../../components/Loader/Loader";
+import GA from "../../../data/trackers/GA";
+import { Action, Category } from "../../../core/Interfaces/GAevent";
 
 export function ConfirmReservationPage(): JSX.Element {
   const [modalOpen, setModalOpen] = useState(false);
@@ -28,8 +30,6 @@ export function ConfirmReservationPage(): JSX.Element {
   //Input use state hooks
   const InputObject = useInput(state);
 
-  console.log(InputObject);
-
   const onConfirm = async (event: FormEvent) => {
     event.preventDefault();
 
@@ -39,11 +39,15 @@ export function ConfirmReservationPage(): JSX.Element {
         InputObject
       );
 
-    console.log(response);
     if (response.data === "Success") {
       setConfirmationSuccess(true);
     }
     setModalOpen(true);
+
+    GA.trackEvent({
+      category: Category.RESERVATION,
+      action: Action.SAVED_RESERVATION,
+    });
   };
 
   //Function runs only on component initial render
