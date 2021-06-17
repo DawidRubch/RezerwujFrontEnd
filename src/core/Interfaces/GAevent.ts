@@ -1,6 +1,7 @@
 export enum Category {
   PARAMETER_CHOICE = "ParameterChoice",
   RESERVATION = "Reservation",
+  
 }
 
 //Action used mostly for parameter type
@@ -19,4 +20,8 @@ export enum Label {
   CONFIRM = "Confirm",
 }
 
-export interface GAevent {}
+export interface GAevent {
+  action: Action;
+  category: Category;
+  label: Label;
+}
