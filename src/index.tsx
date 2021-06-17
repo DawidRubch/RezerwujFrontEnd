@@ -9,6 +9,10 @@ import RestaurantDescriptionPage from "./interface/pages/RestaurantDescriptionPa
 import { store } from "../src/stateManagment/store";
 import { ConfirmReservationPage } from "./interface/pages/ConfirmReservationPage/ConfirmReservationPage";
 import { ReduxProvider } from "./stateManagment/ReduxProvider";
+import GA from "./data/trackers/GA";
+
+GA.initialize();
+
 export function App() {
   return (
     <Router>
