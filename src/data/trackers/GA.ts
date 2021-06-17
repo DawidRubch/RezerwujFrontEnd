@@ -5,7 +5,7 @@ class GA {
   trackEvent = ({ category, label, action }: GAevent) =>
     ReactGA.event({ category, label, action });
 
-  initialize = () => ReactGA.initialize("G-SN0VJY0RPS");
+  initialize = () => ReactGA.initialize("G-SN0VJY0RPS", { debug: true });
 }
 
 export default new GA();
