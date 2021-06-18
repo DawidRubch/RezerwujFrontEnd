@@ -9,12 +9,8 @@ import RestaurantDescriptionPage from "./interface/pages/RestaurantDescriptionPa
 import { store } from "../src/stateManagment/store";
 import { ConfirmReservationPage } from "./interface/pages/ConfirmReservationPage/ConfirmReservationPage";
 import { ReduxProvider } from "./stateManagment/ReduxProvider";
-import GA from "./data/trackers/GA";
 
 export function App() {
-
-  useEffect(GA.initialize, []);
-  
   return (
     <Router>
       <Switch>
