@@ -6,9 +6,9 @@ export enum Category {
 //Action used mostly for parameter type
 export enum Action {
   SAVED_RESERVATION = "SavedReservation",
-  PEOPLE = "People",
-  TIME = "Time",
-  DATE = "Date",
+  PEOPLE = "PeopleChange",
+  TIME = "TimeChange",
+  DATE = "DateChange",
 }
 
 //Label value in React-ga event, will be used as a page name
