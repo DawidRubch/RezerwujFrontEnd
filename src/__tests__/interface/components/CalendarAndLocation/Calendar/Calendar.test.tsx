@@ -64,8 +64,10 @@ describe("Calendar", () => {
 
     fireEvent.click(button);
 
+    const pickDay = tDate_object.getDate();
+
     await waitFor(async () => {
-      const pressDayButton = getByText(tDate);
+      const pressDayButton = getByText(pickDay);
       fireEvent.click(pressDayButton);
 
       await waitFor(() => {
