@@ -51,7 +51,7 @@ export function PeopleAmountPicker({ onChange }: PeopleAmountPickerProps) {
       name
     );
     dispatch(updatePeopleCount(+currentPeopleVal));
-    
+
     GA.trackEvent({
       category: Category.PARAMETER_CHOICE,
       action: Action.PEOPLE,
