@@ -73,10 +73,10 @@
   width: 280px;
 }
 
-.inputContainer--landing:nth-child(2),
-.inputContainer--landing:nth-child(4) {
+.inputContainer--landing:nth-child(2) {
   margin-left: 20px;
   min-width: 200px;
+  max-width: 280px;
   width: 20vw;
 }
 
@@ -119,8 +119,7 @@
     min-width: 300px;
   }
 
-  .inputContainer--landing:nth-child(2),
-  .inputContainer--landing:nth-child(4) {
+  .inputContainer--landing:nth-child(2) {
     margin-left: 0;
     min-width: 300px;
   }
@@ -185,8 +184,7 @@
     min-width: 280px;
   }
 
-  .inputContainer--landing:nth-child(2),
-  .inputContainer--landing:nth-child(4) {
+  .inputContainer--landing:nth-child(2) {
     min-width: 280px;
   }
 
