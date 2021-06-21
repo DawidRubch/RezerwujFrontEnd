@@ -12,7 +12,8 @@ import { mapPropToSearchQuery } from "../../../../core/Helper/SearchQuery/mapPro
 import { useDispatch } from "react-redux";
 import { updateDate } from "../../../../stateManagment/action";
 import { useGlobalVariables } from "../../../../core/Helper/ReduxCustomHooks/useGlobalVariables";
-
+import GA from "../../../../data/trackers/GA";
+import { Action, Category, Label } from "../../../../core/Interfaces/GAevent";
 
 export const ReactCalendar = ({ onChange }: any) => {
   //Boolean value to show Calendar
@@ -59,6 +60,8 @@ export const ReactCalendar = ({ onChange }: any) => {
     };
 
     history.push(searchQuery);
+
+    GA.trackEvent({ category: Category.PARAMETER_CHOICE, action: Action.DATE });
   };
 
   //Calendar style is used here, due to dynamic value showCalendar
@@ -87,7 +90,7 @@ export const ReactCalendar = ({ onChange }: any) => {
             defaultView={"month"}
             view={"month"}
             minDate={new Date()}
-            maxDate={moment().add(21, 'days').toDate()}
+            maxDate={moment().add(21, "days").toDate()}
             next2Label={null}
             prev2Label={null}
             locale="pl"

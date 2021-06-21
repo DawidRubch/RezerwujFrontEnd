@@ -7,6 +7,8 @@ import { useSearchParams } from "../../../../core/Helper/SearchQuery/useSearchPa
 import { useDispatch } from "react-redux";
 import { updatePeopleCount } from "../../../../stateManagment/action";
 import { ReactComponent as PersonIcon } from "../../../../images/person.svg";
+import GA from "../../../../data/trackers/GA";
+import { Action, Category } from "../../../../core/Interfaces/GAevent";
 
 interface selectedValueObj {
   value: string;
@@ -49,6 +51,11 @@ export function PeopleAmountPicker({ onChange }: PeopleAmountPickerProps) {
       name
     );
     dispatch(updatePeopleCount(+currentPeopleVal));
+    
+    GA.trackEvent({
+      category: Category.PARAMETER_CHOICE,
+      action: Action.PEOPLE,
+    });
   };
 
   //Function returns the array of two elements

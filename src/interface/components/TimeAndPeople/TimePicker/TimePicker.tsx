@@ -8,6 +8,8 @@ import { useSearchQueryAndReduxStoreUpdate } from "../LocalHooks/useSearchQueryA
 import { useSearchParams } from "../../../../core/Helper/SearchQuery/useSearchParams";
 import { ReactComponent as ClockIcon } from "../../../../images/clock.svg";
 import "./TimePicker.scss";
+import GA from "../../../../data/trackers/GA";
+import { Action, Category } from "../../../../core/Interfaces/GAevent";
 
 interface selectedValueObj {
   value: string;
@@ -68,6 +70,8 @@ export function TimePicker({ onChange }: TimeComponent) {
       date,
       name
     );
+
+    GA.trackEvent({ category: Category.PARAMETER_CHOICE, action: Action.TIME });
   };
 
   function getMaxTimeOr17() {
