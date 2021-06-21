@@ -9,8 +9,11 @@ import "@testing-library/jest-dom/extend-expect";
 
 afterEach(cleanup);
 
-const getLabelTextFromNumbers = (date: number, month: number, year: number) =>
-  `${month}/${date}/${year}`;
+const getLabelTextFromNumbers = (
+  date: number | string,
+  month: number | string,
+  year: number | string
+) => `${date}.${month}.${year}`;
 
 const renderReactCalendar = () =>
   render(
@@ -23,13 +26,15 @@ describe("Calendar", () => {
   const tDate_object = new Date();
 
   //Taking day, month, year out of
-  const tDate = tDate_object.getDate();
+  let tDate: number | string = tDate_object.getDate();
+  tDate <= 9 ? (tDate = `0${tDate}`) : null;
 
-  const tMonth = tDate_object.getMonth() + 1;
+  let tMonth: number | string = tDate_object.getMonth() + 1;
+  tMonth <= 9 ? (tMonth = `0${tMonth}`) : null;
 
   const tYear = tDate_object.getFullYear();
 
-  const labelText = `${tMonth}/${tDate}/${tYear}`;
+  const labelText = `${tDate}.${tMonth}.${tYear}`;
 
   test("should render", () => {
     renderReactCalendar();
@@ -55,32 +60,17 @@ describe("Calendar", () => {
   test("should close calendar, when pressed on date", async () => {
     const { getByText } = renderReactCalendar();
 
-    const todaysDate = new Date();
-
-    const [day, month, year] = [
-      todaysDate.getDate(),
-      todaysDate.getMonth() + 1,
-      todaysDate.getFullYear(),
-    ];
-
-    //If day is bigger than 30 it picks current day
-    const pickDay = day >= 30 ? day : day + 1;
-
-    const tInitialLabelText = getLabelTextFromNumbers(day, month, year);
-
-    const tLabelTextAfter = getLabelTextFromNumbers(pickDay, month, year);
-
-    const button = getByText(tInitialLabelText);
+    const button = getByText(labelText);
 
     fireEvent.click(button);
 
     await waitFor(async () => {
-      const pressDayButton = getByText(pickDay);
+      const pressDayButton = getByText(tDate);
       fireEvent.click(pressDayButton);
 
       await waitFor(() => {
         expect(pressDayButton).not.toBeInTheDocument();
-        expect(getByText(tLabelTextAfter)).toBeInTheDocument();
+        expect(getByText(labelText)).toBeInTheDocument();
       });
     });
   });
