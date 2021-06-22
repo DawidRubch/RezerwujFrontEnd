@@ -15,7 +15,6 @@ import { store } from "../src/stateManagment/store";
 import { ConfirmReservationPage } from "./interface/pages/ConfirmReservationPage/ConfirmReservationPage";
 import { ReduxProvider } from "./stateManagment/ReduxProvider";
 import GA from "./data/trackers/GA";
-import { Category } from "./core/Interfaces/GAevent";
 
 export function App() {
   const location = useLocation();

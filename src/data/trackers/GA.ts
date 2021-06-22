@@ -1,6 +1,5 @@
 import { Category, GAevent } from "../../core/Interfaces/GAevent";
 
-import GA4React from "ga-4-react";
 
 //Class responsible for Google analitics tracking
 class GA {
