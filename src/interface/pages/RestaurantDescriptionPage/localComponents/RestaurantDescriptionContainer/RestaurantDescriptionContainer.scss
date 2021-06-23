@@ -1,189 +1,164 @@
 .restaurantDescription {
-  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
-    0 17px 50px 0 rgba(0, 0, 0, 0.19);
-  left: 100px;
-  width: 50vw;
-  background: white;
-  min-width: 350px;
-  color: black;
-  border-radius: 10px;
-  padding: 10px 0 0 10px;
-
-  &__name {
-    margin: 0 0 0 10px;
-    font-size: 50px;
-    color: #e54949;
-    font-weight: bold;
-  }
-
-  &__type {
-    font-size: inherit;
-    font-weight: bold;
-    margin: 0 0 0 10px;
-  }
-
-  &__tags {
-    display: flex;
-    flex-wrap: wrap;
-    padding-top: 10px;
-    margin-left: 10px;
-
-    &__tag {
-      background-color: #686f9e;
-      color: #fff;
-      font-weight: bold;
-      border-radius: 15px;
-      margin: 10px 10px 0 0;
-      padding: 8px;
-    }
-  }
-
-  &__hr {
-    width: 47vw;
-    min-width: 300px;
-    margin: 20px 0 20px 10px;
-  }
-
-  &__bookingContainer_mobile {
-    display: none;
-  }
-
-  &__descriptionText {
-    font-size: 18px;
-    height: auto;
-    word-spacing: 5px;
-    margin: 0 15px;
-    font-weight: bold;
-    width: 47vw;
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+    left: 100px;
+    width: 50vw;
+    background: white;
     min-width: 350px;
-  }
-
-  &__linkContainer {
-    width: 100%;
-    margin: 10px 0 10px 10px;
-    padding: 0 10px 10px 0;
-    font-size: 25px;
-    color: #e54949;
-    font-weight: bold;
-
-    &__link {
-      color: #e54949;
-
-      &:hover {
-        color: #d29696;
-      }
-
-      &__iconContainer {
-        display: none;
-        width: 50px;
-        height: 50px;
-        margin-top: 12px;
-
-        &__icon {
-          fill: #e54949;
-        }
-      }
+    color: black;
+    border-radius: 10px;
+    padding: 10px 0 0 10px;
+    &__name {
+        margin: 0 0 0 10px;
+        font-size: 50px;
+        color: #FF6F00;
+        font-weight: bold;
     }
-  }
+    &__type {
+        font-size: inherit;
+        font-weight: bold;
+        margin: 0 0 0 10px;
+    }
+    &__tags {
+        display: flex;
+        flex-wrap: wrap;
+        padding-top: 10px;
+        margin-left: 10px;
+        &__tag {
+            background-color: #686f9e;
+            color: #fff;
+            font-weight: bold;
+            border-radius: 15px;
+            margin: 10px 10px 0 0;
+            padding: 8px;
+        }
+    }
+    &__hr {
+        width: 47vw;
+        min-width: 300px;
+        margin: 20px 0 20px 10px;
+    }
+    &__bookingContainer_mobile {
+        display: none;
+    }
+    &__descriptionText {
+        font-size: 18px;
+        height: auto;
+        word-spacing: 5px;
+        margin: 0 15px;
+        font-weight: bold;
+        width: 47vw;
+        min-width: 350px;
+    }
+    &__linkContainer {
+        width: 100%;
+        margin: 10px 0 10px 10px;
+        padding: 0 10px 10px 0;
+        font-size: 25px;
+        color: #FF6F00;
+        font-weight: bold;
+        &__link {
+            color: #FF6F00;
+            &:hover {
+                color: #d29696;
+            }
+            &__iconContainer {
+                display: none;
+                width: 50px;
+                height: 50px;
+                margin-top: 12px;
+                &__icon {
+                    fill: #FF6F00;
+                }
+            }
+        }
+    }
 }
 
 @media screen and (max-width: 950px) {
-  .restaurantDescription {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px 10px 10px 10px;
-    min-width: 480px;
-
-    &__name {
-      margin: 0;
-    }
-
-    &__type {
-      margin: 10px 0 14px 0;
-    }
-
-    &__tags {
-      margin: 0;
-      padding: 0;
-    }
-
-    &__bookingContainer_mobile {
-      display: flex;
-      justify-content: center;
-      width: 85%;
-    }
-
-    &__descriptionText {
-      width: 85%;
-      margin: 40px 0 0 0;
-    }
-
-    &__linkContainer {
-      &__link {
+    .restaurantDescription {
         display: flex;
         flex-direction: column;
         align-items: center;
-        width: 100%;
-
-        &__iconContainer {
-          display: block;
+        padding: 20px 10px 10px 10px;
+        min-width: 480px;
+        &__name {
+            margin: 0;
         }
-      }
+        &__type {
+            margin: 10px 0 14px 0;
+        }
+        &__tags {
+            margin: 0;
+            padding: 0;
+        }
+        &__bookingContainer_mobile {
+            display: flex;
+            justify-content: center;
+            width: 85%;
+        }
+        &__descriptionText {
+            width: 85%;
+            margin: 40px 0 0 0;
+        }
+        &__linkContainer {
+            &__link {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+                &__iconContainer {
+                    display: block;
+                }
+            }
+        }
     }
-  }
 }
 
 @media screen and (max-width: 600px) {
-  .restaurantDescription {
-    min-width: 380px;
-  }
+    .restaurantDescription {
+        min-width: 380px;
+    }
 }
 
 @media screen and (max-width: 414px) {
-  .restaurantDescription {
-    min-width: 350px;
-
-    &__bookingContainer_mobile {
-      width: 95%;
+    .restaurantDescription {
+        min-width: 350px;
+        &__bookingContainer_mobile {
+            width: 95%;
+        }
+        &__descriptionText {
+            width: 95%;
+            min-width: unset;
+        }
+        &__linkContainer {
+            &__link {
+                text-align: center;
+            }
+        }
     }
-
-    &__descriptionText {
-      width: 95%;
-      min-width: unset;
-    }
-
-    &__linkContainer {
-      &__link {
-        text-align: center;
-      }
-    }
-  }
 }
 
 @media screen and (max-width: 375px) {
-  .restaurantDescription {
-    min-width: 310px;
-  }
+    .restaurantDescription {
+        min-width: 310px;
+    }
 }
 
 @media screen and (max-width: 320px) {
-  .restaurantDescription {
-    min-width: 280px;
-
-    &__bookingContainer_mobile {
-      width: 100%;
-    }
-
-    &__linkContainer {
-      &__link {
-        &__iconContainer {
-          &__icon {
+    .restaurantDescription {
+        min-width: 280px;
+        &__bookingContainer_mobile {
             width: 100%;
-            height: 100%;
-          }
         }
-      }
+        &__linkContainer {
+            &__link {
+                &__iconContainer {
+                    &__icon {
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+            }
+        }
     }
-  }
 }
