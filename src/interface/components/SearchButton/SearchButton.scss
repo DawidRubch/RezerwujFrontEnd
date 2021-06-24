@@ -1,26 +1,25 @@
 .search-button {
-  border: none;
-  border-radius: 20px;
-  outline: none;
-  /* Font */
-  font-size: 30px;
-  font-family: "Montserrat", sans-serif;
-  font-weight: bold;
-  text-decoration: none;
-  color: white;
-  background-color: #e54949;
-  cursor: pointer;
-  -webkit-transition-duration: 0.4s;
-  transition-duration: 0.4s;
-  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
-    0 17px 50px 0 rgba(0, 0, 0, 0.19);
-  &:hover {
-    background-color: #d29696;
-  }
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    /* Font */
+    font-size: 30px;
+    font-family: "Montserrat", sans-serif;
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+    background-color: #FF6F00;
+    cursor: pointer;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+    &:hover {
+        background-color: #d29696;
+    }
 }
 
 @media screen and (max-width: 320px) {
-  .search-button {
-    font-size: 25px;
-  }
+    .search-button {
+        font-size: 25px;
+    }
 }

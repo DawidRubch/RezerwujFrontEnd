@@ -13,9 +13,13 @@ class GA {
   };
 
   trackPageView = (pathname: string) => {
-    window.gtag("event", pathname, {
-      event_category: Category.PAGE_CHOICE,
-    });
+    //Sending page info on every page besides main
+    if (pathname !== "/") {
+      //Pathname is sliced due to it's first letter is "/"
+      window.gtag("event", pathname.slice(1), {
+        event_category: Category.PAGE_CHOICE,
+      });
+    }
   };
 }
 
