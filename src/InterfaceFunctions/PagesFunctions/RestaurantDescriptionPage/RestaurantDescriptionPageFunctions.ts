@@ -32,9 +32,10 @@ export class RestaurantDescriptionPageFunctions {
     this.error = error;
     this.setPending = setPending;
     this.pending = pending;
-    this.mappingAltBookingHoursToBookTimeComponents = this.information?.alternativeBookingHours.map(
-      (bt: any) => bookTimeFromJson(bt)
-    );
+    this.mappingAltBookingHoursToBookTimeComponents =
+      this.information?.alternativeBookingHours.map((bt: any) =>
+        bookTimeFromJson(bt)
+      );
   }
 
   manageState = () => {
@@ -42,13 +43,12 @@ export class RestaurantDescriptionPageFunctions {
     this.restaurantOrPubRepository
       .getRestaurantInfoDescriptionPage(this.name, this.bookTime)
       .then((res) => {
-        this.setInformation(res)
+        this.setInformation(res);
         this.setPending(false);
       })
       .catch((err: AxiosError) => {
         this.setError(err);
-        this.setPending(false)
+        this.setPending(false);
       });
   };
-
 }

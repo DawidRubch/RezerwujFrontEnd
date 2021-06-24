@@ -67,13 +67,13 @@ export class RestaurantOrPubRemoteDb {
 
     const responseData: (
       | {
-        minute: number;
-        hour: number;
-        day: number;
-        month: number;
-        year: number;
-        people: number;
-      }
+          minute: number;
+          hour: number;
+          day: number;
+          month: number;
+          year: number;
+          people: number;
+        }
       | null
       | 0
     )[] = data;
