@@ -13,46 +13,47 @@
     padding: 16px 10px;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
-    background-color: #4e4e4e;
+    background-color: #575f98;
     &__label {
       font-size: 24px;
       text-align: center;
       color: #fff;
     }
   }
-  &__innerContainer {
-    padding: 10px 10px 0;
-    &__param {
-      text-align: left;
-      margin: 5px 10px 5px 15px;
-      &__label {
-        padding: 5px;
-      }
+}
+
+&__innerContainer {
+  padding: 10px 10px 0;
+  &__param {
+    text-align: left;
+    margin: 5px 10px 5px 15px;
+    &__label {
+      padding: 5px;
     }
-    &__inputContainer {
-      width: 280px;
-    }
-    &__bookingHours {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: fit-content;
-      margin-top: 30px;
-      &__reloadButton {
-        width: 75%;
-        height: 50px;
-        margin-top: 20px;
-        padding: 12px;
-        border-radius: 10px;
-        background-color: #ff6f00;
-        font-size: 16px;
-        outline: none;
-        border: none;
-        color: #fff;
-        cursor: pointer;
-        &:hover {
-          background-color: #d29696;
-        }
+  }
+  &__inputContainer {
+    width: 280px;
+  }
+  &__bookingHours {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: fit-content;
+    margin-top: 30px;
+    &__reloadButton {
+      width: 75%;
+      height: 50px;
+      margin-top: 20px;
+      padding: 12px;
+      border-radius: 10px;
+      background-color: #ff6f00;
+      font-size: 16px;
+      outline: none;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      &:hover {
+        background-color: #d29696;
       }
     }
   }

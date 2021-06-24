@@ -91,6 +91,23 @@
     &__tags {
       margin: 0;
       padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      padding-top: 10px;
+      margin-left: 10px;
+      &__tag {
+        background-color: #686f9e;
+        color: #fff;
+        font-weight: bold;
+        border-radius: 15px;
+        margin: 10px 10px 0 0;
+        padding: 8px;
+      }
+    }
+    &__hr {
+      width: 47vw;
+      min-width: 300px;
+      margin: 20px 0 20px 10px;
     }
     &__bookingContainer_mobile {
       display: flex;
