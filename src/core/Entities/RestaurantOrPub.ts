@@ -59,12 +59,10 @@ export function fromJson(restaurantOrPubJSON: any): RestaurantOrPub {
     restaurantOrPubJSON.location.lat,
     restaurantOrPubJSON.location.long
   );
-  let weekArray: Array<DayOfTheWeekOpenHours | null> = restaurantOrPubJSON.weekArray.map(
-    _mapWeekDay
-  );
-  let bookTimeArray: BookTime[] = restaurantOrPubJSON.bookTimeArray.map(
-    _mapBookTime
-  );
+  let weekArray: Array<DayOfTheWeekOpenHours | null> =
+    restaurantOrPubJSON.weekArray.map(_mapWeekDay);
+  let bookTimeArray: BookTime[] =
+    restaurantOrPubJSON.bookTimeArray.map(_mapBookTime);
   let restaurantOrPubEntity = new RestaurantOrPub(
     restaurantOrPubJSON.name,
     restaurantOrPubJSON.type,

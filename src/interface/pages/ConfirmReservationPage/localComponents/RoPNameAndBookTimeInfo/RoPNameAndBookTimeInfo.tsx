@@ -21,15 +21,33 @@ export const RoPNameAndBookTimeInfo = ({
       <div className="restaurantDetails__info">
         <SmallBookingInfo
           insideText={confirmReservationFunctions.textInsideCalendarBookingInfo}
-          icon={<img className="restaurantDetails__info__icon" src={CalendarIcon} alt="calendar-icon" />}
+          icon={
+            <img
+              className="restaurantDetails__info__icon"
+              src={CalendarIcon}
+              alt="calendar-icon"
+            />
+          }
         />
         <SmallBookingInfo
           insideText={confirmReservationFunctions.textInsideHourBookingInfo}
-          icon={<img className="restaurantDetails__info__icon" src={ClockIcon} alt="clock-icon" />}
+          icon={
+            <img
+              className="restaurantDetails__info__icon"
+              src={ClockIcon}
+              alt="clock-icon"
+            />
+          }
         />
         <SmallBookingInfo
           insideText={confirmReservationFunctions.textInsidePeopleBookingInfo}
-          icon={<img className="restaurantDetails__info__icon" src={PeopleIcon} alt="people-icon" />}
+          icon={
+            <img
+              className="restaurantDetails__info__icon"
+              src={PeopleIcon}
+              alt="people-icon"
+            />
+          }
         />
       </div>
     </div>

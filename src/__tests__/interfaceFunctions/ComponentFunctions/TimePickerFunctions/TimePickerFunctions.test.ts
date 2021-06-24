@@ -91,8 +91,6 @@ describe("TimePickerFunctions", () => {
 
     expect(dateArray).toStrictEqual(tFullDatesArray);
   });
-
-  
 });
 
 export {};
