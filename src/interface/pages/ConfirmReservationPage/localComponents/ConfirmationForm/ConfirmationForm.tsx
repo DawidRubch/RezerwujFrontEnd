@@ -12,14 +12,14 @@ export const ConfirmationForm = ({ inputObject, onSubmit }: any) => {
         value={inputObject.nameInput}
         required={true}
       />
-      <InformationInput
+      {/* <InformationInput
         autoComplete={"last name"}
         name="lname"
         placeHolder={"Nazwisko"}
         onChange={inputObject.setSurNameInput}
         value={inputObject.surNameInput}
         required={true}
-      />
+      /> */}
       <InformationInput
         autoComplete="tel"
         name="phone"
@@ -30,13 +30,13 @@ export const ConfirmationForm = ({ inputObject, onSubmit }: any) => {
         errorTitle="Numer musi składać się z 9 cyfr!"
         required={true}
       />
-      <InformationInput
+      {/* <InformationInput
         autoComplete="email"
         name="email"
         placeHolder={"Email"}
         onChange={inputObject.setEmailInput}
         value={inputObject.emailInput}
-      />
+      /> */}
       <button type="submit" className="confirm-reservation-button">
         Potwierdź rezerwację
       </button>
