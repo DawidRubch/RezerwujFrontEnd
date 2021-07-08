@@ -9,7 +9,7 @@ import {
 export const tRestaurantOrPub = new RestaurantOrPub(
   "Restauracja",
   "polska",
-  ["fajna","mila"],
+  ["fajna", "mila"],
   "jest tu fajnie",
   new ROPLocation(50, 30),
   20,

@@ -9,6 +9,5 @@ export class RestaurantOrPubArrayModel {
 }
 
 export function ROPArrayFromJson(data: RestaurantOrPub[]): RestaurantOrPub[] {
-  
   return data.map((RoP: RestaurantOrPub) => fromJson(RoP));
 }
