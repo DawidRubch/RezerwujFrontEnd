@@ -12,7 +12,7 @@
         padding: 16px 10px;
         border-top-left-radius: 8px;
         border-top-right-radius: 8px;
-        background-color: #4E4E4E;
+        background-color: #4e4e4e;
         &__label {
             font-size: 24px;
             text-align: center;
@@ -29,7 +29,7 @@
             }
         }
         &__inputContainer {
-            width: 280px;
+            width: 100%;
         }
         &__bookingHours {
             display: flex;
@@ -43,7 +43,7 @@
                 margin-top: 20px;
                 padding: 12px;
                 border-radius: 10px;
-                background-color: #FF6F00;
+                background-color: #ff6f00;
                 font-size: 16px;
                 outline: none;
                 border: none;
