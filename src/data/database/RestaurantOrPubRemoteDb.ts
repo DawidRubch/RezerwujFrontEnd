@@ -15,7 +15,7 @@ export class RestaurantOrPubRemoteDb {
       "Access-Control-Allow-Origin": "*",
     },
   };
-  enviromentType = process.env.ENVIROMENT_VARIABLE;
+  enviromentType = process.env.NODE_ENV;
 
   async getRestaurantsFromDb(bookTime: BookTime, address?: string) {
     let bookTimeToJson = bookTime.toJson();
