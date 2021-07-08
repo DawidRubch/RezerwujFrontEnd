@@ -108,6 +108,7 @@
       &__name {
         font-size: 45px;
       }
+
     }
     &__type {
       margin: 10px 0;
@@ -119,6 +120,7 @@
       height: 250px;
       margin: 0 auto;
     }
+
     &__additionalInfo {
       width: 100%;
       max-width: 400px;
@@ -149,12 +151,14 @@
       width: 320px;
       min-width: 320px;
       height: 200px;
+
     }
     &__additionalInfo {
       &__tagContainer {
         max-width: 320px;
       }
     }
+
   }
 }
 
@@ -162,8 +166,8 @@
   .restaurantComponent {
     &__additionalInfo {
       &__tagContainer {
-        flex-wrap: nowrap;
-        flex-direction: column;
+        width: 300px;
+        justify-content: space-evenly;
         &__tag {
           margin: 10px 0 0 0;
           text-align: center;
@@ -182,6 +186,7 @@
       &__name {
         font-size: 36px;
       }
+
     }
     &__type {
       font-size: 14px;
@@ -196,5 +201,6 @@
         max-width: 280px;
       }
     }
+
   }
 }

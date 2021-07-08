@@ -15,6 +15,7 @@ export class RestaurantOrPubRemoteDb {
       "Access-Control-Allow-Origin": "*",
     },
   };
+  enviromentType = process.env.ENVIROMENT_VARIABLE;
 
   async getRestaurantsFromDb(bookTime: BookTime, address?: string) {
     let bookTimeToJson = bookTime.toJson();
@@ -24,6 +25,7 @@ export class RestaurantOrPubRemoteDb {
     const postData = {
       address: address,
       bookTime: bookTimeToJson,
+      enviromentType: this.enviromentType,
     };
 
     const { data } = await axios.post(URL, postData, this.config);
@@ -34,7 +36,7 @@ export class RestaurantOrPubRemoteDb {
   async getRestaurantInfoDescriptionPage(name: string, bookTime: BookTime) {
     const URL = `${APIURLS.serverAddress}${APIURLS.getRestaurantInfoDescriptionPage}`;
 
-    const postData = { name, bookTime };
+    const postData = { name, bookTime, enviromentType: this.enviromentType };
 
     const { data } = await axios.post(URL, postData, this.config);
 
@@ -46,7 +48,11 @@ export class RestaurantOrPubRemoteDb {
   async getRestaurantInfoConfirmPage(name: string, bookTime: BookTime) {
     const URL = `${APIURLS.serverAddress}${APIURLS.getRestaurantInfoConfirmPage}`;
 
-    const { data } = await axios.post(URL, { name, bookTime }, this.config);
+    const { data } = await axios.post(
+      URL,
+      { name, bookTime, enviromentType: this.enviromentType },
+      this.config
+    );
 
     if (typeof data === "number") {
       return;
@@ -61,7 +67,7 @@ export class RestaurantOrPubRemoteDb {
 
     const { data }: any = await axios.post(
       URL,
-      { name, bookTime },
+      { name, bookTime, enviromentType: this.enviromentType },
       this.config
     );
 
@@ -135,6 +141,7 @@ async function manageReservations(
       people,
       name,
     },
+    enviromentType: process.env.ENVIROMENT_VARIABLE,
   };
 
   const URL = `${APIURLS.serverAddress}${APIURLS.reservation.reservation}${AddOrDeleteRoutePath}`;

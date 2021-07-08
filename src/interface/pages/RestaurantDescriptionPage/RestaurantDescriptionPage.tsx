@@ -74,7 +74,6 @@ export default function RestaurantDescriptionPage() {
 }
 
 //ImageContainer
-
 interface ImageContainerProps {
   descriptionPageImg: string | undefined;
 }

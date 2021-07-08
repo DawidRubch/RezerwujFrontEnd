@@ -85,3 +85,25 @@
     }
   }
 }
+
+@media screen and (max-width: 414px) {
+  .booking-hours-component-universal {
+    height: unset;
+  }
+  .booking-hours-component-pc {
+    width: 75%;
+    height: unset;
+    margin-top: 20px;
+  }
+  .book__buttons__button {
+    height: 40px;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .book__buttons__button--closed {
+    margin-bottom: 20px;
+  }
+}
+
+

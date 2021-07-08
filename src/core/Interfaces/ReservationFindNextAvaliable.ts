@@ -13,4 +13,5 @@ export interface ReservationFindNextAvaliableJson {
     people: number;
     name: string;
   };
+  enviromentType: string | undefined;
 }
