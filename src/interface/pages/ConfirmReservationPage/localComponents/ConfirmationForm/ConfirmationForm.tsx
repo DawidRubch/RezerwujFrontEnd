@@ -25,8 +25,8 @@ export const ConfirmationForm = ({ inputObject, onSubmit }: any) => {
       <InformationInput
         name="additionalInfo"
         placeHolder="Dodatkowe informacje (opcjonalnie)"
-        onChange={inputObject.additionalInfo}
-        value={inputObject.setAdditionalInfo}
+        onChange={inputObject.setAdditionalInfo}
+        value={inputObject.additionalInfo}
         required
         isAdditionalInfoInput
       />

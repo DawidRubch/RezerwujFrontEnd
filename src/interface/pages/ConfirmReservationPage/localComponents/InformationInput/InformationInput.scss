@@ -11,6 +11,10 @@
   &:nth-child(4) {
     justify-self: flex-end;
   }
+  &_additional-info-input {
+    @extend .information-input;
+    width: 3500px;
+  }
 }
 
 @media screen and (max-width: 900px) {
@@ -18,6 +22,9 @@
     width: 265px;
     height: 42px;
     font-size: 18px;
+    &_additional-info-input {
+      width: 3500px;
+    }
   }
 }
 
@@ -29,6 +36,9 @@
     &:nth-child(2),
     &:nth-child(4) {
       justify-self: initial;
+    }
+    &_additional-info-input {
+      height: 70px;
     }
   }
 }

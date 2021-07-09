@@ -28,7 +28,7 @@ export function InformationInput({
   return (
     <input
       className={`information-input${
-        isAdditionalInfoInput ?? "_additional-info-input"
+        isAdditionalInfoInput ? "_additional-info-input" : ""
       }`}
       name={name}
       autoComplete={autoComplete}
