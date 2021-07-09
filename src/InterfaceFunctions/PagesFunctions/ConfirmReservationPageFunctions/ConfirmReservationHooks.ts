@@ -10,6 +10,7 @@ export function useInput(state: any) {
   const [surNameInput, setSurNameInput] = useState<string | undefined>();
   const [numberInput, setNumberInput] = useState<string | undefined>("");
   const [emailInput, setEmailInput] = useState<string | undefined>();
+  const [additionalInfo, setAdditionalInfo] = useState<string | undefined>("");
 
   const onNumberInputChange = (phoneNumber: string) => {
     const ONLY_NUMBER_REGEX = /^\d+$/;
@@ -36,6 +37,8 @@ export function useInput(state: any) {
     onNumberInputChange,
     emailInput,
     setEmailInput,
+    additionalInfo,
+    setAdditionalInfo,
   };
 }
 

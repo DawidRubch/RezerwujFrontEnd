@@ -2,10 +2,10 @@ import React from "react";
 import "./InformationInput.scss";
 interface InformationInputInterface {
   placeHolder: string;
-  value: any;
-  onChange: any;
-  autoComplete: string;
+  value: string;
+  onChange: (arg0: any) => void;
   name: string;
+  autoComplete?: string;
   pattern?: string;
   errorTitle?: string;
   required?: boolean;
