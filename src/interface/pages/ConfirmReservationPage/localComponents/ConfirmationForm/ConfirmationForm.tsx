@@ -1,12 +1,15 @@
 import React from "react";
-import { InformationInput } from "../InformationInput/InformationInput";
+import {
+  InformationInput,
+  InputNames,
+} from "../InformationInput/InformationInput";
 import "./ConfirmationForm.scss";
 export const ConfirmationForm = ({ inputObject, onSubmit }: any) => {
   return (
     <form className="confirmation-form" onSubmit={(event) => onSubmit(event)}>
       <InformationInput
         autoComplete="first name"
-        name="fname"
+        name={InputNames.Name}
         placeHolder="Imię"
         onChange={inputObject.setNameInput}
         value={inputObject.nameInput}
@@ -14,7 +17,7 @@ export const ConfirmationForm = ({ inputObject, onSubmit }: any) => {
       />
       <InformationInput
         autoComplete="tel"
-        name="phone"
+        name={InputNames.phoneNumber}
         placeHolder="Telefon"
         onChange={inputObject.onNumberInputChange}
         value={inputObject.numberInput}
@@ -23,7 +26,7 @@ export const ConfirmationForm = ({ inputObject, onSubmit }: any) => {
         required
       />
       <InformationInput
-        name="additionalInfo"
+        name={InputNames.additionalInfo}
         placeHolder="Dodatkowe informacje (opcjonalnie)"
         onChange={inputObject.setAdditionalInfo}
         value={inputObject.additionalInfo}
