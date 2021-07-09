@@ -28,6 +28,7 @@ export const ConfirmationForm = ({ inputObject, onSubmit }: any) => {
         onChange={inputObject.additionalInfo}
         value={inputObject.setAdditionalInfo}
         required
+        isAdditionalInfoInput
       />
       {/* <InformationInput
         autoComplete="email"

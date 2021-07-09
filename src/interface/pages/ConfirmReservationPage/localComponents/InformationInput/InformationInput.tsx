@@ -3,8 +3,9 @@ import "./InformationInput.scss";
 interface InformationInputInterface {
   placeHolder: string;
   value: string;
-  onChange: (arg0: any) => void;
+  onChange: (inputValue: string) => void;
   name: string;
+  isAdditionalInfoInput?: boolean;
   autoComplete?: string;
   pattern?: string;
   errorTitle?: string;
@@ -16,6 +17,7 @@ export function InformationInput({
   onChange,
   autoComplete,
   name,
+  isAdditionalInfoInput,
   pattern,
   errorTitle,
   required,
@@ -25,7 +27,9 @@ export function InformationInput({
     onChange(e.target.value);
   return (
     <input
-      className="information-input"
+      className={`information-input${
+        isAdditionalInfoInput ?? "_additional-info-input"
+      }`}
       name={name}
       autoComplete={autoComplete}
       value={value}
