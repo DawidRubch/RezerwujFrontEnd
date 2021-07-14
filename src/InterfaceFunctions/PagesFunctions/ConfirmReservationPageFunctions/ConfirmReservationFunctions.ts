@@ -1,6 +1,10 @@
 import { BookTime } from "../../../core/Entities";
 import { PeopleArr } from "../../../core/ImportantVariables/variables";
 import RestaurantOrPubRepository from "../../../domain/repository/RestaurantPubRepository";
+import {
+  InputObjectInterface,
+  LocationStateInterface,
+} from "./ConfirmReservationHooks";
 
 export default class ConfirmReservationFunctions {
   //Variable initialization
@@ -41,7 +45,7 @@ export default class ConfirmReservationFunctions {
   callsApiIfItDoesntHavePassedData = (
     state: any,
     name: string | string[],
-    setLocationState: React.Dispatch<any>
+    setLocationState: any
   ) => {
     if (!state) {
       //Calls api and gets name of the restaurant and if the booktime is free
@@ -54,9 +58,9 @@ export default class ConfirmReservationFunctions {
   //Function called when confirm reservation button is pressed
   onClickConfirmReservation = async (
     name: string | string[],
-    inputObject: any
+    inputObject: InputObjectInterface
   ) => {
-    let { numberInput, nameInput, surNameInput, emailInput } = inputObject;
+    const { numberInput, nameInput, additionalInfo } = inputObject;
 
     //Saving book time to database
     const response = await this.restaurantPubRepository.saveBookTime(
@@ -64,8 +68,7 @@ export default class ConfirmReservationFunctions {
       name.toString(),
       numberInput as string,
       nameInput as string,
-      surNameInput as string,
-      emailInput
+      additionalInfo
     );
 
     return response;

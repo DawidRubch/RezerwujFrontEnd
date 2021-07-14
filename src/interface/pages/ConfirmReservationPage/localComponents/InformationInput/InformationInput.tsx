@@ -1,11 +1,19 @@
 import React from "react";
 import "./InformationInput.scss";
+
+export enum InputNames {
+  Name = "fname",
+  phoneNumber = "phoneNumber",
+  additionalInfo = "additionalInfo",
+}
+
 interface InformationInputInterface {
   placeHolder: string;
-  value: any;
-  onChange: any;
-  autoComplete: string;
-  name: string;
+  value: string;
+  onChange: (inputValue: string) => void;
+  name: InputNames;
+  isAdditionalInfoInput?: boolean;
+  autoComplete?: string;
   pattern?: string;
   errorTitle?: string;
   required?: boolean;
@@ -16,6 +24,7 @@ export function InformationInput({
   onChange,
   autoComplete,
   name,
+  isAdditionalInfoInput,
   pattern,
   errorTitle,
   required,
@@ -25,7 +34,9 @@ export function InformationInput({
     onChange(e.target.value);
   return (
     <input
-      className="information-input"
+      className={`information-input${
+        isAdditionalInfoInput ? "_additional-info-input" : ""
+      }`}
       name={name}
       autoComplete={autoComplete}
       value={value}
@@ -34,6 +45,7 @@ export function InformationInput({
       pattern={pattern}
       title={errorTitle}
       required={required}
+      maxLength={40}
     />
   );
 }

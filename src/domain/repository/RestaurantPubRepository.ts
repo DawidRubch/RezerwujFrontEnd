@@ -34,17 +34,15 @@ export default class RestaurantOrPubRepository {
     bookTime: BookTime,
     restaurantName: string,
     number: string,
-    name: string,
-    surName: string,
-    email?: string
+    personName: string,
+    additionalInfo?: string
   ) {
     return await this.restaurantOrPubRemoteDb.saveBookTime(
       bookTime,
       restaurantName,
       number,
-      name,
-      surName,
-      email
+      personName,
+      additionalInfo
     );
   }
 
