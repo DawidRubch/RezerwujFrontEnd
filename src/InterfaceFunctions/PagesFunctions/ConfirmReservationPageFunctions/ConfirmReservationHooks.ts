@@ -1,11 +1,36 @@
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import queryString from "querystring";
+import { BookTime, RestaurantOrPub } from "../../../core/Entities";
+
+export interface InputObjectInterface {
+  locationState: LocationStateInterface | undefined;
+  setLocationState: React.Dispatch<
+    React.SetStateAction<LocationStateInterface | undefined>
+  >;
+  nameInput: string | undefined;
+  setNameInput: React.Dispatch<React.SetStateAction<string | undefined>>;
+  surNameInput: string | undefined;
+  setSurNameInput: React.Dispatch<React.SetStateAction<string | undefined>>;
+  numberInput: string | undefined;
+  onNumberInputChange: (phoneNumber: string) => void;
+  emailInput: string | undefined;
+  setEmailInput: React.Dispatch<React.SetStateAction<string | undefined>>;
+  additionalInfo: string | undefined;
+  setAdditionalInfo: React.Dispatch<React.SetStateAction<string | undefined>>;
+}
+
+export interface LocationStateInterface {
+  bookTime: BookTime;
+  restaurantOrPub: RestaurantOrPub;
+}
 
 //Returns all useState input properties
-export function useInput(state: any) {
+export function useInput(state: LocationStateInterface): InputObjectInterface {
   //Input use state hooks
-  const [locationState, setLocationState] = useState(state || undefined);
+  const [locationState, setLocationState] = useState<
+    LocationStateInterface | undefined
+  >(state || undefined);
   const [nameInput, setNameInput] = useState<string | undefined>();
   const [surNameInput, setSurNameInput] = useState<string | undefined>();
   const [numberInput, setNumberInput] = useState<string | undefined>("");

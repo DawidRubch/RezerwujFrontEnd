@@ -6,7 +6,7 @@ import {
 import "./ConfirmationForm.scss";
 export const ConfirmationForm = ({ inputObject, onSubmit }: any) => {
   return (
-    <form className="confirmation-form" onSubmit={(event) => onSubmit(event)}>
+    <form className="confirmation-form" onSubmit={onSubmit}>
       <InformationInput
         autoComplete="first name"
         name={InputNames.Name}

@@ -90,19 +90,17 @@ export class RestaurantOrPubRemoteDb {
     bookTime: BookTime,
     restaurantName: string,
     number: string,
-    name: string,
-    surName: string,
-    email?: string
+    personName: string,
+    additionalInfo?: string
   ) {
     return await manageReservations(
       APIURLS.reservation.save,
       restaurantName,
       bookTime,
       this.config,
-      name,
-      surName,
-      number,
-      email
+      personName,
+      additionalInfo,
+      number
     );
   }
   async deleteBookTime(bookTime: BookTime, restaurantName: string) {
@@ -121,17 +119,15 @@ async function manageReservations(
   bookTime: BookTime,
   config: any,
   personName?: string,
-  surName?: string,
-  number?: string,
-  email?: string
+  additionalInfo?: string,
+  number?: string
 ) {
   const { minute, hour, year, day, month, people, name } = bookTime.toJson();
   const bookTimeJsonWithName: ReservationFindNextAvaliableJson = {
     name: restaurantName,
-    email,
     personName,
-    surName,
     number,
+    additionalInfo,
     bookTime: {
       minute,
       hour,
