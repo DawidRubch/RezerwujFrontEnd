@@ -9,10 +9,43 @@ import "./RestaurantPubComponent.scss";
 interface RestaurantPubComponentProps {
   restaurantPubArr: RestaurantOrPub[] | undefined;
 }
+
 export default function RestaurantPubComponent({
   restaurantPubArr,
 }: RestaurantPubComponentProps) {
   const { hour, people, date, location }: any = useSelector((state) => state);
+
+  const returnRoPNameComponent = (RoP: RestaurantOrPub) => (
+    <Link
+      className="restaurantComponent__link"
+      to={{
+        pathname: "/opis-restauracji",
+        state: {
+          from: "lista-restauracji",
+          RoP,
+        },
+        search: mapPropToSearchQuery(
+          location,
+          date.toString(),
+          hour,
+          people,
+          RoP.name
+        ),
+      }}
+    >
+      <b className="restaurantComponent__link__name">{RoP.name}</b>
+    </Link>
+  );
+
+  const returnRopTags = (RoP: RestaurantOrPub) =>
+    RoP.tags.map((tag, index: number) => (
+      <span
+        key={index}
+        className="restaurantComponent__additionalInfo__tagContainer__tag"
+      >
+        {tag}
+      </span>
+    ));
 
   return (
     <main className="restaurantArray">
@@ -21,25 +54,7 @@ export default function RestaurantPubComponent({
           <div className="restaurantComponentWraper" key={index}>
             <div className="restaurantComponent">
               <div className="restaurantComponent__basicInfo_mobile">
-                <Link
-                  className="restaurantComponent__link"
-                  to={{
-                    pathname: "/opis-restauracji",
-                    state: {
-                      from: "lista-restauracji",
-                      RoP,
-                    },
-                    search: mapPropToSearchQuery(
-                      location,
-                      date.toString(),
-                      hour,
-                      people,
-                      RoP.name
-                    ),
-                  }}
-                >
-                  <b className="restaurantComponent__link__name">{RoP.name}</b>
-                </Link>
+                {returnRoPNameComponent(RoP)}
                 <span className="restaurantComponent__type">{RoP.type}</span>
               </div>
               <img
@@ -47,42 +62,19 @@ export default function RestaurantPubComponent({
                 alt="Restaurant"
                 src={RoP.image}
               />
+
               <div className="restaurantComponent__additionalInfo">
                 <div className="restaurantComponent__basicInfo_pc">
-                  <Link
-                    className="restaurantComponent__link"
-                    to={{
-                      pathname: "/opis-restauracji",
-                      state: {
-                        from: "lista-restauracji",
-                        RoP,
-                      },
-                      search:
-                        mapPropToSearchQuery(
-                          location,
-                          date.toString(),
-                          hour,
-                          people
-                        ) + `&name=${RoP.name}`,
-                    }}
-                  >
-                    <b className="restaurantComponent__link__name">
-                      {RoP.name}
-                    </b>
-                  </Link>
+                  {returnRoPNameComponent(RoP)}
+
                   <div className="restaurantComponent__type">{RoP.type}</div>
+                  <div className="restaurantComponent__shortDescription">
+                    Tutaj jest super jest bardzo fajnie :) śmiesznie i fajnie
+                    haha :D
+                  </div>
                 </div>
                 <div className="restaurantComponent__additionalInfo__tagContainer">
-                  {RoP.tags.map((tag, index: number) => {
-                    return (
-                      <span
-                        key={index}
-                        className="restaurantComponent__additionalInfo__tagContainer__tag"
-                      >
-                        {tag}
-                      </span>
-                    );
-                  })}
+                  {returnRopTags(RoP)}
                 </div>
                 <BookingHoursComponent
                   restaurantOrPub={RoP}

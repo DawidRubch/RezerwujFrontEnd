@@ -23,6 +23,10 @@
     margin: 10px 10px 10px 0;
     font-weight: bold;
   }
+  &__shortDescription {
+    margin: 10px 10px 10px 0;
+    max-width: 350px;
+  }
   &__img {
     width: 400px;
     height: 250px;
@@ -119,7 +123,6 @@
       height: 250px;
       margin: 0 auto;
     }
-
     &__additionalInfo {
       width: 100%;
       max-width: 400px;
