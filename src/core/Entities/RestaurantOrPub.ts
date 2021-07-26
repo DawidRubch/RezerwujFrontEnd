@@ -7,7 +7,7 @@ export class RestaurantOrPub {
   type: string;
   tags: string[];
   shortDescription: string;
-  location: ROPLocation;
+
   distance: number;
   chairs: number;
   menuLink: string;
@@ -23,7 +23,7 @@ export class RestaurantOrPub {
     //Tags such as 'miła atmosfera' or "dużo opcji wegetariańskich"
     tags: string[],
     shortDescription: string,
-    location: ROPLocation,
+
     //Distance is -1 by default
     chairs: number,
     menuLink: string,
@@ -44,7 +44,6 @@ export class RestaurantOrPub {
     this.tags = tags;
     this.shortDescription = shortDescription;
     this.distance = -1;
-    this.location = location;
     this.chairs = chairs;
     this.menuLink = menuLink;
     this.bookTimeArray = bookTimeArray;
@@ -55,10 +54,6 @@ export class RestaurantOrPub {
 }
 //Napisać testy pod t
 export function fromJson(restaurantOrPubJSON: any): RestaurantOrPub {
-  let location: ROPLocation = new ROPLocation(
-    restaurantOrPubJSON.location.lat,
-    restaurantOrPubJSON.location.long
-  );
   let weekArray: Array<DayOfTheWeekOpenHours | null> =
     restaurantOrPubJSON.weekArray.map(_mapWeekDay);
   let bookTimeArray: BookTime[] =
@@ -68,7 +63,6 @@ export function fromJson(restaurantOrPubJSON: any): RestaurantOrPub {
     restaurantOrPubJSON.type,
     restaurantOrPubJSON.tags,
     restaurantOrPubJSON.shortDescription,
-    location,
     restaurantOrPubJSON.chairs,
     restaurantOrPubJSON.menuLink,
     bookTimeArray,

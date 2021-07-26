@@ -19,7 +19,6 @@ import GA from "./data/trackers/GA";
 export function App() {
   const location = useLocation();
 
-  console.log(process.env);
   useEffect(() => {
     GA.trackPageView(location.pathname);
   }, [location]);

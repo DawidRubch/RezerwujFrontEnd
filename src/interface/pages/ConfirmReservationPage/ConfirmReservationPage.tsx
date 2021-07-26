@@ -84,7 +84,6 @@ export function ConfirmReservationPage(): JSX.Element {
     );
   }
 
-  //Tutaj activity indicator
   return <Loader />;
 }
 

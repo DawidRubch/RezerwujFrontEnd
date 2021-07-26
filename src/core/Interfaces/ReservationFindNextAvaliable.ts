@@ -4,6 +4,7 @@ export interface ReservationFindNextAvaliableJson {
   number?: string;
   personName?: string;
   surName?: string;
+  additionalInfo?: string;
   bookTime: {
     minute: number;
     hour: number;
