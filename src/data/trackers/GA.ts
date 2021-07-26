@@ -14,12 +14,11 @@ class GA {
 
   trackPageView = (pathname: string) => {
     //Sending page info on every page besides main
-    if (pathname !== "/") {
-      //Pathname is sliced due to it's first letter is "/"
-      window.gtag("event", pathname.slice(1), {
-        event_category: Category.PAGE_CHOICE,
-      });
-    }
+    if (pathname !== "/") return;
+    //Pathname is sliced due to it's first letter is "/"
+    window.gtag("event", pathname.slice(1), {
+      event_category: Category.PAGE_CHOICE,
+    });
   };
 }
 

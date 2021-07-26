@@ -16,6 +16,7 @@ interface GlobalVariablesInterface {
   name?: string;
 }
 
+//@todo Think how to improve the whole global variables managment
 //Hook takes search parametes and updates them to the redux store
 export function useGlobalVariables(): GlobalVariablesInterface {
   const { hourParam, locationParam, peopleParam, dateParam, name } =

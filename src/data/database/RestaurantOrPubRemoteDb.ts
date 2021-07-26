@@ -6,6 +6,7 @@ import { ReservationFindNextAvaliableJson } from "../../core/Interfaces/Reservat
 import { RestaurantDescriptionInfoResponse } from "../../core/Interfaces/RestaurantDescriptionInfoResponse";
 import { RestaurantConfirmInfoResponse } from "../../core/Interfaces/RestaurantConfirmInfoResponse";
 
+//@todo refactor
 export class RestaurantOrPubRemoteDb {
   //Config to send to database
   config = {

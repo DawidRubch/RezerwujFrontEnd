@@ -1,6 +1,5 @@
 import { DayOfTheWeekOpenHours } from "../../../core/Entities/DayOfTheWeek";
 import { BookTime } from "../../../core/Entities/BookTime";
-import { ROPLocation } from "../../../core/Entities/Location";
 import {
   fromJson,
   RestaurantOrPub,

@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { useGlobalVariables } from "../../../core/Helper/ReduxCustomHooks/useGlobalVariables";
 import { mapPropToSearchQuery } from "../../../core/Helper/SearchQuery/mapPropertiesToSearchQuery";
 
+//@todo addtionalClassName put into type or enum
+//@todo onPressed is a function
 interface SearchButtonProps {
   searchParams?: string;
   onPressed?: any;

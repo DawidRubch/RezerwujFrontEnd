@@ -1,5 +1,4 @@
 import React from "react";
-import { useCallback } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { RestaurantOrPub } from "../../../../../core/Entities";
@@ -9,6 +8,7 @@ import "./RestaurantPubComponent.scss";
 interface RestaurantPubComponentProps {
   restaurantPubArr: RestaurantOrPub[] | undefined;
 }
+//@todo Refactor this
 export default function RestaurantPubComponent({
   restaurantPubArr,
 }: RestaurantPubComponentProps) {

@@ -40,6 +40,7 @@ function BookingHoursArr({
 }: BookingHoursArrInterface) {
   let history = useHistory();
 
+  //@todo Create function to push history
   const bookReservation = (bookTime: BookTime) => {
     history.push({
       pathname: "/potwierdz-rezerwacje",

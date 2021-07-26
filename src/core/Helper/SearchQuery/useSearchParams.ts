@@ -8,6 +8,8 @@ interface ParamsInterface {
   peopleParam: number;
   name?: string;
 }
+
+//@todo Refactor
 export function useSearchParams(): ParamsInterface {
   const { search } = useLocation();
   let { dateString, location, hour, people, name } = queryString.parse(search);

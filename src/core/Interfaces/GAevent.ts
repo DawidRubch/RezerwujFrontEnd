@@ -1,3 +1,4 @@
+//@todo Put all interfaces into one file
 export enum Category {
   PARAMETER_CHOICE = "ParameterChoice",
   RESERVATION = "Reservation",

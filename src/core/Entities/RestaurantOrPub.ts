@@ -1,6 +1,5 @@
 import { BookTime } from "./BookTime";
 import { DayOfTheWeekOpenHours } from "./DayOfTheWeek";
-import { ROPLocation } from "./Location";
 
 export class RestaurantOrPub {
   name: string;
@@ -52,7 +51,7 @@ export class RestaurantOrPub {
     this.alternativeBookingHours = [];
   }
 }
-//Napisać testy pod t
+//@todo Refactor this
 export function fromJson(restaurantOrPubJSON: any): RestaurantOrPub {
   let weekArray: Array<DayOfTheWeekOpenHours | null> =
     restaurantOrPubJSON.weekArray.map(_mapWeekDay);
