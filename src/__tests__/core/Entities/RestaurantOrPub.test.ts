@@ -11,7 +11,6 @@ export const tRestaurantOrPub = new RestaurantOrPub(
   "polska",
   ["fajna", "mila"],
   "jest tu fajnie",
-  new ROPLocation(50, 30),
   20,
   "link",
   [new BookTime(30, 10, 12, 2, 2020, 3), new BookTime(0, 11, 12, 2, 2020, 3)],
