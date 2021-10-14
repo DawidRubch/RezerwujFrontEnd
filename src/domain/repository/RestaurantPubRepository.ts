@@ -1,30 +1,28 @@
-import { BookTime } from "../../core/Entities";
-import { RestaurantOrPubRemoteDb } from "../../data/database/RestaurantOrPubRemoteDb";
-
-export default class RestaurantOrPubRepository {
-  restaurantOrPubRemoteDb = new RestaurantOrPubRemoteDb();
-
+import { BookTime } from "core";
+import { RestaurantOrPubRemoteDb } from "data";
+const restaurantOrPubRemoteDb = new RestaurantOrPubRemoteDb();
+export class RestaurantOrPubRepository {
   async getRoPArrayFromDb(bookTime: BookTime, address?: string) {
-    return await this.restaurantOrPubRemoteDb.getRestaurantsFromDb(
+    return await restaurantOrPubRemoteDb.getRestaurantsFromDb(
       bookTime,
       address
     );
   }
 
   async getRestaurantInfoDescriptionPage(name: string, bookTime: BookTime) {
-    return await this.restaurantOrPubRemoteDb.getRestaurantInfoDescriptionPage(
+    return await restaurantOrPubRemoteDb.getRestaurantInfoDescriptionPage(
       name,
       bookTime
     );
   }
   async getRestaurantInfoConfirmPage(name: string, bookTime: BookTime) {
-    return await this.restaurantOrPubRemoteDb.getRestaurantInfoConfirmPage(
+    return await restaurantOrPubRemoteDb.getRestaurantInfoConfirmPage(
       name,
       bookTime
     );
   }
   async getRoPAlternativeBookingHours(name: string, bookTime: BookTime) {
-    return await this.restaurantOrPubRemoteDb.getRoPAlternativeBookingHours(
+    return await restaurantOrPubRemoteDb.getRoPAlternativeBookingHours(
       name,
       bookTime
     );
@@ -37,7 +35,7 @@ export default class RestaurantOrPubRepository {
     personName: string,
     additionalInfo?: string
   ) {
-    return await this.restaurantOrPubRemoteDb.saveBookTime(
+    return await restaurantOrPubRemoteDb.saveBookTime(
       bookTime,
       restaurantName,
       number,
@@ -47,6 +45,6 @@ export default class RestaurantOrPubRepository {
   }
 
   async deleteBookTime(bookTime: BookTime, restaurantName: string) {
-    await this.restaurantOrPubRemoteDb.deleteBookTime(bookTime, restaurantName);
+    await restaurantOrPubRemoteDb.deleteBookTime(bookTime, restaurantName);
   }
 }

@@ -1,21 +1,25 @@
 import React, { useEffect, useState } from "react";
-import "./RestaurantDescriptionPage.scss";
-import { BookingContainer } from "./localComponents/BookingContainer/BookingContainer";
-import { useBookTimeAndNameSearchParams } from "../../../core/Helper/SearchQuery/useBookTimeSearchParams";
-import { RestaurantDescriptionPageFunctions } from "../../../InterfaceFunctions/PagesFunctions/RestaurantDescriptionPage/RestaurantDescriptionPageFunctions";
-import { RestaurantDescriptionInfoResponse } from "../../../core/Interfaces/RestaurantDescriptionInfoResponse";
-import { RestaurantDescriptionContainer } from "./localComponents/RestaurantDescriptionContainer/RestaurantDescriptionContainer";
-import { Loader } from "../../components/Loader/Loader";
-import { RestaurantDescriptionError } from "./localComponents/RestaurantDescriptionError/RestaurantDescriptionError";
-import { AxiosError } from "axios";
 import { useLocation } from "react-router-dom";
+import { AxiosError } from "axios";
+import "./RestaurantDescriptionPage.scss";
+import { Loader } from "interface/components";
+import { useSearchQuery } from "hooks";
+import { bookTimeFromJson } from "core";
+import {
+  BookingContainer,
+  RestaurantDescriptionContainer,
+  RestaurantDescriptionError,
+} from "./localComponents";
+import { RestaurantOrPubRepository } from "domain/index";
 
-export default function RestaurantDescriptionPage() {
+const restaurantOrPubRepository = new RestaurantOrPubRepository();
+
+export function RestaurantDescriptionPage() {
   //Params from search query
 
   const { state }: { state: any } = useLocation();
 
-  const { bookTime, name } = useBookTimeAndNameSearchParams();
+  const { name, bookTime } = useSearchQuery();
 
   //Information consists of tags, descriptionPageImage,
   // name, type,shortDescription, alternative book time array
@@ -25,27 +29,32 @@ export default function RestaurantDescriptionPage() {
   const [error, setError] = useState<AxiosError>();
   const [pending, setPending] = useState(true);
 
-  //Repository with Functions for this page
-  const restaurantDescriptionPageFunctions =
-    new RestaurantDescriptionPageFunctions(
-      bookTime,
-      name,
-      setInformation,
-      information,
-      setError,
-      error,
-      setPending,
-      pending
-    );
+  const restaurantName = name?.toString() ?? "";
 
-  useEffect(restaurantDescriptionPageFunctions.manageState, []);
+  const btArray = information
+    ? information?.alternativeBookingHours.map((bt: any) =>
+        bookTimeFromJson(bt)
+      )
+    : [];
+  console.log(information);
+
+  useEffect(() => {
+    restaurantOrPubRepository
+      .getRestaurantInfoDescriptionPage(restaurantName, bookTime)
+      .then((res) => {
+        setInformation(res);
+        setPending(false);
+      })
+      .catch((err: AxiosError) => {
+        setError(err);
+        setPending(false);
+      });
+  }, []);
 
   const BookingContainerComponent = (
     <BookingContainer
       state={state?.RoP || information}
-      alternativeBookingHours={
-        restaurantDescriptionPageFunctions.mappingAltBookingHoursToBookTimeComponents
-      }
+      alternativeBookingHours={btArray}
       nameString={information?.name}
     />
   );

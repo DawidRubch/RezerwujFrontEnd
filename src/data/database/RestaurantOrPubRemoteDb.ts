@@ -1,37 +1,35 @@
+import { APIURLS, RestaurantOrPub } from "core";
 import axios from "axios";
-import { BookTime } from "../../core/Entities/BookTime";
-import { ROPArrayFromJson } from "../models/RestaurantOrPubArrayModel";
-import { APIURLS } from "../../core/ImportantVariables/variables";
-import { ReservationFindNextAvaliableJson } from "../../core/Interfaces/ReservationFindNextAvaliable";
-import { RestaurantDescriptionInfoResponse } from "../../core/Interfaces/RestaurantDescriptionInfoResponse";
-import { RestaurantConfirmInfoResponse } from "../../core/Interfaces/RestaurantConfirmInfoResponse";
+
+const CONFIG = {
+  headers: {
+    crossDomain: true,
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*",
+  },
+};
 
 //@todo refactor
 export class RestaurantOrPubRemoteDb {
   //Config to send to database
-  config = {
-    headers: {
-      crossDomain: true,
-      "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*",
-    },
-  };
   enviromentType = process.env.WDS_SOCKET_PATH;
 
   async getRestaurantsFromDb(bookTime: BookTime, address?: string) {
-    let bookTimeToJson = bookTime.toJson();
-
     const URL = `${APIURLS.serverAddress}${APIURLS.getRestaurants}`;
 
     const postData = {
-      address: address,
-      bookTime: bookTimeToJson,
+      address,
+      bookTime: bookTime,
       enviromentType: this.enviromentType,
     };
 
-    const { data } = await axios.post(URL, postData, this.config);
+    const { data }: { data: RestaurantOrPub[] } = await axios.post(
+      URL,
+      postData,
+      CONFIG
+    );
 
-    return ROPArrayFromJson(data);
+    return data;
   }
 
   async getRestaurantInfoDescriptionPage(name: string, bookTime: BookTime) {
@@ -39,53 +37,37 @@ export class RestaurantOrPubRemoteDb {
 
     const postData = { name, bookTime, enviromentType: this.enviromentType };
 
-    const { data } = await axios.post(URL, postData, this.config);
+    const { data }: { data: RestaurantDescriptionInfoResponse } =
+      await axios.post(URL, postData, CONFIG);
 
-    const responseData: RestaurantDescriptionInfoResponse = data;
-
-    return responseData;
+    return data;
   }
 
   async getRestaurantInfoConfirmPage(name: string, bookTime: BookTime) {
     const URL = `${APIURLS.serverAddress}${APIURLS.getRestaurantInfoConfirmPage}`;
 
-    const { data } = await axios.post(
+    const { data }: { data: RestaurantConfirmInfoResponse } = await axios.post(
       URL,
       { name, bookTime, enviromentType: this.enviromentType },
-      this.config
+      CONFIG
     );
 
     if (typeof data === "number") {
       return;
     }
 
-    const responseData: RestaurantConfirmInfoResponse = data;
-
-    return responseData;
+    return data;
   }
   async getRoPAlternativeBookingHours(name: string, bookTime: BookTime) {
     const URL = `${APIURLS.serverAddress}${APIURLS.getRoPAlternativeBookingHours}`;
 
-    const { data }: any = await axios.post(
+    const { data }: { data: (BookTime | null | 0)[] } = await axios.post(
       URL,
       { name, bookTime, enviromentType: this.enviromentType },
-      this.config
+      CONFIG
     );
 
-    const responseData: (
-      | {
-          minute: number;
-          hour: number;
-          day: number;
-          month: number;
-          year: number;
-          people: number;
-        }
-      | null
-      | 0
-    )[] = data;
-
-    return responseData;
+    return data;
   }
   async saveBookTime(
     bookTime: BookTime,
@@ -98,7 +80,7 @@ export class RestaurantOrPubRemoteDb {
       APIURLS.reservation.save,
       restaurantName,
       bookTime,
-      this.config,
+      CONFIG,
       personName,
       additionalInfo,
       number
@@ -109,7 +91,7 @@ export class RestaurantOrPubRemoteDb {
       APIURLS.reservation.delete,
       restaurantName,
       bookTime,
-      this.config
+      CONFIG
     );
   }
 }
@@ -123,22 +105,13 @@ async function manageReservations(
   additionalInfo?: string,
   number?: string
 ) {
-  const { minute, hour, year, day, month, people, name } = bookTime.toJson();
   const bookTimeJsonWithName: ReservationFindNextAvaliableJson = {
     name: restaurantName,
     personName,
     number,
     additionalInfo,
-    bookTime: {
-      minute,
-      hour,
-      year,
-      day,
-      month,
-      people,
-      name,
-    },
-    enviromentType: process.env.ENVIROMENT_VARIABLE,
+    bookTime,
+    enviromentType: process.env.ENVIROMENT_VARIABLE as EnviromentType,
   };
 
   const URL = `${APIURLS.serverAddress}${APIURLS.reservation.reservation}${AddOrDeleteRoutePath}`;
@@ -148,6 +121,4 @@ async function manageReservations(
   } catch (err) {
     return err;
   }
-
-  // return response;
 }

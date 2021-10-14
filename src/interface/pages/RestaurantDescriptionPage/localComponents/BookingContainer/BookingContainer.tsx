@@ -1,19 +1,20 @@
 import React, { useState } from "react";
-import { BookTime, bookTimeFromJson } from "../../../../../core/Entities";
+import { BookTime, bookTimeFromJson } from "core";
 import {
   PeopleAmountPicker,
   ReactCalendar,
   TimePicker,
 } from "../../../../components";
 import "./BookingContainer.scss";
-import RestaurantOrPubRepository from "../../../../../domain/repository/RestaurantPubRepository";
-import { useBookTimeAndNameSearchParams } from "../../../../../core/Helper/SearchQuery/useBookTimeSearchParams";
 import { BookingHoursComponent } from "../../../../components/BookingHoursArray/BookingHoursArr";
+import { useSearchQuery } from "hooks";
+import { RestaurantOrPubRepository } from "domain/index";
 interface BookingContainerInterface {
   nameString: string | unknown;
   alternativeBookingHours: (BookTime | null | 0)[];
   state: any;
 }
+const restaurantOrPubRepository = new RestaurantOrPubRepository();
 
 export function BookingContainer({
   alternativeBookingHours,
@@ -22,19 +23,18 @@ export function BookingContainer({
   //useState Hooks
   const [reloadBookingArr, setReloadBookingArr] = useState(false);
 
-  let restaurantOrPubRepository = new RestaurantOrPubRepository();
   const [altBookTimes, setAltBookTimes] = useState(alternativeBookingHours);
-  const { bookTime, name } = useBookTimeAndNameSearchParams();
+  const { bookTime, name } = useSearchQuery();
 
   //get alt booking hours for new alt booking hours
-
   const getNewAltBookingHours = () => {
     setReloadBookingArr(!reloadBookingArr);
 
     restaurantOrPubRepository
-      .getRoPAlternativeBookingHours(name, bookTime)
+      .getRoPAlternativeBookingHours(name?.toString() ?? "", bookTime)
       .then((res) => {
-        let bookTimesMapped = res.map((bt) => bookTimeFromJson(bt));
+        const bookTimesMapped = res.map((bt) => bookTimeFromJson(bt));
+
         setAltBookTimes(bookTimesMapped);
       });
   };

@@ -1,26 +1,29 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
-import { BookTime } from "../../../core/Entities/BookTime";
-import { RestaurantOrPub } from "../../../core/Entities/RestaurantOrPub";
+import { useCallback } from "react";
+import { useUpdateSearchQuery } from "hooks";
+import { Routes } from "routes";
 import "./BookingHoursArr.scss";
+import { generateSearchQFromBt, RestaurantOrPub } from "core";
 interface BookingHoursComponentInterface {
   alternativeBookingHours: (BookTime | null | 0)[];
   type: "mobile" | "pc" | "universal";
   restaurantOrPub: RestaurantOrPub;
 }
 
+const cssMainClass = "booking-hours-component";
+
 export function BookingHoursComponent({
   alternativeBookingHours,
   type,
   restaurantOrPub,
 }: BookingHoursComponentInterface) {
-  let cssMainClassName: string = "booking-hours-component-universal";
-  if (type === "pc") {
-    cssMainClassName = "booking-hours-component-pc";
-  }
-
   return (
-    <div className={cssMainClassName}>
+    <div
+      className={
+        // type === "pc" ? "booking-hours-component-pc" : cssMainClassName
+        `${cssMainClass}-${type === "pc" ? "pc" : "universal"}`
+      }
+    >
       <BookingHoursArr
         restaurantOrPub={restaurantOrPub}
         alternativeBookingHours={alternativeBookingHours}
@@ -38,18 +41,19 @@ function BookingHoursArr({
   alternativeBookingHours,
   restaurantOrPub,
 }: BookingHoursArrInterface) {
-  let history = useHistory();
+  const updateSearchQuery = useUpdateSearchQuery();
 
-  //@todo Create function to push history
-  const bookReservation = (bookTime: BookTime) => {
-    history.push({
-      pathname: "/potwierdz-rezerwacje",
+  const bookReservation = useCallback((bookTime: BookTime) => {
+    const searchQuery = generateSearchQFromBt(bookTime, restaurantOrPub.name);
+
+    updateSearchQuery({
+      pathname: Routes.CONFIRM_RESERVATION,
       state: { restaurantOrPub, bookTime },
-      search: `?&hour=${bookTime.hour}&minute=${bookTime.minute}&day=${bookTime.day}&month=${bookTime.month}&year=${bookTime.year}&people=${bookTime.people}&name=${restaurantOrPub.name}`,
+      searchQuery,
     });
-  };
+  }, []);
 
-  if (alternativeBookingHours.length < 1) {
+  if (alternativeBookingHours.length === 0) {
     return (
       <span className="booking-hours_unavailable">
         Brak możliwości rezerwacji w podanym terminie!

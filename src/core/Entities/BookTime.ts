@@ -7,7 +7,6 @@ export class BookTime {
   day: number;
   month: number;
   people: number;
-  name: string;
 
   constructor(
     minute: number,
@@ -23,18 +22,6 @@ export class BookTime {
     this.month = month;
     this.year = year;
     this.people = people;
-    this.name = "";
-  }
-  toJson() {
-    return {
-      minute: this.minute,
-      hour: this.hour,
-      year: this.year,
-      day: this.day,
-      month: this.month,
-      people: this.people,
-      name: this.name,
-    };
   }
 }
 
@@ -58,6 +45,6 @@ export function bookTimeFromJson(
   if (bTZeroOrNull === 0) {
     return 0;
   }
-  let { minute, hour, day, month, year, people } = bTZeroOrNull;
+  const { minute, hour, day, month, year, people } = bTZeroOrNull;
   return new BookTime(minute, hour, day, month, year, people);
 }

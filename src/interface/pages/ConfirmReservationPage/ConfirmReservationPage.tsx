@@ -1,77 +1,107 @@
 import React, { FormEvent, useEffect, useState } from "react";
 import "./ConfirmReservationPage.scss";
-import { AdditionalRestaurantInfo } from "./localComponents/AdditionalRestaurantInfo/AdditionalRestaurantInfo";
-import { BookTime } from "../../../core/Entities";
+import { Loader } from "interface/components";
+import { useLocation } from "react-router-dom";
 import {
-  useConfirmPageSearchQueriesAndState,
-  useInput,
-} from "../../../InterfaceFunctions/PagesFunctions/ConfirmReservationPageFunctions/ConfirmReservationHooks";
-import ConfirmReservationFunctions from "../../../InterfaceFunctions/PagesFunctions/ConfirmReservationPageFunctions/ConfirmReservationFunctions";
-import { ConfirmationForm } from "./localComponents/ConfirmationForm/ConfirmationForm";
-import { RoPNameAndBookTimeInfo } from "./localComponents/RoPNameAndBookTimeInfo/RoPNameAndBookTimeInfo";
-import { ConfirmationModal } from "./localComponents/ConfirmationModal/ConfirmationModal";
-import { Loader } from "../../components/Loader/Loader";
-import GA from "../../../data/trackers/GA";
-import { Action, Category } from "../../../core/Interfaces/GAevent";
+  AdditionalRestaurantInfo,
+  ConfirmationModal,
+  InformationInput,
+  InputNames,
+  RoPNameAndBookTimeInfo,
+} from "./localComponents";
+import { RestaurantOrPub } from "core";
+import { useSearchQuery } from "hooks";
+import { trackEvent } from "data";
+import { RestaurantOrPubRepository } from "domain/index";
+
+const restaurantOrPubRepository = new RestaurantOrPubRepository();
+
+interface LocationState {
+  restaurantOrPub: RestaurantOrPub;
+  bookTime: BookTime;
+}
 
 export function ConfirmReservationPage(): JSX.Element {
+  const { state } = useLocation<LocationState>();
+
+  const { dateString, hour, people, name } = useSearchQuery();
+
   const [modalOpen, setModalOpen] = useState(false);
   const [confirmationSuccess, setConfirmationSuccess] = useState(false);
+  const [personName, setName] = useState("");
+  const [number, setNumber] = useState("");
+  const [additionalInfo, setAdditionalInfo] = useState("");
 
-  const { minute, hour, day, month, year, people, state, name } =
-    useConfirmPageSearchQueriesAndState();
-
-  //Creating bookTime object out of search query data
-  let bookTime = new BookTime(+minute, +hour, +day, +month, +year, +people);
-
-  //Repository with all functions for this component
-  let confirmReservationFunctions = new ConfirmReservationFunctions(bookTime);
-
-  //Input use state hooks
-  const InputObject = useInput(state);
+  const restaurantName = name ? name.toString() : state.restaurantOrPub.name;
 
   const onConfirm = async (event: FormEvent) => {
     event.preventDefault();
 
-    const response =
-      await confirmReservationFunctions.onClickConfirmReservation(
-        name,
-        InputObject
-      );
+    //Saving book time to database
+    const response = await restaurantOrPubRepository.saveBookTime(
+      state.bookTime,
+      restaurantName,
+      number,
+      personName,
+      additionalInfo
+    );
 
     if (response.data === "Success") {
       setConfirmationSuccess(true);
     }
     setModalOpen(true);
 
-    GA.trackEvent({
-      category: Category.RESERVATION,
+    trackEvent({
+      category: GaCategory.RESERVATION,
       action: Action.SAVED_RESERVATION,
     });
   };
 
-  //Function runs only on component initial render
-  useEffect(() => {
-    confirmReservationFunctions.callsApiIfItDoesntHavePassedData(
-      state,
-      name,
-      InputObject.setLocationState
-    );
-  }, []);
-
-  if (InputObject.locationState) {
+  if (state) {
     return (
       <>
         <main className="main-container">
           <div className="reservation-container">
             <header className="image-and-restaurant-info">
-              <RoPImage inputObject={InputObject} />
+              <RoPImage locationState={state} />
               <RoPNameAndBookTimeInfo
-                name={name.toString()}
-                confirmReservationFunctions={confirmReservationFunctions}
+                dateString={dateString.toString()}
+                people={people.toString()}
+                name={restaurantName}
+                hour={hour.toString()}
               />
             </header>
-            <ConfirmationForm inputObject={InputObject} onSubmit={onConfirm} />
+            <form className="confirmation-form" onSubmit={onConfirm}>
+              <InformationInput
+                autoComplete="first name"
+                name={InputNames.Name}
+                placeHolder="Imię"
+                onChange={setName}
+                value={personName}
+                required
+              />
+              <InformationInput
+                autoComplete="tel"
+                name={InputNames.phoneNumber}
+                placeHolder="Telefon"
+                onChange={setNumber}
+                value={number}
+                pattern=".{9,}"
+                errorTitle="Numer musi składać się z 9 cyfr!"
+                required
+              />
+              <InformationInput
+                name={InputNames.additionalInfo}
+                placeHolder="Dodatkowe informacje (opcjonalnie)"
+                onChange={setAdditionalInfo}
+                value={additionalInfo}
+                required
+                isAdditionalInfoInput
+              />
+              <button type="submit" className="confirm-reservation-button">
+                Potwierdź rezerwację
+              </button>
+            </form>
           </div>
           <AdditionalRestaurantInfo />
         </main>
@@ -83,18 +113,14 @@ export function ConfirmReservationPage(): JSX.Element {
       </>
     );
   }
-
   return <Loader />;
 }
 
 //Place image
-const RoPImage = ({ inputObject }: any) => {
-  const { locationState } = inputObject;
-  return (
-    <img
-      className="restaurant-image"
-      alt="retaurant"
-      src={locationState.image || locationState.restaurantOrPub.image}
-    />
-  );
-};
+const RoPImage = ({ locationState }: any) => (
+  <img
+    className="restaurant-image"
+    alt="retaurant"
+    src={locationState.image || locationState.restaurantOrPub.image}
+  />
+);

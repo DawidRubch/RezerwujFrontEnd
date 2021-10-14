@@ -1,14 +1,9 @@
-import React, { ChangeEvent } from "react";
-import TimePersonComponent from "../HourMinutePicker/HourMinutePeoplePicker";
-import { PeopleArr } from "../../../../core/ImportantVariables/variables";
-import { useSearchQueryAndReduxStoreUpdate } from "../LocalHooks/useSearchQueryAndReduxStoreUpdate";
-import { useGlobalVariables } from "../../../../core/Helper/ReduxCustomHooks/useGlobalVariables";
-import { useSearchParams } from "../../../../core/Helper/SearchQuery/useSearchParams";
-import { useDispatch } from "react-redux";
-import { updatePeopleCount } from "../../../../stateManagment/action";
+import React from "react";
 import { ReactComponent as PersonIcon } from "../../../../images/person.svg";
-import GA from "../../../../data/trackers/GA";
-import { Action, Category } from "../../../../core/Interfaces/GAevent";
+import { PERSON_CONJUCTED_POLISH } from "core";
+import { useSearchQuery, useUpdateSearchQuery } from "hooks";
+import { trackEvent } from "data";
+import TimePersonComponent from "../HourMinutePicker/HourMinutePeoplePicker";
 
 interface selectedValueObj {
   value: string;
@@ -20,40 +15,25 @@ interface PeopleAmountPickerProps {
   onChange?: (e: selectedValueObj) => void;
   people?: number;
 }
+//Array of numbers from 0 to 21
+const PeopleNumberArr = generatePeopleNumberArr();
 
 export function PeopleAmountPicker({ onChange }: PeopleAmountPickerProps) {
-  //Takes people from query string
-  const { peopleParam } = useSearchParams();
-
-  //Updates Redux store
-  const dispatch = useDispatch();
-
-  //Array of numbers from 0 to 21
-  const PeopleNumberArr = generatePeopleNumberArr();
-
-  //Hook to update search queries and redux store
-  const searchQueryAndLocalStoreUpdate = useSearchQueryAndReduxStoreUpdate();
-
   //Global variables
-  const { location, date, hour, people, name } = useGlobalVariables();
+  const { people } = useSearchQuery();
+
+  const updateSearchParams = useUpdateSearchQuery();
 
   // Function runs on changing amount of people
   const onPickingAmountOfPeople = (e: selectedValueObj) => {
     if (onChange) onChange(e);
 
-    let currentPeopleVal = e.value;
+    const currentPeopleVal = e.value;
 
-    searchQueryAndLocalStoreUpdate(
-      hour,
-      location,
-      currentPeopleVal,
-      date,
-      name
-    );
-    dispatch(updatePeopleCount(+currentPeopleVal));
+    updateSearchParams({ people: currentPeopleVal });
 
-    GA.trackEvent({
-      category: Category.PARAMETER_CHOICE,
+    trackEvent({
+      category: GaCategory.PARAMETER_CHOICE,
       action: Action.PEOPLE,
     });
   };
@@ -62,19 +42,19 @@ export function PeopleAmountPicker({ onChange }: PeopleAmountPickerProps) {
   //First is defaultValue
   //Second is optionArray
   function returnDefaultValAndOptionsArr(): [any, any] {
-    let defaultValue = {
-      value: peopleParam === 0 ? "4" : peopleParam,
-      label:
-        peopleParam === 0
-          ? "4 osoby"
-          : `${peopleParam} ${PeopleArr[peopleParam]}`,
+    const peopleAmount = people ? +people : 2;
+
+    const defaultValue = {
+      value: peopleAmount,
+      label: `${people} ${PERSON_CONJUCTED_POLISH[peopleAmount]}`,
       icon: <PersonIcon />,
     };
 
     const optionsArray = [];
-    for (let i in PeopleArr) {
+
+    for (let i in PERSON_CONJUCTED_POLISH) {
       //Text to show in option
-      const textInsideOption = `${PeopleNumberArr[i]} ${PeopleArr[i]}`;
+      const textInsideOption = `${PeopleNumberArr[i]} ${PERSON_CONJUCTED_POLISH[i]}`;
 
       optionsArray.push({
         value: PeopleNumberArr[i],

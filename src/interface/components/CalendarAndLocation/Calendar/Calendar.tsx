@@ -1,35 +1,34 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import Calendar, { Detail } from "react-calendar";
 import moment from "moment";
 import { CSSTransition } from "react-transition-group";
-
 import { default as CalendarIcon } from "../../../../images/calendar.svg";
 import { default as ArrowDownIcon } from "../../../../images/arrowDown.svg";
 import "./Calendar.scss";
 import CalendarLocationContainer from "../CalendarLocationContainer/CalendarLocationContainer";
-import { useHistory } from "react-router-dom";
-import { mapPropToSearchQuery } from "../../../../core/Helper/SearchQuery/mapPropertiesToSearchQuery";
-import { useDispatch } from "react-redux";
-import { updateDate } from "../../../../stateManagment/action";
-import { useGlobalVariables } from "../../../../core/Helper/ReduxCustomHooks/useGlobalVariables";
-import GA from "../../../../data/trackers/GA";
-import { Action, Category, Label } from "../../../../core/Interfaces/GAevent";
+import { useCallback } from "react";
+import { useSearchQuery, useUpdateSearchQuery } from "hooks";
+import { getDateFromDateString, getDateStringFromDate } from "core";
+import { trackEvent } from "data";
 
 export const ReactCalendar = ({ onChange }: any) => {
   //Boolean value to show Calendar
   const [showCalendar, setShowCalendar] = useState(false);
 
-  //Hook to redirect or update search query
-  const history = useHistory();
+  const { dateString } = useSearchQuery();
 
-  //Hook to update redux store
-  const dispatch = useDispatch();
+  const date = useMemo(
+    () => getDateFromDateString(dateString as string),
+    [dateString]
+  );
 
-  //Global variables
-  const { hour, location, people, date, name } = useGlobalVariables();
+  const updateSearchParams = useUpdateSearchQuery();
 
   //Function changin boolean val of showCalendar
-  const hideOrShowCalendar = () => setShowCalendar(!showCalendar);
+  const hideOrShowCalendar = useCallback(
+    () => setShowCalendar(!showCalendar),
+    [showCalendar]
+  );
 
   //What shows on top of the calendar
   const navigationLabel = (navigation: {
@@ -42,26 +41,12 @@ export const ReactCalendar = ({ onChange }: any) => {
   const onChangeDate = (date: Date | Date[]) => {
     //onChange is used in RestaurantDescriptionPage
     //It informs the component that it should be updated
+    //@todo refactor this "onChange"
     if (onChange) onChange();
-    dispatch(updateDate(date as Date));
 
-    //Function changes parameters to search query string
-    let mappingPropsToSearchQueries = mapPropToSearchQuery(
-      location,
-      date.toString(),
-      hour,
-      people.toString(),
-      name
-    );
+    updateSearchParams({ dateString: getDateStringFromDate(date as Date) });
 
-    //Search query object
-    let searchQuery = {
-      search: mappingPropsToSearchQueries,
-    };
-
-    history.push(searchQuery);
-
-    GA.trackEvent({ category: Category.PARAMETER_CHOICE, action: Action.DATE });
+    trackEvent({ category: GaCategory.PARAMETER_CHOICE, action: Action.DATE });
   };
 
   //Calendar style is used here, due to dynamic value showCalendar

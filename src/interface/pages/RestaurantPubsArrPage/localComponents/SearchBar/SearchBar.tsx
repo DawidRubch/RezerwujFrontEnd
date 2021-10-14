@@ -1,18 +1,18 @@
 import React from "react";
-import { ReactComponent as MenuIcon } from "../../../../../images/arrowDown.svg";
-import { ReactCalendar } from "../../../../components/CalendarAndLocation/Calendar/Calendar";
+import { ReactComponent as MenuIcon } from "images/arrowDown.svg";
 import "./SearchBar.scss";
 import {
   PeopleAmountPicker,
+  ReactCalendar,
   SearchButton,
   TimePicker,
-} from "../../../../components";
+} from "interface/components";
 
 interface SearchBarProps {
   getRoPArr?: () => void;
 }
 
-export default function SearchBar({ getRoPArr }: SearchBarProps) {
+export function SearchBar({ getRoPArr }: SearchBarProps) {
   return (
     <aside className="searchbar">
       <ul className="searchbar__list">

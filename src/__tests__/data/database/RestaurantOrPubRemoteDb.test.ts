@@ -1,8 +1,7 @@
 import { BookTime } from "../../../core/Entities/BookTime";
-import { RestaurantOrPubRemoteDb } from "../../../data/database/RestaurantOrPubRemoteDb";
 import axios from "axios";
-import { APIURLS } from "../../../core/ImportantVariables/variables";
-const tBookTime = new BookTime(30, 10, 12, 2, 2020, 4);
+import { APIURLS } from "../../../core/ImportantVariables/APIURLS";
+import { RestaurantOrPubRemoteDb } from "data";
 
 jest.mock("axios");
 (axios as jest.Mocked<typeof axios>).post.mockResolvedValue({});
@@ -16,30 +15,18 @@ const tConfig = {
     "Access-Control-Allow-Origin": "*",
   },
 };
+
+const tBookTime = new BookTime(30, 10, 12, 2, 2020, 4);
+
 const tPostDataWithAdressAndBookTime = {
   address: undefined,
-  bookTime: {
-    minute: 30,
-    hour: 10,
-    day: 12,
-    month: 2,
-    year: 2020,
-    people: 4,
-    name: "",
-  },
+  bookTime: tBookTime,
 };
 const tPostDataWithRestaurantNameAndBookTime = {
   name: "Ceglana",
-  bookTime: {
-    minute: 30,
-    hour: 10,
-    day: 12,
-    month: 2,
-    year: 2020,
-    people: 4,
-    name: "",
-  },
+  bookTime: tBookTime,
 };
+
 describe("RestaurantOrPubRemoteDb", () => {
   describe("getRestaurantsFromDb", () => {
     test("should function be called with right parameters", async () => {
@@ -102,19 +89,9 @@ describe("RestaurantOrPubRemoteDb", () => {
   describe("delete and add reservations", () => {
     const tPostDataWithInfo = {
       name: "Ceglana",
-      email: "tomek@wp.pl",
       personName: "Dawid",
-      surName: "Niegrebecki",
       number: "997",
-      bookTime: {
-        minute: 30,
-        hour: 10,
-        day: 12,
-        month: 2,
-        year: 2020,
-        people: 4,
-        name: "",
-      },
+      bookTime: tBookTime,
     };
 
     test("should add reservation be called with right paramaters", () => {
@@ -122,9 +99,7 @@ describe("RestaurantOrPubRemoteDb", () => {
         tBookTime,
         "Ceglana",
         "997",
-        "Dawid",
-        "Niegrebecki",
-        "tomek@wp.pl"
+        "Dawid"
       );
 
       expect(axios.post).toBeCalledWith(

@@ -1,25 +1,19 @@
-import { Category, GAevent } from "../../core/Interfaces/GAevent";
-
+//This line is needed for window.gtag to exist
+//DO NOT DELETE THIS IMPORT
 import GA4React from "ga-4-react";
+import { Category, GAevent } from "types";
 
-//Class responsible for Google analitics tracking
-class GA {
-  ga4React = new GA4React("G-SN0VJY0RPS");
-  trackEvent = ({ category, label, action }: GAevent) => {
+export const trackEvent = ({ category, label, action }: GAevent) => {
+  if (process.env.NODE_ENV === "production")
     window.gtag("event", action, {
       event_category: category,
       event_label: label,
     });
-  };
+};
 
-  trackPageView = (pathname: string) => {
-    //Sending page info on every page besides main
-    if (pathname !== "/") return;
-    //Pathname is sliced due to it's first letter is "/"
-    window.gtag("event", pathname.slice(1), {
-      event_category: Category.PAGE_CHOICE,
-    });
-  };
-}
+export const trackPageView = (pathname: string) => {
+  //Sending page info on every page besides main
+  if (pathname !== "/") return;
 
-export default new GA();
+  trackEvent({ action: pathname.slice(1), category: Category.PAGE_CHOICE });
+};

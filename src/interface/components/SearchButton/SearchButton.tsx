@@ -1,36 +1,39 @@
 import React from "react";
 import "./SearchButton.scss";
 import { Link } from "react-router-dom";
-import { useGlobalVariables } from "../../../core/Helper/ReduxCustomHooks/useGlobalVariables";
-import { mapPropToSearchQuery } from "../../../core/Helper/SearchQuery/mapPropertiesToSearchQuery";
+import { useSearchQuery } from "hooks";
+import { generateSearchQueryFromObject } from "core";
+import { Routes } from "routes";
 
-//@todo addtionalClassName put into type or enum
-//@todo onPressed is a function
+type AdditionalClassName =
+  | "searchbar__list__search__button"
+  | "searchButton--landing";
 interface SearchButtonProps {
   searchParams?: string;
-  onPressed?: any;
-  additionalClassName?: string;
+  onPressed?: () => void;
+  additionalClassName?: AdditionalClassName;
 }
+
+const pathname = Routes.RESTAURANTS_ARRAY;
+
 export function SearchButton({
   onPressed,
   additionalClassName,
 }: SearchButtonProps) {
-  const { hour, location, people, date } = useGlobalVariables();
+  const { hour, people, dateString } = useSearchQuery();
 
   //Changing data to search query string
-  const mappingPropsToSearchQuery = mapPropToSearchQuery(
-    location,
-    date.toString(),
+  const search = generateSearchQueryFromObject({
+    dateString,
     hour,
-    people.toString()
-  );
+    people,
+  });
 
-  const pathname = "/lista-restauracji";
   return (
     <Link
       to={{
         pathname,
-        search: mappingPropsToSearchQuery,
+        search,
       }}
     >
       <button

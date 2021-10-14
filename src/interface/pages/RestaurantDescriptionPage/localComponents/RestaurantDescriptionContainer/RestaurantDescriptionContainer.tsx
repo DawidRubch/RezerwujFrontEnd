@@ -1,5 +1,5 @@
 import React from "react";
-import { ReactComponent as RestaurantMenuIcon } from "../../../../../images/restaurant-menu.svg";
+import { ReactComponent as RestaurantMenuIcon } from "images/restaurant-menu.svg";
 import "./RestaurantDescriptionContainer.scss";
 
 interface RestaurantDescriptionContainerInterface {

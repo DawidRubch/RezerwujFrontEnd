@@ -1,6 +1,4 @@
 import React, { useEffect } from "react";
-import { LandingPage } from "./interface/pages/LandingPage/LandingPage";
-import RestaurantPubsArrayPage from "./interface/pages/RestaurantPubsArrPage/RestaurantPubsArray";
 import {
   BrowserRouter as Router,
   Route,
@@ -9,35 +7,37 @@ import {
 } from "react-router-dom";
 import { render } from "react-dom";
 import "./index.css";
-import RestaurantDescriptionPage from "./interface/pages/RestaurantDescriptionPage/RestaurantDescriptionPage";
-
-import { store } from "../src/stateManagment/store";
-import { ConfirmReservationPage } from "./interface/pages/ConfirmReservationPage/ConfirmReservationPage";
-import { ReduxProvider } from "./stateManagment/ReduxProvider";
-import GA from "./data/trackers/GA";
+import { Routes } from "routes";
+import {
+  ConfirmReservationPage,
+  RestaurantDescriptionPage,
+  RestaurantPubsArrayPage,
+  LandingPage,
+} from "interface/pages";
+import { trackPageView } from "data";
 
 export function App() {
   const location = useLocation();
 
   useEffect(() => {
-    GA.trackPageView(location.pathname);
+    trackPageView(location.pathname);
   }, [location]);
 
   return (
     <Switch>
-      <Route path="/" exact component={LandingPage} />
+      <Route path={Routes.MAIN} exact component={LandingPage} />
       <Route
-        path="/lista-restauracji"
+        path={Routes.RESTAURANTS_ARRAY}
         exact
         component={RestaurantPubsArrayPage}
       />
       <Route
-        path="/opis-restauracji"
+        path={Routes.RESTAURANT_INFO}
         exact
         component={RestaurantDescriptionPage}
       />
       <Route
-        path="/potwierdz-rezerwacje"
+        path={Routes.CONFIRM_RESERVATION}
         exact
         component={ConfirmReservationPage}
       />
@@ -46,10 +46,8 @@ export function App() {
 }
 
 render(
-  <ReduxProvider store={store}>
-    <Router>
-      <App />
-    </Router>
-  </ReduxProvider>,
+  <Router>
+    <App />
+  </Router>,
   document.getElementById("root")
 );

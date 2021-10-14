@@ -1,5 +1,5 @@
 module.exports = function(api) {
-    api.cache(true);
+    api.cache(false);
     return {
         presets: [
             [
@@ -24,9 +24,23 @@ module.exports = function(api) {
                 },
             ],
             "@babel/preset-react",
-            "@babel/preset-flow",
+            "@babel/preset-flow"
         ],
         plugins: [
+            ["module-resolver", {
+                "root": ["./"],
+                "alias": {
+                    "@pages": "./interface/pages",
+                    "@components": "./interface/components",
+                    "@routes": "./routes.ts",
+                    "@core": "./core",
+                    "@hooks": "./hooks",
+                    "@data": "./src/data",
+                    "@domain": "./domain",
+                    "@images": "./images",
+
+                }
+            }],
             "@babel/plugin-transform-spread",
             "@babel/plugin-syntax-dynamic-import", [
                 "@babel/plugin-proposal-class-properties",

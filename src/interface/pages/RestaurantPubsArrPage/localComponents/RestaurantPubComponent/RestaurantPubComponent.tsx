@@ -1,100 +1,99 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import { BookingHoursComponent } from "interface/components";
+import React, { FC, useCallback } from "react";
 import { Link } from "react-router-dom";
-import { RestaurantOrPub } from "../../../../../core/Entities";
-import { mapPropToSearchQuery } from "../../../../../core/Helper/SearchQuery/mapPropertiesToSearchQuery";
-import { BookingHoursComponent } from "../../../../components/BookingHoursArray/BookingHoursArr";
+import { useSearchQuery } from "hooks";
+import { Routes } from "routes";
 import "./RestaurantPubComponent.scss";
+import { generateSearchQueryFromObject, RestaurantOrPub } from "core";
 interface RestaurantPubComponentProps {
   restaurantPubArr: RestaurantOrPub[] | undefined;
 }
-//@todo Refactor this
-export default function RestaurantPubComponent({
+interface LinkComponentProps {
+  RoP: RestaurantOrPub;
+}
+interface BasicInfoProps {
+  platform: "mobile" | "pc";
+  RoP: RestaurantOrPub;
+}
+
+export function RestaurantPubComponent({
   restaurantPubArr,
 }: RestaurantPubComponentProps) {
-  const { hour, people, date, location }: any = useSelector((state) => state);
+  const { hour, people, dateString, name } = useSearchQuery();
+
+  const BasicInfo: FC<BasicInfoProps> = ({ RoP, platform }) => {
+    return (
+      <div className={`restaurantComponent__basicInfo_${platform}`}>
+        <LinkComponent RoP={RoP} />
+        <div className="restaurantComponent__type">{RoP.type}</div>
+      </div>
+    );
+  };
+
+  const LinkComponent: FC<LinkComponentProps> = useCallback(
+    ({ RoP }) => {
+      const searchQObject = { dateString, hour, people, name: RoP.name };
+      const search = generateSearchQueryFromObject(searchQObject);
+      return (
+        <Link
+          className="restaurantComponent__link"
+          to={{
+            pathname: Routes.RESTAURANT_INFO,
+            state: {
+              from: Routes.RESTAURANTS_ARRAY,
+              RoP,
+            },
+            search,
+          }}
+        >
+          <b className="restaurantComponent__link__name">{RoP.name}</b>
+        </Link>
+      );
+    },
+    [dateString, hour, people, name]
+  );
 
   return (
     <main className="restaurantArray">
-      {restaurantPubArr?.map((RoP: RestaurantOrPub, index: number) => {
-        return (
-          <div className="restaurantComponentWraper" key={index}>
-            <div className="restaurantComponent">
-              <div className="restaurantComponent__basicInfo_mobile">
-                <Link
-                  className="restaurantComponent__link"
-                  to={{
-                    pathname: "/opis-restauracji",
-                    state: {
-                      from: "lista-restauracji",
-                      RoP,
-                    },
-                    search: mapPropToSearchQuery(
-                      location,
-                      date.toString(),
-                      hour,
-                      people,
-                      RoP.name
-                    ),
-                  }}
-                >
-                  <b className="restaurantComponent__link__name">{RoP.name}</b>
-                </Link>
-                <span className="restaurantComponent__type">{RoP.type}</span>
-              </div>
-              <img
-                className="restaurantComponent__img"
-                alt="Restaurant"
-                src={RoP.image}
+      {restaurantPubArr?.map((RoP: RestaurantOrPub, index: number) => (
+        <div className="restaurantComponentWraper" key={index}>
+          <div className="restaurantComponent">
+            <BasicInfo platform="mobile" RoP={RoP} />
+            <img
+              className="restaurantComponent__img"
+              alt="Restaurant"
+              src={RoP.image}
+            />
+            <div className="restaurantComponent__additionalInfo">
+              <BasicInfo platform="pc" RoP={RoP} />
+              <TagsArray RoPTags={RoP.tags} />
+              <BookingHoursComponent
+                restaurantOrPub={RoP}
+                type="pc"
+                alternativeBookingHours={RoP.alternativeBookingHours}
               />
-              <div className="restaurantComponent__additionalInfo">
-                <div className="restaurantComponent__basicInfo_pc">
-                  <Link
-                    className="restaurantComponent__link"
-                    to={{
-                      pathname: "/opis-restauracji",
-                      state: {
-                        from: "lista-restauracji",
-                        RoP,
-                      },
-                      search:
-                        mapPropToSearchQuery(
-                          location,
-                          date.toString(),
-                          hour,
-                          people
-                        ) + `&name=${RoP.name}`,
-                    }}
-                  >
-                    <b className="restaurantComponent__link__name">
-                      {RoP.name}
-                    </b>
-                  </Link>
-                  <div className="restaurantComponent__type">{RoP.type}</div>
-                </div>
-                <div className="restaurantComponent__additionalInfo__tagContainer">
-                  {RoP.tags.map((tag, index: number) => {
-                    return (
-                      <span
-                        key={index}
-                        className="restaurantComponent__additionalInfo__tagContainer__tag"
-                      >
-                        {tag}
-                      </span>
-                    );
-                  })}
-                </div>
-                <BookingHoursComponent
-                  restaurantOrPub={RoP}
-                  type="pc"
-                  alternativeBookingHours={RoP.alternativeBookingHours}
-                />
-              </div>
             </div>
-            <hr className="restaurantComponentWraper__hr" />
           </div>
-        );
-      })}
+          <hr className="restaurantComponentWraper__hr" />
+        </div>
+      ))}
     </main>
   );
 }
+
+interface TagsArrayProps {
+  RoPTags: string[];
+}
+
+const TagsArray: FC<TagsArrayProps> = ({ RoPTags }) => (
+  <div className="restaurantComponent__additionalInfo__tagContainer">
+    {RoPTags.map((tag, index: number) => (
+      <span
+        key={index}
+        className="restaurantComponent__additionalInfo__tagContainer__tag"
+      >
+        {tag}
+      </span>
+    ))}
+  </div>
+);
