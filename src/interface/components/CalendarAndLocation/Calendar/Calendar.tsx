@@ -10,6 +10,7 @@ import { useCallback } from "react";
 import { useSearchQuery, useUpdateSearchQuery } from "hooks";
 import { getDateFromDateString, getDateStringFromDate } from "core";
 import { trackEvent } from "data";
+import { Action, Category } from "types/enums";
 
 export const ReactCalendar = ({ onChange }: any) => {
   //Boolean value to show Calendar
@@ -46,7 +47,7 @@ export const ReactCalendar = ({ onChange }: any) => {
 
     updateSearchParams({ dateString: getDateStringFromDate(date as Date) });
 
-    trackEvent({ category: GaCategory.PARAMETER_CHOICE, action: Action.DATE });
+    trackEvent({ category: Category.PARAMETER_CHOICE, action: Action.DATE });
   };
 
   //Calendar style is used here, due to dynamic value showCalendar

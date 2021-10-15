@@ -1,5 +1,6 @@
 import { useLocation } from "react-router-dom";
 import { BookTime, getDefaultParamsIfDontExist } from "core";
+import { SearchQParam } from "types/types";
 
 export const useSearchQuery = () => {
   const { search } = useLocation();

@@ -1,12 +1,6 @@
 import { Routes } from "routes";
-import {
-  Action,
-  BookTime,
-  Category,
-  EnviromentType,
-  Label,
-  SearchQParam,
-} from "types";
+import { Action, Category, Label } from "./enums";
+import { BookTime, EnviromentType, SearchQParam } from "./types";
 
 export interface GAevent {
   action: Action | string;

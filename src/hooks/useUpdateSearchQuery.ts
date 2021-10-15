@@ -1,6 +1,8 @@
 import { useHistory } from "react-router-dom";
 import { generateSearchQueryFromObject } from "core";
 import { useSearchQuery } from "./useSearchQuery";
+import { HistoryPush } from "types/interfaces";
+import { SearchQParam } from "types/types";
 
 export const useUpdateSearchQuery = () => {
   const history = useHistory();

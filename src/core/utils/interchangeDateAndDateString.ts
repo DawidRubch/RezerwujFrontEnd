@@ -9,7 +9,7 @@ const seconds = today.getSeconds();
  */
 export const getDateStringFromDate = (date: Date) => {
   const month =
-    date.getMonth() < 10 ? `0${date.getMonth() + 1}` : date.getMonth();
+    date.getMonth() < 9 ? `0${date.getMonth() + 1}` : date.getMonth() + 1;
 
   return `${date.getDate()}.${month}.${date.getFullYear()}`;
 };

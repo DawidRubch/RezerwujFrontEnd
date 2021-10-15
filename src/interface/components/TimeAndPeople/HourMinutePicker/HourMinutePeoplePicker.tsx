@@ -1,5 +1,6 @@
 import React from "react";
 import Select, { components, ValueType } from "react-select";
+import { OptionsArray, OptionType } from "types/types";
 
 import { ReactComponent as ClockIcon } from "../../../../images/clock.svg";
 import { ReactComponent as PersonIcon } from "../../../../images/person.svg";

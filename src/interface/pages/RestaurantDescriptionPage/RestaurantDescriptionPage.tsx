@@ -11,66 +11,34 @@ import {
   RestaurantDescriptionError,
 } from "./localComponents";
 import { RestaurantOrPubRepository } from "domain/index";
-
-const restaurantOrPubRepository = new RestaurantOrPubRepository();
+import { RestaurantDescriptionInfoResponse } from "types/interfaces";
+import { useRestaurantsInfoConfirmQuery } from "hooks/ApiQueries/useRestaurantsInfoConfirmQuery";
+import { useRestaurantsInfoDescriptionQuery } from "hooks/ApiQueries/useRestaurantsInfoDescriptionQuery";
 
 export function RestaurantDescriptionPage() {
-  //Params from search query
-
   const { state }: { state: any } = useLocation();
-
-  const { name, bookTime } = useSearchQuery();
-
-  //Information consists of tags, descriptionPageImage,
-  // name, type,shortDescription, alternative book time array
-
-  const [information, setInformation] =
-    useState<RestaurantDescriptionInfoResponse>();
-  const [error, setError] = useState<AxiosError>();
-  const [pending, setPending] = useState(true);
-
-  const restaurantName = name?.toString() ?? "";
-
-  const btArray = information
-    ? information?.alternativeBookingHours.map((bt: any) =>
-        bookTimeFromJson(bt)
-      )
-    : [];
-  console.log(information);
-
-  useEffect(() => {
-    restaurantOrPubRepository
-      .getRestaurantInfoDescriptionPage(restaurantName, bookTime)
-      .then((res) => {
-        setInformation(res);
-        setPending(false);
-      })
-      .catch((err: AxiosError) => {
-        setError(err);
-        setPending(false);
-      });
-  }, []);
+  const { data, isLoading, isError } = useRestaurantsInfoDescriptionQuery();
 
   const BookingContainerComponent = (
     <BookingContainer
-      state={state?.RoP || information}
-      alternativeBookingHours={btArray}
-      nameString={information?.name}
+      state={state?.RoP || data}
+      alternativeBookingHours={data?.alternativeBookingHours ?? []}
+      nameString={data?.name}
     />
   );
 
-  if (pending) {
+  if (isLoading) {
     return <Loader />;
   }
 
-  return error ? (
+  return isError ? (
     <RestaurantDescriptionError />
   ) : (
     <>
-      <ImageContainer descriptionPageImg={information?.descriptionPageImg} />
+      <ImageContainer descriptionPageImg={data?.descriptionPageImg} />
       <div className="mainContainer">
         <RestaurantDescriptionContainer
-          information={information}
+          information={data}
           mobileBookingComponent={BookingContainerComponent}
         />
         <section className="mainContainer__bookingContainer">

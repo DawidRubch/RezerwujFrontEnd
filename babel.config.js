@@ -6,6 +6,7 @@ module.exports = function(api) {
                 "@babel/preset-env",
                 {
                     targets: {
+                        node:"current",
                         browsers: [
                             "last 2 Chrome versions",
                             "last 2 Edge versions",
@@ -13,6 +14,7 @@ module.exports = function(api) {
                             "last 2 Safari versions",
                             "IE 11",
                         ],
+                        
                     },
                     loose: true,
                     modules: false,

@@ -15,6 +15,9 @@ import {
   LandingPage,
 } from "interface/pages";
 import { trackPageView } from "data";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const queryClient = new QueryClient();
 
 export function App() {
   const location = useLocation();
@@ -46,8 +49,10 @@ export function App() {
 }
 
 render(
-  <Router>
-    <App />
-  </Router>,
+  <QueryClientProvider client={queryClient}>
+    <Router>
+      <App />
+    </Router>
+  </QueryClientProvider>,
   document.getElementById("root")
 );

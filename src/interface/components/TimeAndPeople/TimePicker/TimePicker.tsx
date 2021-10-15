@@ -6,6 +6,8 @@ import { ValueType } from "react-select";
 import { generateTimeArray, getDateFromDateString } from "core";
 import { useSearchQuery, useUpdateSearchQuery } from "hooks";
 import { trackEvent } from "data";
+import { OptionsArray, OptionType } from "types/types";
+import { Action, Category } from "types/enums";
 
 interface selectedValueObj {
   value: string;
@@ -50,7 +52,7 @@ export function TimePicker({ onChange }: TimeComponent) {
 
     updateSearchQ({ hour: e.value });
 
-    trackEvent({ category: GaCategory.PARAMETER_CHOICE, action: Action.TIME });
+    trackEvent({ category: Category.PARAMETER_CHOICE, action: Action.TIME });
   };
 
   function returnDefaultValAndOptionsArr(): [

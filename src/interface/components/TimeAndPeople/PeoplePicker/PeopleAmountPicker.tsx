@@ -4,6 +4,7 @@ import { PERSON_CONJUCTED_POLISH } from "core";
 import { useSearchQuery, useUpdateSearchQuery } from "hooks";
 import { trackEvent } from "data";
 import TimePersonComponent from "../HourMinutePicker/HourMinutePeoplePicker";
+import { Action, Category } from "types/enums";
 
 interface selectedValueObj {
   value: string;
@@ -33,7 +34,7 @@ export function PeopleAmountPicker({ onChange }: PeopleAmountPickerProps) {
     updateSearchParams({ people: currentPeopleVal });
 
     trackEvent({
-      category: GaCategory.PARAMETER_CHOICE,
+      category: Category.PARAMETER_CHOICE,
       action: Action.PEOPLE,
     });
   };

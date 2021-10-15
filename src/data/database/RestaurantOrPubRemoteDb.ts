@@ -1,5 +1,7 @@
 import { APIURLS, RestaurantOrPub } from "core";
 import axios from "axios";
+import { BookTime, EnviromentType } from "types/types";
+import { ReservationFindNextAvaliableJson, RestaurantConfirmInfoResponse, RestaurantDescriptionInfoResponse } from "types/interfaces";
 
 const CONFIG = {
   headers: {

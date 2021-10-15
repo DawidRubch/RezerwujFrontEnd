@@ -1,3 +1,4 @@
+import { SearchQParams } from "types/interfaces";
 import { BookTime } from "..";
 import { generateSearchQueryFromObject } from "./generateSearchQueryFromObject";
 
@@ -32,7 +33,7 @@ export const generateBtFromSearchQ = ({
 
 //Mapping bookTime data to DD.MM.YYYY format
 const _mapDateFromBookTime = ({ day, month, year }: BookTime) =>
-  `${day}.${month <= 10 ? `0${month - 1}` : month - 1}.${year}`;
+  `${day}.${month < 10 ? `0${month }` : month}.${year}`;
 
 //Mapping bookTime data to HH:MM format
 const _mapHourFromBookTime = ({ hour, minute }: BookTime) =>

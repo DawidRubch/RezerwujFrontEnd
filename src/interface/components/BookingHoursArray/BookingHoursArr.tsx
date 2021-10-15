@@ -4,6 +4,7 @@ import { useUpdateSearchQuery } from "hooks";
 import { Routes } from "routes";
 import "./BookingHoursArr.scss";
 import { generateSearchQFromBt, RestaurantOrPub } from "core";
+import { BookTime } from "types/types";
 interface BookingHoursComponentInterface {
   alternativeBookingHours: (BookTime | null | 0)[];
   type: "mobile" | "pc" | "universal";

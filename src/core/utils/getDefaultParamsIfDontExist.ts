@@ -1,4 +1,5 @@
 import queryString from "querystring";
+import { SearchQParams } from "types/interfaces";
 import { DEFAULT_SEARCHQ_PARAMS } from "../ImportantVariables";
 
 const getDefaultParamIfUndefined = (param: keyof SearchQParams, value: any) =>

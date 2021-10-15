@@ -1,3 +1,4 @@
+import { SearchQParams } from "types/interfaces";
 import { getClosestTimeOr17, getDateStringFromDate } from "../utils";
 
 const date = new Date();

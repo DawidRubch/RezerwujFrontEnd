@@ -1,6 +1,6 @@
 import { BookTime } from "../../../core/Entities/BookTime";
 import axios from "axios";
-import { APIURLS } from "../../../core/ImportantVariables/APIURLS";
+import { APIURLS } from "../../../services/APIURLS";
 import { RestaurantOrPubRemoteDb } from "data";
 
 jest.mock("axios");

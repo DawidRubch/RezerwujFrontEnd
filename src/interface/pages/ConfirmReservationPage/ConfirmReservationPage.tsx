@@ -13,6 +13,8 @@ import { RestaurantOrPub } from "core";
 import { useSearchQuery } from "hooks";
 import { trackEvent } from "data";
 import { RestaurantOrPubRepository } from "domain/index";
+import { Action, Category } from "types/enums";
+import { BookTime } from "types/types";
 
 const restaurantOrPubRepository = new RestaurantOrPubRepository();
 
@@ -52,7 +54,7 @@ export function ConfirmReservationPage(): JSX.Element {
     setModalOpen(true);
 
     trackEvent({
-      category: GaCategory.RESERVATION,
+      category: Category.RESERVATION,
       action: Action.SAVED_RESERVATION,
     });
   };
