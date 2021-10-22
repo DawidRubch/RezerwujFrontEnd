@@ -1,22 +1,18 @@
 import { generateBtFromSearchQ } from "core";
 import { useSearchQuery } from "hooks";
 import { useQuery } from "react-query";
-import { getRestaurantsFromDb } from "services/RezerwujApiService";
+import { getRestaurantsFromDb } from "services";
 
 type IuseRestaurantsQuery = {
   shouldUpdate: boolean;
 };
 
 export const useRestaurantsQuery = ({ shouldUpdate }: IuseRestaurantsQuery) => {
-  const { dateString, hour, people } = useSearchQuery();
-
-  const bookTime = generateBtFromSearchQ({ dateString, hour, people });
-
-  const dataToPost = { bookTime, address: "" };
+  const { bookTime } = useSearchQuery();
 
   const { data: rawData, ...rest } = useQuery(
     ["restaurants", shouldUpdate],
-    () => getRestaurantsFromDb({ ...dataToPost })
+    () => getRestaurantsFromDb({ bookTime })
   );
 
   return { data: rawData?.data, ...rest };

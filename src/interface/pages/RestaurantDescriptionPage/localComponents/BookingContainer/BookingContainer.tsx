@@ -1,46 +1,28 @@
 import React, { useState } from "react";
-import { BookTime, bookTimeFromJson } from "core";
+import { BookTime, RestaurantOrPub } from "core";
 import {
+  BookingHoursComponent,
+  Loader,
   PeopleAmountPicker,
   ReactCalendar,
   TimePicker,
-} from "../../../../components";
+} from "interface/components";
 import "./BookingContainer.scss";
-import { BookingHoursComponent } from "../../../../components/BookingHoursArray/BookingHoursArr";
 import { useSearchQuery } from "hooks";
-import { RestaurantOrPubRepository } from "domain/index";
+import { useAlternativeBookingHoursQuery } from "hooks/ApiQueries/useAlternativeBookingHoursQuery";
 interface BookingContainerInterface {
-  nameString: string | unknown;
-  alternativeBookingHours: (BookTime | null | 0)[];
-  state: any;
+  RoP?: RestaurantOrPub;
 }
-const restaurantOrPubRepository = new RestaurantOrPubRepository();
 
-export function BookingContainer({
-  alternativeBookingHours,
-  state,
-}: BookingContainerInterface) {
-  //useState Hooks
-  const [reloadBookingArr, setReloadBookingArr] = useState(false);
+export function BookingContainer({ RoP }: BookingContainerInterface) {
+  const { name } = useSearchQuery();
 
-  const [altBookTimes, setAltBookTimes] = useState(alternativeBookingHours);
-  const { bookTime, name } = useSearchQuery();
+  const { data, isLoading, isError } = useAlternativeBookingHoursQuery();
 
-  //get alt booking hours for new alt booking hours
-  const getNewAltBookingHours = () => {
-    setReloadBookingArr(!reloadBookingArr);
-
-    restaurantOrPubRepository
-      .getRoPAlternativeBookingHours(name?.toString() ?? "", bookTime)
-      .then((res) => {
-        const bookTimesMapped = res.map((bt) => bookTimeFromJson(bt));
-
-        setAltBookTimes(bookTimesMapped);
-      });
-  };
-
-  const onChange = () => setReloadBookingArr(true);
-
+  if (isError || !RoP) {
+    //@todo implement a error screen
+    return <div>Something went wrong</div>;
+  }
   return (
     <div className="placeOrder">
       <div className="placeOrder__header">
@@ -51,33 +33,28 @@ export function BookingContainer({
           <b className="placeOrder__innerContainer__param__label">Data</b>
         </div>
         <div className="placeOrder__innerContainer__inputContainer">
-          <ReactCalendar onChange={onChange} />
+          <ReactCalendar />
         </div>
         <div className="placeOrder__innerContainer__param">
           <b className="placeOrder__innerContainer__param__label">Godzina</b>
         </div>
         <div className="placeOrder__innerContainer__inputContainer">
-          <TimePicker onChange={onChange} />
+          <TimePicker />
         </div>
         <div className="placeOrder__innerContainer__param">
           <b className="placeOrder__innerContainer__param__label">Ilość osób</b>
         </div>
         <div className="placeOrder__innerContainer__inputContainer">
-          <PeopleAmountPicker onChange={onChange} />
+          <PeopleAmountPicker />
         </div>
         <div className="placeOrder__innerContainer__bookingHours">
-          {reloadBookingArr ? (
-            <button
-              className="placeOrder__innerContainer__bookingHours__reloadButton"
-              onClick={getNewAltBookingHours}
-            >
-              Odśwież
-            </button>
+          {isLoading ? (
+            <Loader size={70} />
           ) : (
             <BookingHoursComponent
-              restaurantOrPub={state}
+              restaurantOrPub={RoP}
               type="universal"
-              alternativeBookingHours={altBookTimes}
+              alternativeBookingHours={data || []}
             />
           )}
         </div>

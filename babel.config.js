@@ -31,17 +31,7 @@ module.exports = function(api) {
         plugins: [
             ["module-resolver", {
                 "root": ["./"],
-                "alias": {
-                    "@pages": "./interface/pages",
-                    "@components": "./interface/components",
-                    "@routes": "./routes.ts",
-                    "@core": "./core",
-                    "@hooks": "./hooks",
-                    "@data": "./src/data",
-                    "@domain": "./domain",
-                    "@images": "./images",
-
-                }
+           
             }],
             "@babel/plugin-transform-spread",
             "@babel/plugin-syntax-dynamic-import", [

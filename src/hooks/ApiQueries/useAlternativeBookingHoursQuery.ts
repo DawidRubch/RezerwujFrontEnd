@@ -1,8 +1,14 @@
+import { useSearchQuery } from "hooks";
 import { useQuery } from "react-query";
-import {
-  getRoPAlternativeBookingHours,
-  RestaurantInfoInput,
-} from "services/RezerwujApiService";
+import { getRoPAlternativeBookingHours } from "services";
 
-export const useAlternativeBookingHoursQuery = (data: RestaurantInfoInput) =>
-  useQuery("alternativeBt", () => getRoPAlternativeBookingHours(data));
+export const useAlternativeBookingHoursQuery = () => {
+  const { bookTime, name } = useSearchQuery();
+
+  const restaurantName = name?.toString() ?? "";
+
+  const { data: rawData, ...rest } = useQuery(["alternativeBt", bookTime], () =>
+    getRoPAlternativeBookingHours({ bookTime, name: restaurantName })
+  );
+  return { data: rawData?.data, ...rest };
+};

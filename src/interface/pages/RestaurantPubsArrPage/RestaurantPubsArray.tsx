@@ -14,7 +14,7 @@ export function RestaurantPubsArrayPage() {
       <input type="checkbox" id="check" />
       <SearchBar getRoPArr={() => setShouldUpdate(!shouldUpdate)} />
       {isLoading ? (
-        <Loader />
+        <Loader marginTop={50} size={160}/>
       ) : (
         <RestaurantPubComponent restaurantPubArr={data} />
       )}

@@ -2,15 +2,14 @@ import axios, { AxiosRequestConfig } from "axios";
 import { APIURLS } from "core";
 
 const requestHandler = async (config: AxiosRequestConfig) => {
-  
-  const newData = {
+  const newHeaders = {
+    ...config.headers,
     enviromentType: process.env.WDS_SOCKET_PATH,
-    ...config.data,
   };
 
   return {
     ...config,
-    data: newData,
+    headers: newHeaders,
   };
 };
 

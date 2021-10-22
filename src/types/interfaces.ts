@@ -33,6 +33,7 @@ export interface RestaurantDescriptionInfoResponse {
 }
 export interface SearchQParams {
   dateString: SearchQParam;
+  date: SearchQParam;
   people: SearchQParam;
   hour: SearchQParam;
   name?: SearchQParam;
@@ -43,6 +44,7 @@ export interface HistoryPush {
   people?: SearchQParam;
   hour?: SearchQParam;
   name?: SearchQParam;
+  date?: SearchQParam;
   pathname?: Routes;
   searchQuery?: string;
   state?: any;

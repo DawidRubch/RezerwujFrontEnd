@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Calendar, { Detail } from "react-calendar";
 import moment from "moment";
 import { CSSTransition } from "react-transition-group";
@@ -9,10 +9,10 @@ import CalendarLocationContainer from "../CalendarLocationContainer/CalendarLoca
 import { useCallback } from "react";
 import { useSearchQuery, useUpdateSearchQuery } from "hooks";
 import { getDateFromDateString, getDateStringFromDate } from "core";
-import { trackEvent } from "data";
+import { trackEvent } from "services";
 import { Action, Category } from "types/enums";
 
-export const ReactCalendar = ({ onChange }: any) => {
+export const ReactCalendar = () => {
   //Boolean value to show Calendar
   const [showCalendar, setShowCalendar] = useState(false);
 
@@ -40,11 +40,6 @@ export const ReactCalendar = ({ onChange }: any) => {
 
   //Function executes when the date in Calendar is changed
   const onChangeDate = (date: Date | Date[]) => {
-    //onChange is used in RestaurantDescriptionPage
-    //It informs the component that it should be updated
-    //@todo refactor this "onChange"
-    if (onChange) onChange();
-
     updateSearchParams({ dateString: getDateStringFromDate(date as Date) });
 
     trackEvent({ category: Category.PARAMETER_CHOICE, action: Action.DATE });

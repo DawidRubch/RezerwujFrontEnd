@@ -1,7 +1,7 @@
 import {
   getDateFromDateString,
   getDateStringFromDate,
-} from "../../../core/utils/interchangeDateAndDateString";
+} from "../../../utils/interchangeDateAndDateString";
 
 const tDate = new Date(2021, 5, 14);
 

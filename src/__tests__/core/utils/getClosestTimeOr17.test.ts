@@ -1,4 +1,4 @@
-import { getClosestTimeOr17 } from "../../../core/utils/getClosestTimeOr17";
+import { getClosestTimeOr17 } from "../../../utils/getClosestTimeOr17";
 
 const tFunctionToGenerateDate = (hour: number, minutes: number) =>
   new Date(2021, 2, 15, hour, minutes, 0);

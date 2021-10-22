@@ -1,34 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useLocation } from "react-router-dom";
-import { AxiosError } from "axios";
 import "./RestaurantDescriptionPage.scss";
 import { Loader } from "interface/components";
-import { useSearchQuery } from "hooks";
-import { bookTimeFromJson } from "core";
 import {
   BookingContainer,
   RestaurantDescriptionContainer,
   RestaurantDescriptionError,
 } from "./localComponents";
-import { RestaurantOrPubRepository } from "domain/index";
-import { RestaurantDescriptionInfoResponse } from "types/interfaces";
-import { useRestaurantsInfoConfirmQuery } from "hooks/ApiQueries/useRestaurantsInfoConfirmQuery";
-import { useRestaurantsInfoDescriptionQuery } from "hooks/ApiQueries/useRestaurantsInfoDescriptionQuery";
+import { useGetRestaurantQuery } from "hooks/ApiQueries/useGetRestaurantQuery";
+import { RestaurantOrPub } from "core";
+
+interface LocationState {
+  state: {
+    RoP: RestaurantOrPub;
+  };
+}
 
 export function RestaurantDescriptionPage() {
-  const { state }: { state: any } = useLocation();
-  const { data, isLoading, isError } = useRestaurantsInfoDescriptionQuery();
+  const { state }: LocationState = useLocation();
+  const { data, isLoading, isError } = useGetRestaurantQuery();
 
   const BookingContainerComponent = (
-    <BookingContainer
-      state={state?.RoP || data}
-      alternativeBookingHours={data?.alternativeBookingHours ?? []}
-      nameString={data?.name}
-    />
+    <BookingContainer RoP={state?.RoP || data} />
   );
 
   if (isLoading) {
-    return <Loader />;
+    return <Loader marginTop={50} size={160} />;
   }
 
   return isError ? (
@@ -44,7 +41,7 @@ export function RestaurantDescriptionPage() {
         <section className="mainContainer__bookingContainer">
           {BookingContainerComponent}
         </section>
-        <div className="mainContainer__viewportBottomFakeMargin"></div>
+        <div className="mainContainer__viewportBottomFakeMargin" />
       </div>
     </>
   );
@@ -52,7 +49,7 @@ export function RestaurantDescriptionPage() {
 
 //ImageContainer
 interface ImageContainerProps {
-  descriptionPageImg: string | undefined;
+  descriptionPageImg?: string;
 }
 
 const ImageContainer = ({ descriptionPageImg }: ImageContainerProps) => (

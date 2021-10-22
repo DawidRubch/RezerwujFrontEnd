@@ -7,7 +7,7 @@ const seconds = today.getSeconds();
  * @param date: Date JS Object
  * @returns date in format DD.MM.YYYY
  */
-export const getDateStringFromDate = (date: Date) => {
+export const getDateStringFromDate = (date: Date = new Date()) => {
   const month =
     date.getMonth() < 9 ? `0${date.getMonth() + 1}` : date.getMonth() + 1;
 

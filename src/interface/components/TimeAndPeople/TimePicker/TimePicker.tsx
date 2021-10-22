@@ -5,7 +5,7 @@ import "./TimePicker.scss";
 import { ValueType } from "react-select";
 import { generateTimeArray, getDateFromDateString } from "core";
 import { useSearchQuery, useUpdateSearchQuery } from "hooks";
-import { trackEvent } from "data";
+import { trackEvent } from "services";
 import { OptionsArray, OptionType } from "types/types";
 import { Action, Category } from "types/enums";
 
@@ -15,12 +15,7 @@ interface selectedValueObj {
   icon: Symbol;
 }
 
-interface TimeComponent {
-  onChange?: (e: selectedValueObj) => void;
-  currentDate?: Date;
-}
-
-export function TimePicker({ onChange }: TimeComponent) {
+export function TimePicker() {
   const { hour, dateString } = useSearchQuery();
 
   const updateSearchQ = useUpdateSearchQuery();
@@ -48,8 +43,6 @@ export function TimePicker({ onChange }: TimeComponent) {
 
   //Function runs when the amount of people is changed
   const onPickingHour = (e: selectedValueObj) => {
-    if (onChange) onChange(e);
-
     updateSearchQ({ hour: e.value });
 
     trackEvent({ category: Category.PARAMETER_CHOICE, action: Action.TIME });

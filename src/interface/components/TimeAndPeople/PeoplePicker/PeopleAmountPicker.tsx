@@ -2,7 +2,7 @@ import React from "react";
 import { ReactComponent as PersonIcon } from "../../../../images/person.svg";
 import { PERSON_CONJUCTED_POLISH } from "core";
 import { useSearchQuery, useUpdateSearchQuery } from "hooks";
-import { trackEvent } from "data";
+import { trackEvent } from "services";
 import TimePersonComponent from "../HourMinutePicker/HourMinutePeoplePicker";
 import { Action, Category } from "types/enums";
 
@@ -13,13 +13,12 @@ interface selectedValueObj {
 }
 
 interface PeopleAmountPickerProps {
-  onChange?: (e: selectedValueObj) => void;
   people?: number;
 }
 //Array of numbers from 0 to 21
 const PeopleNumberArr = generatePeopleNumberArr();
 
-export function PeopleAmountPicker({ onChange }: PeopleAmountPickerProps) {
+export function PeopleAmountPicker() {
   //Global variables
   const { people } = useSearchQuery();
 
@@ -27,8 +26,6 @@ export function PeopleAmountPicker({ onChange }: PeopleAmountPickerProps) {
 
   // Function runs on changing amount of people
   const onPickingAmountOfPeople = (e: selectedValueObj) => {
-    if (onChange) onChange(e);
-
     const currentPeopleVal = e.value;
 
     updateSearchParams({ people: currentPeopleVal });

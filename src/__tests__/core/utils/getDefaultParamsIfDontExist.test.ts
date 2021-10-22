@@ -1,5 +1,5 @@
 import { DEFAULT_SEARCHQ_PARAMS } from "../../../core/ImportantVariables";
-import { getDefaultParamsIfDontExist } from "../../../core/utils/getDefaultParamsIfDontExist";
+import { getDefaultParamsIfDontExist } from "../../../utils/getDefaultParamsIfDontExist";
 
 const tSearchQWithoutParams = "";
 

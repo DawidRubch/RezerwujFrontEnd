@@ -1,4 +1,4 @@
-import { generateTimeArray } from "../../../core/utils/generateTimeArray";
+import { generateTimeArray } from "utils";
 
 //Times array from 19:00
 const tDatesArrayFrom19 = [

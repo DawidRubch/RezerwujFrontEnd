@@ -2,6 +2,8 @@ import { useLocation } from "react-router-dom";
 import { BookTime, getDefaultParamsIfDontExist } from "core";
 import { SearchQParam } from "types/types";
 
+//@todo add some form of searchQparams validation, if we pass here for example njskahaksfjasjknjkafskfkjn into dateString or people app will not work correctly
+//@todo Check for dates from the past
 export const useSearchQuery = () => {
   const { search } = useLocation();
   const params = getDefaultParamsIfDontExist(search);

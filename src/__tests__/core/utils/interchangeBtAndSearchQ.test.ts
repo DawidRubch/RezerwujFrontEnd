@@ -2,7 +2,7 @@ import { BookTime, SearchQParams } from "../../../core";
 import {
   generateBtFromSearchQ,
   generateSearchQFromBt,
-} from "../../../core/utils/interchangeBtAndSearchQ";
+} from "../../../utils/interchangeBtAndSearchQ";
 
 const tSearchQ = `?&dateString=24.07.2021&hour=10:00&people=4&name=Fanaberia`;
 

@@ -1,5 +1,5 @@
 import { SearchQParams } from "types/interfaces";
-import { BookTime } from "..";
+import { BookTime } from "../core";
 import { generateSearchQueryFromObject } from "./generateSearchQueryFromObject";
 
 export const generateSearchQFromBt = (bookTime: BookTime, name?: string) => {

@@ -14,7 +14,7 @@ import {
   RestaurantPubsArrayPage,
   LandingPage,
 } from "interface/pages";
-import { trackPageView } from "data";
+import { trackPageView } from "services";
 import { QueryClient, QueryClientProvider } from "react-query";
 
 const queryClient = new QueryClient();

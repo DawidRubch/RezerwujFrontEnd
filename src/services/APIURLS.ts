@@ -1,5 +1,5 @@
 export const APIURLS = {
-  serverAddress: process.env.WDS_SOCKET_HOST || "https://server.rezerwuj.site",
+  serverAddress: process.env.WDS_SOCKET_HOST || "http://localhost:5000",
   reservation: {
     reservation: "/reservation",
     save: "/reservation/save",
@@ -10,4 +10,5 @@ export const APIURLS = {
   getRoPAlternativeBookingHours: "/getRoPAlternativeBookingHours",
   getRestaurantInfoDescriptionPage: "/getRoPInfoDescriptionPage",
   getRestaurantInfoConfirmPage: "/getRoPInfoConfirmPage",
+  getRestaurantInfo: "/getRestaurant/:name",
 };

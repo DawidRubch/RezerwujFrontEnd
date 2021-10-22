@@ -1,8 +1,5 @@
 import { APIURLS, BookTime, RestaurantOrPub } from "core";
-import {
-  RestaurantConfirmInfoResponse,
-  RestaurantDescriptionInfoResponse,
-} from "types/interfaces";
+
 import { RezerwujApi } from "./ApiInstance";
 
 export type RestaurantFromDbInput = {
@@ -19,24 +16,6 @@ export type RestaurantInfoInput = {
   name: string;
 };
 
-export const getRestaurantInfoDescriptionPage = async (
-  data: RestaurantInfoInput
-) => {
-  return await RezerwujApi.post<RestaurantDescriptionInfoResponse>(
-    APIURLS.getRestaurantInfoDescriptionPage,
-    data
-  );
-};
-
-export const getRestaurantInfoConfirmPage = async (
-  data: RestaurantInfoInput
-) => {
-  return await RezerwujApi.post<RestaurantConfirmInfoResponse>(
-    APIURLS.getRestaurantInfoConfirmPage,
-    data
-  );
-};
-
 export type BookTimeResponse = (BookTime | null | 0)[];
 
 export const getRoPAlternativeBookingHours = async (
@@ -49,13 +28,11 @@ export const getRoPAlternativeBookingHours = async (
 };
 
 export type ManageBookTimeInfo = {
-  data: {
-    bookTime: BookTime;
-    name: string;
-    number: string;
-    personName: string;
-    additionalInfo?: string;
-  };
+  bookTime: BookTime;
+  name: string;
+  number: string;
+  personName: string;
+  additionalInfo?: string;
 };
 
 export const saveBookTime = async (data: ManageBookTimeInfo) => {
@@ -64,4 +41,15 @@ export const saveBookTime = async (data: ManageBookTimeInfo) => {
 
 export const deleteBookTime = async (data: ManageBookTimeInfo) => {
   return await RezerwujApi.post(APIURLS.reservation.delete, data);
+};
+
+type RestaurantInput = {
+  bookTime?: BookTime;
+};
+
+export const getRestaurant = async (data: RestaurantInput, name: string) => {
+  return await RezerwujApi.post<RestaurantOrPub>(
+    `/getRestaurant/${name}`,
+    data
+  );
 };

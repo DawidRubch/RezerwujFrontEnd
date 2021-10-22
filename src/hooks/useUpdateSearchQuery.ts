@@ -1,9 +1,10 @@
 import { useHistory } from "react-router-dom";
 import { generateSearchQueryFromObject } from "core";
 import { useSearchQuery } from "./useSearchQuery";
-import { HistoryPush } from "types/interfaces";
+import { HistoryPush, SearchQParams } from "types/interfaces";
 import { SearchQParam } from "types/types";
 
+//@todo refactor
 export const useUpdateSearchQuery = () => {
   const history = useHistory();
   const params = useSearchQuery();
@@ -16,12 +17,14 @@ export const useUpdateSearchQuery = () => {
     state,
     name,
     searchQuery,
+    date,
   }: HistoryPush) => {
     let search: string;
-    const searchQObject = {
+    const searchQObject: SearchQParams = {
       dateString: returnParamIfUndefined(dateString, params.dateString),
       hour: returnParamIfUndefined(hour, params.hour),
       people: returnParamIfUndefined(people, params.people),
+      date: returnParamIfUndefined(date, params.date),
     };
 
     if (params.name) {
