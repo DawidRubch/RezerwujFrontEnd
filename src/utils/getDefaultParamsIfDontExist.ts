@@ -1,12 +1,13 @@
 import queryString from "querystring";
 import { SearchQParams } from "types/interfaces";
 import { getClosestTimeOr17, getDateStringFromDate } from "utils";
+import { changeDateToDateString } from "./interchangeDateToDateString";
 
 export const DEFAULT_SEARCHQ_PARAMS: SearchQParams = {
   dateString: getDateStringFromDate(),
   people: "2",
   hour: getClosestTimeOr17(),
-  date: new Date().toString(),
+  date: changeDateToDateString(),
 };
 
 const getDefaultParamIfUndefined = (param: keyof SearchQParams, value: any) =>

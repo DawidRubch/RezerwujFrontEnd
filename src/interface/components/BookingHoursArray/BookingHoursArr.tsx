@@ -47,6 +47,7 @@ function BookingHoursArr({
   const bookReservation = useCallback((bookTime: BookTime) => {
     const searchQuery = generateSearchQFromBt(bookTime, restaurantOrPub.name);
 
+    //@todo refactor the use of updateSearchQuery here
     updateSearchQuery({
       pathname: Routes.CONFIRM_RESERVATION,
       state: { restaurantOrPub, bookTime },

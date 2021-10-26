@@ -40,7 +40,10 @@ export const ReactCalendar = () => {
 
   //Function executes when the date in Calendar is changed
   const onChangeDate = (date: Date | Date[]) => {
-    updateSearchParams({ dateString: getDateStringFromDate(date as Date) });
+    updateSearchParams({
+      dateString: getDateStringFromDate(date as Date),
+      date: date.toString(),
+    });
 
     trackEvent({ category: Category.PARAMETER_CHOICE, action: Action.DATE });
   };

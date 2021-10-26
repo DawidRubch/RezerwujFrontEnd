@@ -1,4 +1,4 @@
-import { generateSearchQueryFromObject } from "../../../utils/generateSearchQueryFromObject";
+import { generateSearchQueryFromObject } from "../../utils/generateSearchQueryFromObject";
 
 const searchQuery = "?&a=1&b=2&c=2";
 

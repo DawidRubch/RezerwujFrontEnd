@@ -1,5 +1,7 @@
-import { DEFAULT_SEARCHQ_PARAMS } from "../../../core/ImportantVariables";
-import { getDefaultParamsIfDontExist } from "../../../utils/getDefaultParamsIfDontExist";
+import {
+  DEFAULT_SEARCHQ_PARAMS,
+  getDefaultParamsIfDontExist,
+} from "../../utils/getDefaultParamsIfDontExist";
 
 const tSearchQWithoutParams = "";
 
@@ -10,6 +12,7 @@ const tSearchQParamsWithoutName = {
   dateString: "25.02.2021",
   hour: "17:00",
   people: "3",
+  date:new Date()
 };
 
 const tSearchQParams = { ...tSearchQParamsWithoutName, name: "Fanaberia" };
@@ -26,9 +29,7 @@ describe("getDefaultParamsIfDontExist", () => {
     );
   });
   test("should return right params if they exist, with name", () => {
-    expect(getDefaultParamsIfDontExist(tSearchQ)).toStrictEqual(
-      tSearchQParams
-    );
+    expect(getDefaultParamsIfDontExist(tSearchQ)).toStrictEqual(tSearchQParams);
   });
 });
 
