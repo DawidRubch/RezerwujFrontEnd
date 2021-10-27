@@ -1,14 +1,15 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import Calendar, { Detail } from "react-calendar";
 import moment from "moment";
 import { CSSTransition } from "react-transition-group";
 import { default as CalendarIcon } from "../../../../images/calendar.svg";
-import { default as ArrowDownIcon } from "../../../../images/arrowDown.svg";
+import "react-calendar/dist/Calendar.css";
 import "./Calendar.scss";
+
 import CalendarLocationContainer from "../CalendarLocationContainer/CalendarLocationContainer";
 import { useCallback } from "react";
 import { useSearchQuery, useUpdateSearchQuery } from "hooks";
-import { getDateFromDateString, getDateStringFromDate } from "core";
+import { changeDateStringToDate } from "utils";
 import { trackEvent } from "services";
 import { Action, Category } from "types/enums";
 
@@ -16,11 +17,11 @@ export const ReactCalendar = () => {
   //Boolean value to show Calendar
   const [showCalendar, setShowCalendar] = useState(false);
 
-  const { dateString } = useSearchQuery();
+  const { date } = useSearchQuery();
 
-  const date = useMemo(
-    () => getDateFromDateString(dateString as string),
-    [dateString]
+  const dateParam = useMemo(
+    () => changeDateStringToDate(date as string),
+    [date]
   );
 
   const updateSearchParams = useUpdateSearchQuery();
@@ -40,9 +41,10 @@ export const ReactCalendar = () => {
 
   //Function executes when the date in Calendar is changed
   const onChangeDate = (date: Date | Date[]) => {
+    const dt = date as Date;
+    //@todo add a util function for it
     updateSearchParams({
-      dateString: getDateStringFromDate(date as Date),
-      date: date.toString(),
+      dateString: `${dt.getFullYear()}-${dt.getMonth() + 1}-${dt.getDate()}`,
     });
 
     trackEvent({ category: Category.PARAMETER_CHOICE, action: Action.DATE });
@@ -61,10 +63,7 @@ export const ReactCalendar = () => {
         leadingIcon={<img alt="calendar icon" src={CalendarIcon} />}
         onClick={hideOrShowCalendar}
       >
-        <div className="menu-item__text">{date.toLocaleDateString()}</div>
-        <span className="menu-item__right">
-          <img alt="menu-item__arrow" src={ArrowDownIcon} />
-        </span>
+        <div className="menu-item__text">{dateParam.toLocaleDateString()}</div>
       </CalendarLocationContainer>
       <div className="absoluteContainer">
         <CSSTransition in={showCalendar} unmountOnExit timeout={100}>
@@ -80,7 +79,7 @@ export const ReactCalendar = () => {
             locale="pl"
             onChange={onChangeDate}
             minDetail="month"
-            value={date}
+            value={dateParam}
           />
         </CSSTransition>
       </div>

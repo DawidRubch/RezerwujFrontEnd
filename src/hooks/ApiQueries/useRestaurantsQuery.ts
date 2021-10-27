@@ -1,4 +1,3 @@
-import { generateBtFromSearchQ } from "core";
 import { useSearchQuery } from "hooks";
 import { useQuery } from "react-query";
 import { getRestaurantsFromDb } from "services";

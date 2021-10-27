@@ -32,10 +32,8 @@ export interface RestaurantDescriptionInfoResponse {
   alternativeBookingHours: BookTime[];
 }
 export interface SearchQParams {
-  dateString: SearchQParam;
   date: SearchQParam;
   people: SearchQParam;
-  hour: SearchQParam;
   name?: SearchQParam;
 }
 

@@ -1,53 +1,28 @@
 import { useHistory } from "react-router-dom";
-import { generateSearchQueryFromObject } from "core";
 import { useSearchQuery } from "./useSearchQuery";
 import { HistoryPush, SearchQParams } from "types/interfaces";
-import { SearchQParam } from "types/types";
-import {
-  changeDateStringToDate,
-  changeDateToDateString,
-} from "utils/interchangeDateToDateString";
+import { generateSearchQ } from "utils";
+import { SearchQParam } from "types";
+import { getUpdatedSearchQ } from "utils/getUpdatedSearchQ";
 //@todo refactor !!!!!!!!
 export const useUpdateSearchQuery = () => {
   const history = useHistory();
   const params = useSearchQuery();
 
   const callBackToSend = ({
+    dateString,
     hour,
     people,
-    dateString,
     pathname,
     state,
     name,
     searchQuery,
-    date,
   }: HistoryPush) => {
-    let search: string;
-
-    const searchQObject: SearchQParams = {
-      dateString: returnParamIfUndefined(dateString, params.dateString),
-      hour: returnParamIfUndefined(hour, params.hour),
-      people: returnParamIfUndefined(people, params.people),
-      date: returnParamIfUndefined(date, params.date),
-    };
-
-    const dateObject = changeDateStringToDate(params.date.toString());
-
-    if (hour && typeof hour === "string") {
-      const [hours, minutes] = hour.split(":");
-      dateObject.setHours(+hours);
-      dateObject.setMinutes(+minutes);
-      searchQObject.date = changeDateToDateString(dateObject);
-    }
-
-    if (params.name) {
-      search = generateSearchQueryFromObject({
-        ...searchQObject,
-        name: name ?? params.name,
-      });
-    } else {
-      search = generateSearchQueryFromObject(searchQObject);
-    }
+    
+    const search = getUpdatedSearchQ(
+      { hour, people, name, dateString },
+      params
+    );
 
     history.push({
       state,
@@ -59,8 +34,23 @@ export const useUpdateSearchQuery = () => {
   return callBackToSend;
 };
 
+interface IupdateDateParam {
+  date: string;
+  dateString?: SearchQParam;
+  hourString?: SearchQParam;
+}
+
 //@todo refactor
-const returnParamIfUndefined = (
-  param: any,
-  paramFromParams: SearchQParam | Date | undefined
-) => (param ? param : paramFromParams);
+const updateDateParam = ({
+  date,
+  dateString,
+  hourString,
+}: IupdateDateParam) => {
+  const [dateParam, hourParam] = date.split("T");
+
+  if (dateString) {
+    return `${dateString}T${hourParam}`;
+  }
+
+  return `${dateParam}T${hourString}`;
+};

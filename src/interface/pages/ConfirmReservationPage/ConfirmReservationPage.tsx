@@ -18,6 +18,7 @@ import {
 import { trackEvent } from "services";
 import { Action, Category } from "types/enums";
 import { BookTime } from "types/types";
+import { getHourAndDateFromDateString } from "utils/getHourAndDateFromDateString";
 
 interface LocationState {
   restaurantOrPub: RestaurantOrPub;
@@ -27,11 +28,15 @@ interface LocationState {
 export function ConfirmReservationPage(): JSX.Element {
   const { state } = useLocation<LocationState | undefined>();
 
-  const { dateString, hour, people, name, bookTime } = useSearchQuery();
+  const { date, people, name, bookTime } = useSearchQuery();
 
-  const { mutate } = useSaveBookTimeMutation()
+  const { mutate } = useSaveBookTimeMutation();
 
   const { data, isLoading, isError } = useGetRestaurantQuery();
+
+  const { hour, date: dateString } = getHourAndDateFromDateString(
+    date as string
+  );
 
   //@todo move this to some useForm hook
   const [modalOpen, setModalOpen] = useState(false);

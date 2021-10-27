@@ -1,3 +1,4 @@
+import { SearchQParams } from "types";
 import {
   DEFAULT_SEARCHQ_PARAMS,
   getDefaultParamsIfDontExist,
@@ -5,14 +6,12 @@ import {
 
 const tSearchQWithoutParams = "";
 
-const tSearchQWithoutName = "?&hour=17:00&dateString=25.02.2021&people=3";
+const tSearchQWithoutName = "?&date=2021-03-05T15:30&people=3";
 const tSearchQ = tSearchQWithoutName + "&name=Fanaberia";
 
-const tSearchQParamsWithoutName = {
-  dateString: "25.02.2021",
-  hour: "17:00",
+const tSearchQParamsWithoutName: SearchQParams = {
   people: "3",
-  date:new Date()
+  date: "2021-03-05T15:30",
 };
 
 const tSearchQParams = { ...tSearchQParamsWithoutName, name: "Fanaberia" };

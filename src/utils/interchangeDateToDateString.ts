@@ -11,7 +11,7 @@ export const changeDateToDateString = (date: Date = new Date()) =>
 /**
  *
  * @param dateString in format YYYY-MM-DDThh:mm
- * 
+ *
  * if dateString passed is in wrong format, function returns **new Date()**
  */
 export const changeDateStringToDate = (dateString: string) => {

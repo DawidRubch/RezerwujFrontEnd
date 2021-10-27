@@ -3,11 +3,12 @@ import HourPeopleMinutePicker from "../HourMinutePicker/HourMinutePeoplePicker";
 import { ReactComponent as ClockIcon } from "../../../../images/clock.svg";
 import "./TimePicker.scss";
 import { ValueType } from "react-select";
-import { generateTimeArray, getDateFromDateString } from "core";
 import { useSearchQuery, useUpdateSearchQuery } from "hooks";
 import { trackEvent } from "services";
 import { OptionsArray, OptionType } from "types/types";
 import { Action, Category } from "types/enums";
+import { changeDateStringToDate, generateTimeArray } from "utils";
+import { getHourAndDateFromDateString } from "utils/getHourAndDateFromDateString";
 
 interface selectedValueObj {
   value: string;
@@ -16,14 +17,16 @@ interface selectedValueObj {
 }
 
 export function TimePicker() {
-  const { hour, dateString } = useSearchQuery();
+  const { date } = useSearchQuery();
 
   const updateSearchQ = useUpdateSearchQuery();
 
-  const date = getDateFromDateString(dateString as string);
+  const dateParam = changeDateStringToDate(date as string);
 
   //Generating time choices f.e 10:00, 10:30 etc
-  const timeChoiceArray = generateTimeArray(date);
+  const timeChoiceArray = generateTimeArray(dateParam);
+
+  const { hour } = getHourAndDateFromDateString(date as string);
 
   //Compares the hour searchQuery to hours in timeChoiceArray
   //Sets the time
@@ -70,8 +73,9 @@ export function TimePicker() {
   }
 
   const defaultOptionsArr = useMemo(returnDefaultValAndOptionsArr, [
-    dateString,
     hour,
+    date,
+    timeChoiceArray,
   ]);
 
   useEffect(updateGlobalVariableHour, [date]);

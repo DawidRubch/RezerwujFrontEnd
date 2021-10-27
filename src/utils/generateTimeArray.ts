@@ -4,16 +4,25 @@
  * @returns Array of timeStrings, adding every 30 minutes, for example if it's 17:30 it will return ["17:30","18:00","18:30"] etc until "24:00".
  */
 export const generateTimeArray = (date: Date) => {
-  const hour = date.getHours();
-  const minutes = date.getMinutes();
-
   const currentDay = new Date();
+  const hour = currentDay.getHours();
+  const minutes = currentDay.getMinutes();
 
-  if (currentDay < date) return fullTimeArray;
+  if (!areDateSameDay(currentDay, date)) return fullTimeArray;
 
   if (minutes > 30) return fullTimeArray.slice(hour * 2 + 1);
 
   return fullTimeArray.slice(hour * 2);
+};
+
+const areDateSameDay = (currentDate: Date, date: Date) => {
+  const isMonthBigger = date.getMonth() === currentDate.getMonth();
+
+  const isDateBigger = date.getDate() === currentDate.getDate();
+
+  const isYearBigger = date.getFullYear() === currentDate.getFullYear();
+
+  return isMonthBigger && isDateBigger && isYearBigger;
 };
 
 const fullTimeArray = [

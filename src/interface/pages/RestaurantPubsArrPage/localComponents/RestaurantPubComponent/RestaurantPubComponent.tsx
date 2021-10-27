@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 import { useSearchQuery } from "hooks";
 import { Routes } from "routes";
 import "./RestaurantPubComponent.scss";
-import { generateSearchQueryFromObject, RestaurantOrPub } from "core";
+import { RestaurantOrPub } from "core";
+import { generateSearchQ } from "utils";
 interface RestaurantPubComponentProps {
   restaurantPubArr: RestaurantOrPub[] | undefined;
 }
@@ -19,7 +20,7 @@ interface BasicInfoProps {
 export function RestaurantPubComponent({
   restaurantPubArr,
 }: RestaurantPubComponentProps) {
-  const { hour, people, dateString, name } = useSearchQuery();
+  const { people, date } = useSearchQuery();
 
   const BasicInfo: FC<BasicInfoProps> = ({ RoP, platform }) => {
     return (
@@ -32,8 +33,7 @@ export function RestaurantPubComponent({
 
   const LinkComponent: FC<LinkComponentProps> = useCallback(
     ({ RoP }) => {
-      const searchQObject = { dateString, hour, people, name: RoP.name };
-      const search = generateSearchQueryFromObject(searchQObject);
+      const search = generateSearchQ({ date, people, name: RoP.name });
       return (
         <Link
           className="restaurantComponent__link"
@@ -50,7 +50,7 @@ export function RestaurantPubComponent({
         </Link>
       );
     },
-    [dateString, hour, people, name]
+    [date, people]
   );
 
   return (

@@ -1,10 +1,11 @@
 import React from "react";
 import { useCallback } from "react";
-import { useUpdateSearchQuery } from "hooks";
+import { useSearchQuery, useUpdateSearchQuery } from "hooks";
 import { Routes } from "routes";
 import "./BookingHoursArr.scss";
-import { generateSearchQFromBt, RestaurantOrPub } from "core";
+import { RestaurantOrPub } from "core";
 import { BookTime } from "types/types";
+import { generateSearchQ, generateSearchQFromBt } from "utils";
 interface BookingHoursComponentInterface {
   alternativeBookingHours: (BookTime | null | 0)[];
   type: "mobile" | "pc" | "universal";
@@ -44,14 +45,14 @@ function BookingHoursArr({
 }: BookingHoursArrInterface) {
   const updateSearchQuery = useUpdateSearchQuery();
 
+  //@todo refactor the bookReservation function
   const bookReservation = useCallback((bookTime: BookTime) => {
-    const searchQuery = generateSearchQFromBt(bookTime, restaurantOrPub.name);
+    const hour = `${bookTime.hour}:${bookTime.minute === 0 ? "00" : 30}`;
 
-    //@todo refactor the use of updateSearchQuery here
     updateSearchQuery({
+      hour,
       pathname: Routes.CONFIRM_RESERVATION,
       state: { restaurantOrPub, bookTime },
-      searchQuery,
     });
   }, []);
 
