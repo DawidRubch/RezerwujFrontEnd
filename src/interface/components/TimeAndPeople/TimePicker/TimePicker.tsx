@@ -1,15 +1,14 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { useGlobalVariables } from "../../../../core/Helper/ReduxCustomHooks/useGlobalVariables";
-import { updateHour } from "../../../../stateManagment/action";
-import { TimePickerFunctions } from "../../../../InterfaceFunctions/ComponentFunctions/TimePickerFunctions/TimePickerFunctions";
+import React, { useEffect, useMemo } from "react";
 import HourPeopleMinutePicker from "../HourMinutePicker/HourMinutePeoplePicker";
-import { useSearchQueryAndReduxStoreUpdate } from "../LocalHooks/useSearchQueryAndReduxStoreUpdate";
-import { useSearchParams } from "../../../../core/Helper/SearchQuery/useSearchParams";
 import { ReactComponent as ClockIcon } from "../../../../images/clock.svg";
 import "./TimePicker.scss";
-import GA from "../../../../data/trackers/GA";
-import { Action, Category } from "../../../../core/Interfaces/GAevent";
+import { ValueType } from "react-select";
+import { useSearchQuery, useUpdateSearchQuery } from "hooks";
+import { trackEvent } from "services";
+import { OptionsArray, OptionType } from "types/types";
+import { Action, Category } from "types/enums";
+import { changeDateStringToDate, generateTimeArray } from "utils";
+import { getHourAndDateFromDateString } from "utils/getHourAndDateFromDateString";
 
 interface selectedValueObj {
   value: string;
@@ -17,105 +16,74 @@ interface selectedValueObj {
   icon: Symbol;
 }
 
-interface TimeComponent {
-  onChange?: (e: selectedValueObj) => void;
-  currentDate?: Date;
-}
+export function TimePicker() {
+  const { date } = useSearchQuery();
 
-export function TimePicker({ onChange }: TimeComponent) {
-  let timePickerFunctions = new TimePickerFunctions();
+  const updateSearchQ = useUpdateSearchQuery();
 
-  //Takes hour from query string
-  const { hourParam } = useSearchParams();
-
-  //Takes updates search queries to ReduxStore and returns updated
-  const { location, people, date, hour, name } = useGlobalVariables();
-
-  //Function that updates search queries and redux store
-  const searchQueryAndLocalStoreUpdate = useSearchQueryAndReduxStoreUpdate();
-
-  //Global hook to update
-  const dispatch = useDispatch();
+  const dateParam = changeDateStringToDate(date as string);
 
   //Generating time choices f.e 10:00, 10:30 etc
-  let timeChoiceArray = timePickerFunctions.generateTime(date);
+  const timeChoiceArray = generateTimeArray(dateParam);
+
+  const { hour } = getHourAndDateFromDateString(date as string);
 
   //Compares the hour searchQuery to hours in timeChoiceArray
   //Sets the time
   const updateGlobalVariableHour = () => {
     let isTimeChoiceInArray = false;
 
-    for (let timeChoice of timeChoiceArray) {
+    for (const timeChoice of timeChoiceArray) {
       if (timeChoice === hour) {
         isTimeChoiceInArray = true;
         break;
       }
     }
-    let [firstTimeChoice] = timeChoiceArray;
+    const [firstTimeChoice] = timeChoiceArray;
 
-    if (!isTimeChoiceInArray) dispatch(updateHour(firstTimeChoice));
+    if (!isTimeChoiceInArray) updateSearchQ({ hour: firstTimeChoice });
   };
 
   //Function runs when the amount of people is changed
   const onPickingHour = (e: selectedValueObj) => {
-    if (onChange) onChange(e);
+    updateSearchQ({ hour: e.value });
 
-    const currentHourVal = e.value;
-    dispatch(updateHour(currentHourVal));
-
-    searchQueryAndLocalStoreUpdate(
-      currentHourVal,
-      location,
-      people.toString(),
-      date,
-      name
-    );
-
-    GA.trackEvent({ category: Category.PARAMETER_CHOICE, action: Action.TIME });
+    trackEvent({ category: Category.PARAMETER_CHOICE, action: Action.TIME });
   };
 
-  function getMaxTimeOr17() {
-    let date = new Date();
-    let hour = 17;
-    let minutes = 0;
-    if (date.getHours() > 17) {
-      hour = date.getHours();
-      if (date.getMinutes() > 30) {
-        hour += 1;
-        minutes = 0;
-      }
-    }
-    return `${hour}:${minutes === 30 ? "30" : "00"}`;
-  }
-
-  //Function returns the array of two elements
-  //First is defaultValue
-  //Second is optionArray
-  function returnDefaultValAndOptionsArr(): [any, any] {
-    let defaultValue = {
-      value: hourParam || getMaxTimeOr17(),
-      label: hourParam || getMaxTimeOr17(),
+  function returnDefaultValAndOptionsArr(): [
+    ValueType<OptionType, false>,
+    OptionsArray
+  ] {
+    const defaultValue = {
+      value: hour as string,
+      label: hour as string,
       icon: <ClockIcon />,
     };
     const optionsArray = [];
 
-    for (let i in timeChoiceArray) {
+    for (const timeChoice of timeChoiceArray) {
       optionsArray.push({
-        value: timeChoiceArray[i],
-        label: timeChoiceArray[i],
+        value: timeChoice,
+        label: timeChoice,
         icon: <ClockIcon />,
       });
     }
-
     return [defaultValue, optionsArray];
   }
+
+  const defaultOptionsArr = useMemo(returnDefaultValAndOptionsArr, [
+    hour,
+    date,
+    timeChoiceArray,
+  ]);
 
   useEffect(updateGlobalVariableHour, [date]);
 
   return (
     <HourPeopleMinutePicker
       onChange={onPickingHour}
-      defaultValAndOptionsArr={returnDefaultValAndOptionsArr()}
+      defaultValAndOptionsArr={defaultOptionsArr}
       type="time"
     />
   );

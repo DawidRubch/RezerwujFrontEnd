@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import "./LandingPage.scss";
 import image from "../../../images/Image 7.png";
-import HowToBookPage from "./localPages/HowToBookPage";
-import { ReactCalendar } from "../../components/CalendarAndLocation/Calendar/Calendar";
-import { TimePicker } from "../../components/TimeAndPeople/TimePicker/TimePicker";
-
-import { PeopleAmountPicker } from "../../components/TimeAndPeople/PeoplePicker/PeopleAmountPicker";
-import { SearchButton } from "../../components/SearchButton/SearchButton";
+import { HowToBookPage } from "./localPages";
+import { SearchButton, SearchInput } from "interface/components";
+import { LocationPicker } from "interface/components/LocationPicker/LocationPicker";
 
 export const LandingPage: React.FC = () => {
+  const [searchValue, setSearchValue] = useState("");
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(e.target.value);
+  };
   return (
     <>
       <div className="mainPageContainer">
@@ -27,14 +29,10 @@ export const LandingPage: React.FC = () => {
 
           <div className="pickingContainer">
             <div className="inputContainer--landing">
-              <ReactCalendar />
+              <LocationPicker />
             </div>
             <div className="inputContainer--landing">
-              <TimePicker />
-            </div>
-
-            <div className="inputContainer--landing">
-              <PeopleAmountPicker />
+              <SearchInput value={searchValue} onChange={onChange} />
             </div>
           </div>
           <div className="searchButtonContainer--landing">

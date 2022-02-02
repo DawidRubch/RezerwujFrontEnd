@@ -12,26 +12,40 @@ interface InformationInputInterface {
   value: string;
   onChange: (inputValue: string) => void;
   name: InputNames;
+  maxLength: number;
   isAdditionalInfoInput?: boolean;
   autoComplete?: string;
   pattern?: string;
   errorTitle?: string;
   required?: boolean;
+  onlyNumber?: boolean;
 }
+
+const ONLY_NUMBER_REGEX = /^[0-9]*$/;
+
 export function InformationInput({
   placeHolder,
   value,
   onChange,
   autoComplete,
   name,
+  maxLength,
   isAdditionalInfoInput,
   pattern,
   errorTitle,
   required,
 }: InformationInputInterface) {
   //FunctionExecuted on input change
-  const inputOnChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    onChange(e.target.value);
+  const inputOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputText = e.target.value;
+    const isNumber = inputText.match(ONLY_NUMBER_REGEX);
+
+    if (name === InputNames.phoneNumber) {
+      onChange(isNumber ? inputText : "");
+    } else {
+      onChange(inputText);
+    }
+  };
   return (
     <input
       className={`information-input${
@@ -45,7 +59,7 @@ export function InformationInput({
       pattern={pattern}
       title={errorTitle}
       required={required}
-      maxLength={40}
+      maxLength={maxLength}
     />
   );
 }

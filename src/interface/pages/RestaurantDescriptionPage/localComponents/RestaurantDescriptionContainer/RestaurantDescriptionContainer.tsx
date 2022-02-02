@@ -1,9 +1,11 @@
 import React from "react";
-import { ReactComponent as RestaurantMenuIcon } from "../../../../../images/restaurant-menu.svg";
+import { ReactComponent as RestaurantMenuIcon } from "images/restaurant-menu.svg";
 import "./RestaurantDescriptionContainer.scss";
+import { RestaurantDescriptionInfoResponse } from "types";
+import { RestaurantOrPub } from "core";
 
 interface RestaurantDescriptionContainerInterface {
-  information: any;
+  information: RestaurantOrPub | undefined;
   mobileBookingComponent: JSX.Element;
 }
 
@@ -12,8 +14,8 @@ export function RestaurantDescriptionContainer({
   mobileBookingComponent,
 }: RestaurantDescriptionContainerInterface) {
   //Mapping place tags to JSX components
-  const placeTagsMappingToJSXComponents: JSX.Element[] = information?.tags.map(
-    (tag: any, index: number) => (
+  const placeTagsMappingToJSXComponents = information?.tags.map(
+    (tag: string, index: number) => (
       <div className="restaurantDescription__tags__tag" key={index}>
         {tag}
       </div>
@@ -35,14 +37,7 @@ export function RestaurantDescriptionContainer({
         {information?.shortDescription}
       </p>
       <hr className="restaurantDescription__hr" />
-      <div className="restaurantDescription__linkContainer">
-        <a className="restaurantDescription__linkContainer__link" href="/">
-          Zobacz menu restauracji
-          <div className="restaurantDescription__linkContainer__link__iconContainer">
-            <RestaurantMenuIcon className="restaurantDescription__linkContainer__link__iconContainer__icon" />
-          </div>
-        </a>
-      </div>
+      <div className="restaurantDescription__linkContainer"></div>
     </section>
   );
 }

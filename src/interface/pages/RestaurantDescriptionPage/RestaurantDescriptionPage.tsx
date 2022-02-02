@@ -1,73 +1,47 @@
-import React, { useEffect, useState } from "react";
-import "./RestaurantDescriptionPage.scss";
-import { BookingContainer } from "./localComponents/BookingContainer/BookingContainer";
-import { useBookTimeAndNameSearchParams } from "../../../core/Helper/SearchQuery/useBookTimeSearchParams";
-import { RestaurantDescriptionPageFunctions } from "../../../InterfaceFunctions/PagesFunctions/RestaurantDescriptionPage/RestaurantDescriptionPageFunctions";
-import { RestaurantDescriptionInfoResponse } from "../../../core/Interfaces/RestaurantDescriptionInfoResponse";
-import { RestaurantDescriptionContainer } from "./localComponents/RestaurantDescriptionContainer/RestaurantDescriptionContainer";
-import { Loader } from "../../components/Loader/Loader";
-import { RestaurantDescriptionError } from "./localComponents/RestaurantDescriptionError/RestaurantDescriptionError";
-import { AxiosError } from "axios";
+import React from "react";
 import { useLocation } from "react-router-dom";
+import "./RestaurantDescriptionPage.scss";
+import { Loader } from "interface/components";
+import {
+  BookingContainer,
+  RestaurantDescriptionContainer,
+  RestaurantDescriptionError,
+} from "./localComponents";
+import { useGetRestaurantQuery } from "hooks/ApiQueries/useGetRestaurantQuery";
+import { RestaurantOrPub } from "core";
 
-export default function RestaurantDescriptionPage() {
-  //Params from search query
+interface LocationState {
+  state: {
+    RoP: RestaurantOrPub;
+  };
+}
 
-  const { state }: { state: any } = useLocation();
-
-  const { bookTime, name } = useBookTimeAndNameSearchParams();
-
-  //Information consists of tags, descriptionPageImage,
-  // name, type,shortDescription, alternative book time array
-
-  const [information, setInformation] =
-    useState<RestaurantDescriptionInfoResponse>();
-  const [error, setError] = useState<AxiosError>();
-  const [pending, setPending] = useState(true);
-
-  //Repository with Functions for this page
-  const restaurantDescriptionPageFunctions =
-    new RestaurantDescriptionPageFunctions(
-      bookTime,
-      name,
-      setInformation,
-      information,
-      setError,
-      error,
-      setPending,
-      pending
-    );
-
-  useEffect(restaurantDescriptionPageFunctions.manageState, []);
+export function RestaurantDescriptionPage() {
+  const { state }: LocationState = useLocation();
+  const { data, isLoading, isError } = useGetRestaurantQuery();
 
   const BookingContainerComponent = (
-    <BookingContainer
-      state={state?.RoP || information}
-      alternativeBookingHours={
-        restaurantDescriptionPageFunctions.mappingAltBookingHoursToBookTimeComponents
-      }
-      nameString={information?.name}
-    />
+    <BookingContainer RoP={state?.RoP || data} />
   );
 
-  if (pending) {
-    return <Loader />;
+  if (isLoading) {
+    return <Loader marginTop={50} size={160} />;
   }
 
-  return error ? (
+  return isError ? (
     <RestaurantDescriptionError />
   ) : (
     <>
-      <ImageContainer descriptionPageImg={information?.descriptionPageImg} />
+      <ImageContainer descriptionPageImg={data?.descriptionPageImg} />
       <div className="mainContainer">
         <RestaurantDescriptionContainer
-          information={information}
+          information={data}
           mobileBookingComponent={BookingContainerComponent}
         />
         <section className="mainContainer__bookingContainer">
           {BookingContainerComponent}
         </section>
-        <div className="mainContainer__viewportBottomFakeMargin"></div>
+        <div className="mainContainer__viewportBottomFakeMargin" />
       </div>
     </>
   );
@@ -75,7 +49,7 @@ export default function RestaurantDescriptionPage() {
 
 //ImageContainer
 interface ImageContainerProps {
-  descriptionPageImg: string | undefined;
+  descriptionPageImg?: string;
 }
 
 const ImageContainer = ({ descriptionPageImg }: ImageContainerProps) => (

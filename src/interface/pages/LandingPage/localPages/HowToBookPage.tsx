@@ -5,7 +5,7 @@ import { ReactComponent as EnterIcon } from "../../../../images/enter.svg";
 import { ReactComponent as ListIcon } from "../../../../images/choices.svg";
 import { ReactComponent as RestaurantIcon } from "../../../../images/restaurant.svg";
 import { ReactComponent as TwoPeopleAtRestaurantVector } from "../../../../images/PeopleAtRestaurant.svg";
-export default function HowToBookPage() {
+export function HowToBookPage() {
   return (
     <aside className="howToBookPage">
       <header className="howToBookPage__header">

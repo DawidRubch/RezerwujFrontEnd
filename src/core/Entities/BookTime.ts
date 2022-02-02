@@ -1,63 +1,23 @@
 //BookTime model
-//Should be rewritten to take only timeStamp and amount of people
-export class BookTime {
-  minute: number;
-  hour: number;
-  year: number;
-  day: number;
-  month: number;
-  people: number;
-  name: string;
 
-  constructor(
-    minute: number,
-    hour: number,
-    day: number,
-    month: number,
-    year: number,
-    people: number
-  ) {
-    this.minute = minute;
-    this.hour = hour;
-    this.day = day;
-    this.month = month;
-    this.year = year;
-    this.people = people;
-    this.name = "";
-  }
-  toJson() {
-    return {
-      minute: this.minute,
-      hour: this.hour,
-      year: this.year,
-      day: this.day,
-      month: this.month,
-      people: this.people,
-      name: this.name,
-    };
-  }
-}
+import { getHourAndDateFromDateString } from "utils/getHourAndDateFromDateString";
 
-interface BookTimeFromJson {
-  minute: number;
-  hour: number;
-  day: number;
-  month: number;
-  year: number;
-  people: number;
-}
+export const BookTime = (date: string, people: number) => {
+  const { date: dateString, hour: hourString } =
+    getHourAndDateFromDateString(date);
 
-//When bookTime is not free then it should return null
-export function bookTimeFromJson(
-  bTZeroOrNull: BookTimeFromJson | null | 0
-): BookTime | null | 0 {
-  if (bTZeroOrNull === null) {
-    return null;
-  }
+  const [year, month, day] = dateString.split("-");
 
-  if (bTZeroOrNull === 0) {
-    return 0;
-  }
-  let { minute, hour, day, month, year, people } = bTZeroOrNull;
-  return new BookTime(minute, hour, day, month, year, people);
-}
+  const [hour, minutes] = hourString.split(":");
+  return {
+    date,
+    people,
+    hour: +hour,
+    minute: +minutes,
+    year: +year,
+    month: +month,
+    day: +day,
+    dateString,
+    hourString,
+  };
+};

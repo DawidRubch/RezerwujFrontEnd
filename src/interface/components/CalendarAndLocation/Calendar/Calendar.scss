@@ -1,7 +1,8 @@
 .react-calendar {
-  width: 280px;
-  max-width: 280px;
+  width: 300px;
+  max-width: 100%;
   background: white;
+  border: 0;
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.125em;
   &--doubleView {
@@ -174,9 +175,16 @@
     }
   }
 }
-@media screen and (max-width: 1024px) {
+
+@media screen and (max-width: 400px) {
+  .menu-item {
+    width: 280px;
+  }
+}
+
+@media screen and (max-width: 360px) {
   .react-calendar {
-    min-width: 300px;
+    width: 280px;
   }
 }
 

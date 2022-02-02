@@ -1,35 +1,36 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import Calendar, { Detail } from "react-calendar";
 import moment from "moment";
 import { CSSTransition } from "react-transition-group";
-
 import { default as CalendarIcon } from "../../../../images/calendar.svg";
-import { default as ArrowDownIcon } from "../../../../images/arrowDown.svg";
+import "react-calendar/dist/Calendar.css";
 import "./Calendar.scss";
-import CalendarLocationContainer from "../CalendarLocationContainer/CalendarLocationContainer";
-import { useHistory } from "react-router-dom";
-import { mapPropToSearchQuery } from "../../../../core/Helper/SearchQuery/mapPropertiesToSearchQuery";
-import { useDispatch } from "react-redux";
-import { updateDate } from "../../../../stateManagment/action";
-import { useGlobalVariables } from "../../../../core/Helper/ReduxCustomHooks/useGlobalVariables";
-import GA from "../../../../data/trackers/GA";
-import { Action, Category, Label } from "../../../../core/Interfaces/GAevent";
 
-export const ReactCalendar = ({ onChange }: any) => {
+import CalendarLocationContainer from "../CalendarLocationContainer/CalendarLocationContainer";
+import { useCallback } from "react";
+import { useSearchQuery, useUpdateSearchQuery } from "hooks";
+import { changeDateStringToDate } from "utils";
+import { trackEvent } from "services";
+import { Action, Category } from "types/enums";
+
+export const ReactCalendar = () => {
   //Boolean value to show Calendar
   const [showCalendar, setShowCalendar] = useState(false);
 
-  //Hook to redirect or update search query
-  const history = useHistory();
+  const { date } = useSearchQuery();
 
-  //Hook to update redux store
-  const dispatch = useDispatch();
+  const dateParam = useMemo(
+    () => changeDateStringToDate(date as string),
+    [date]
+  );
 
-  //Global variables
-  const { hour, location, people, date, name } = useGlobalVariables();
+  const updateSearchParams = useUpdateSearchQuery();
 
   //Function changin boolean val of showCalendar
-  const hideOrShowCalendar = () => setShowCalendar(!showCalendar);
+  const hideOrShowCalendar = useCallback(
+    () => setShowCalendar(!showCalendar),
+    [showCalendar]
+  );
 
   //What shows on top of the calendar
   const navigationLabel = (navigation: {
@@ -40,28 +41,13 @@ export const ReactCalendar = ({ onChange }: any) => {
 
   //Function executes when the date in Calendar is changed
   const onChangeDate = (date: Date | Date[]) => {
-    //onChange is used in RestaurantDescriptionPage
-    //It informs the component that it should be updated
-    if (onChange) onChange();
-    dispatch(updateDate(date as Date));
+    const dt = date as Date;
+    //@todo add a util function for it
+    updateSearchParams({
+      dateString: `${dt.getFullYear()}-${dt.getMonth() + 1}-${dt.getDate()}`,
+    });
 
-    //Function changes parameters to search query string
-    let mappingPropsToSearchQueries = mapPropToSearchQuery(
-      location,
-      date.toString(),
-      hour,
-      people.toString(),
-      name
-    );
-
-    //Search query object
-    let searchQuery = {
-      search: mappingPropsToSearchQueries,
-    };
-
-    history.push(searchQuery);
-
-    GA.trackEvent({ category: Category.PARAMETER_CHOICE, action: Action.DATE });
+    trackEvent({ category: Category.PARAMETER_CHOICE, action: Action.DATE });
   };
 
   //Calendar style is used here, due to dynamic value showCalendar
@@ -77,10 +63,7 @@ export const ReactCalendar = ({ onChange }: any) => {
         leadingIcon={<img alt="calendar icon" src={CalendarIcon} />}
         onClick={hideOrShowCalendar}
       >
-        <div className="menu-item__text">{date.toLocaleDateString()}</div>
-        <span className="menu-item__right">
-          <img alt="menu-item__arrow" src={ArrowDownIcon} />
-        </span>
+        <div className="menu-item__text">{dateParam.toLocaleDateString()}</div>
       </CalendarLocationContainer>
       <div className="absoluteContainer">
         <CSSTransition in={showCalendar} unmountOnExit timeout={100}>
@@ -96,7 +79,7 @@ export const ReactCalendar = ({ onChange }: any) => {
             locale="pl"
             onChange={onChangeDate}
             minDetail="month"
-            value={date}
+            value={dateParam}
           />
         </CSSTransition>
       </div>

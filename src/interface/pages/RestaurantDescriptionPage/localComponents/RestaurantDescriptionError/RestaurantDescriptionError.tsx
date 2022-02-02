@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { ReactComponent as ErrorImage } from "../../../../../images/error.svg";
+import { ReactComponent as ErrorImage } from "images/error.svg";
 import "./RestaurantDescriptionError.scss";
 
 export function RestaurantDescriptionError() {
@@ -12,11 +12,10 @@ export function RestaurantDescriptionError() {
       <p className="restaurantDescriptionError__message">
         Przepraszamy, coś poszło nie tak!
         <br />
-        Wróć do{" "}
+        Wróć do
         <Link className="restaurantDescriptionError__message_link" to="/">
-          {" "}
-          strony głównej{" "}
-        </Link>{" "}
+          strony głównej
+        </Link>
         i spróbuj jeszcze raz!
       </p>
     </div>

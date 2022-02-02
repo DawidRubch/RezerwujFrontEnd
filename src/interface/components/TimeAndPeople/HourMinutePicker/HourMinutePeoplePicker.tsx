@@ -1,12 +1,14 @@
 import React from "react";
-import Select, { components } from "react-select";
+import Select, { components, ValueType } from "react-select";
+import { OptionsArray, OptionType } from "types/types";
+
 import { ReactComponent as ClockIcon } from "../../../../images/clock.svg";
 import { ReactComponent as PersonIcon } from "../../../../images/person.svg";
 import "./HourMinutePeoplePicker.scss";
 
 interface TimePersonComponentProps {
   onChange: (e: any) => void;
-  defaultValAndOptionsArr: [JSX.Element, JSX.Element[]];
+  defaultValAndOptionsArr: [ValueType<OptionType, false>, OptionsArray];
   type: "time" | "people";
 }
 
@@ -70,10 +72,10 @@ export default function TimePersonComponent({
 
   return (
     <Select
+      value={defaultValue}
       options={optionsArray}
       data-testid="select"
-      defaultValue={defaultValue}
-      onChange={(event: any) => onChange(event)}
+      onChange={onChange}
       components={{
         Option: customOptionComponent,
         SingleValue: customSingleValueComponent,
