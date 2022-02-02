@@ -1,10 +1,8 @@
 import { useHistory } from "react-router-dom";
 import { useSearchQuery } from "./useSearchQuery";
-import { HistoryPush, SearchQParams } from "types/interfaces";
-import { generateSearchQ } from "utils";
-import { SearchQParam } from "types";
+import { HistoryPush } from "types/interfaces";
 import { getUpdatedSearchQ } from "utils/getUpdatedSearchQ";
-//@todo refactor !!!!!!!!
+
 export const useUpdateSearchQuery = () => {
   const history = useHistory();
   const params = useSearchQuery();
@@ -18,7 +16,6 @@ export const useUpdateSearchQuery = () => {
     name,
     searchQuery,
   }: HistoryPush) => {
-    
     const search = getUpdatedSearchQ(
       { hour, people, name, dateString },
       params
@@ -32,25 +29,4 @@ export const useUpdateSearchQuery = () => {
   };
 
   return callBackToSend;
-};
-
-interface IupdateDateParam {
-  date: string;
-  dateString?: SearchQParam;
-  hourString?: SearchQParam;
-}
-
-//@todo refactor
-const updateDateParam = ({
-  date,
-  dateString,
-  hourString,
-}: IupdateDateParam) => {
-  const [dateParam, hourParam] = date.split("T");
-
-  if (dateString) {
-    return `${dateString}T${hourParam}`;
-  }
-
-  return `${dateParam}T${hourString}`;
 };

@@ -59,11 +59,14 @@ export function ConfirmReservationPage(): JSX.Element {
         additionalInfo,
       },
       {
-        onSuccess: ({ data }) => {
-          if (data === "Success") {
+        onSuccess: (data) => {
+          if (data.status === 200) {
             setConfirmationSuccess(true);
             setModalOpen(true);
           }
+        },
+        onError: (error) => {
+          alert(error);
         },
       }
     );

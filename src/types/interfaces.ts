@@ -35,6 +35,7 @@ export interface SearchQParams {
   date: SearchQParam;
   people: SearchQParam;
   name?: SearchQParam;
+  search?: SearchQParam;
 }
 
 export interface HistoryPush {

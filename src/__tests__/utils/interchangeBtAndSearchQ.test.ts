@@ -1,6 +1,5 @@
 import { SearchQParams } from "types";
 import { BookTime } from "../../core";
-import { generateSearchQFromBt } from "../../utils/interchangeBtAndSearchQ";
 
 const tSearchQ = `?&dateString=24.08.2021&hour=10:00&people=4&name=Fanaberia`;
 

@@ -1,4 +1,6 @@
-import { APIURLS, BookTime, RestaurantOrPub } from "core";
+import { RestaurantOrPub } from "core";
+import { APIURLS } from "services";
+import { BookTime } from "types";
 
 import { RezerwujApi } from "./ApiInstance";
 
@@ -50,6 +52,20 @@ type RestaurantInput = {
 export const getRestaurant = async (data: RestaurantInput, name: string) => {
   return await RezerwujApi.post<RestaurantOrPub>(
     `/getRestaurant/${name}`,
+    data
+  );
+};
+
+type RestaurantLandingInput = {
+  bookTime: BookTime;
+};
+
+export const getRestaurantsArrayLanding = async (
+  data: RestaurantLandingInput,
+  search: string
+) => {
+  return await RezerwujApi.post<RestaurantOrPub[]>(
+    `/getRestaurantsLanding/?search=${search}`,
     data
   );
 };

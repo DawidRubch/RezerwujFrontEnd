@@ -1,16 +1,16 @@
 import axios, { AxiosRequestConfig } from "axios";
-import { APIURLS } from "core";
+import { APIURLS } from "services";
 
 const requestHandler = async (config: AxiosRequestConfig) => {
-  const newHeaders = {
-    ...config.headers,
-    enviromentType: process.env.WDS_SOCKET_PATH,
-  };
+  config.headers.enviromentType = process.env.WDS_SOCKET_PATH;
 
-  return {
-    ...config,
-    headers: newHeaders,
-  };
+  const item = localStorage.getItem("@city");
+
+  if (item) {
+    config.headers.city = item;
+  }
+
+  return config;
 };
 
 const errorHandler = (error: any) => Promise.reject(error);

@@ -4,8 +4,8 @@ import { useSearchQuery, useUpdateSearchQuery } from "hooks";
 import { Routes } from "routes";
 import "./BookingHoursArr.scss";
 import { RestaurantOrPub } from "core";
+import { getHourAndDateFromDateString } from "utils/getHourAndDateFromDateString";
 import { BookTime } from "types/types";
-import { generateSearchQ, generateSearchQFromBt } from "utils";
 interface BookingHoursComponentInterface {
   alternativeBookingHours: (BookTime | null | 0)[];
   type: "mobile" | "pc" | "universal";
@@ -45,10 +45,13 @@ function BookingHoursArr({
 }: BookingHoursArrInterface) {
   const updateSearchQuery = useUpdateSearchQuery();
 
+  const { date } = useSearchQuery();
+
+  const { hour } = getHourAndDateFromDateString(date.toString());
+
   //@todo refactor the bookReservation function
   const bookReservation = useCallback((bookTime: BookTime) => {
-    const hour = `${bookTime.hour}:${bookTime.minute === 0 ? "00" : 30}`;
-
+    const { hour } = getHourAndDateFromDateString(bookTime.date);
     updateSearchQuery({
       hour,
       pathname: Routes.CONFIRM_RESERVATION,
@@ -96,7 +99,7 @@ function BookingHoursArr({
               key={index}
               className="book__buttons__button book__buttons__button--free"
             >
-              {btZeroOrNull.hour}:{btZeroOrNull.minute === 30 ? "30" : "00"}
+              {btZeroOrNull.hourString}
             </button>
           );
         }

@@ -1,6 +1,5 @@
 import queryString from "querystring";
 import { SearchQParams } from "types/interfaces";
-import { getClosestTimeOr17, getDateStringFromDate } from "utils";
 import { changeDateToDateString } from "./interchangeDateToDateString";
 
 export const DEFAULT_SEARCHQ_PARAMS: SearchQParams = {

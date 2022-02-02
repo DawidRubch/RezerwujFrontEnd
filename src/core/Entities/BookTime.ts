@@ -1,26 +1,23 @@
 //BookTime model
-//Should be rewritten to take only timeStamp and amount of people
-export class BookTime {
-  minute: number;
-  hour: number;
-  year: number;
-  day: number;
-  month: number;
-  people: number;
 
-  constructor(
-    minute: number,
-    hour: number,
-    day: number,
-    month: number,
-    year: number,
-    people: number
-  ) {
-    this.minute = minute;
-    this.hour = hour;
-    this.day = day;
-    this.month = month;
-    this.year = year;
-    this.people = people;
-  }
-}
+import { getHourAndDateFromDateString } from "utils/getHourAndDateFromDateString";
+
+export const BookTime = (date: string, people: number) => {
+  const { date: dateString, hour: hourString } =
+    getHourAndDateFromDateString(date);
+
+  const [year, month, day] = dateString.split("-");
+
+  const [hour, minutes] = hourString.split(":");
+  return {
+    date,
+    people,
+    hour: +hour,
+    minute: +minutes,
+    year: +year,
+    month: +month,
+    day: +day,
+    dateString,
+    hourString,
+  };
+};

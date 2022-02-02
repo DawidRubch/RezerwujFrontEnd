@@ -1,4 +1,4 @@
-import { DayOfTheWeekOpenHours } from "./DayOfTheWeek";
+import { DayOfTheWeekOpenHours } from "types/types";
 
 export class OpenHours {
   //Day of the week is shown by indexes

@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 import { getRestaurantsFromDb } from "services";
 
 type IuseRestaurantsQuery = {
-  shouldUpdate: boolean;
+  shouldUpdate?: boolean;
 };
 
 export const useRestaurantsQuery = ({ shouldUpdate }: IuseRestaurantsQuery) => {

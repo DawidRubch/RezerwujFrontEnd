@@ -1,4 +1,2 @@
-import { APIURLS } from "../../services/APIURLS";
-import { PERSON_CONJUCTED_POLISH } from "./PERSON_CONJUCTED_POLISH";
-
-export { APIURLS, PERSON_CONJUCTED_POLISH };
+export * from "./PERSON_CONJUCTED_POLISH";
+export * from "./STORAGE_KEYS";

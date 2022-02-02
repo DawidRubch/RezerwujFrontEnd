@@ -4,6 +4,4 @@ export * from "./generateTimeArray";
 export * from "./getClosestTimeOr17";
 export * from "./getDateFromDateAndHourString";
 export * from "./getDefaultParamsIfDontExist";
-export * from "./interchangeBtAndSearchQ";
-export * from "./interchangeDateAndDateString";
 export * from "./interchangeDateToDateString";

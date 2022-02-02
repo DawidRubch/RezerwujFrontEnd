@@ -1,15 +1,10 @@
-import { BookTime } from "./BookTime";
-import { DayOfTheWeekOpenHours } from "./DayOfTheWeek";
+import { BookTime, DayOfTheWeekOpenHours } from "types";
 
 export class RestaurantOrPub {
   name: string;
   type: string;
   tags: string[];
   shortDescription: string;
-  distance: number;
-  chairs: number;
-  menuLink: string;
-  bookTimeArray: BookTime[];
   image: string;
   descriptionPageImg: string;
   weekArray: Array<DayOfTheWeekOpenHours | null>;
@@ -21,12 +16,6 @@ export class RestaurantOrPub {
     //Tags such as 'miła atmosfera' or "dużo opcji wegetariańskich"
     tags: string[],
     shortDescription: string,
-
-    //Distance is -1 by default
-    chairs: number,
-    menuLink: string,
-    //All of the reservations
-    bookTimeArray: BookTime[],
     //Url to the image
     image: string,
     descriptionPageImg: string,
@@ -41,12 +30,11 @@ export class RestaurantOrPub {
     this.type = type;
     this.tags = tags;
     this.shortDescription = shortDescription;
-    this.distance = -1;
-    this.chairs = chairs;
-    this.menuLink = menuLink;
-    this.bookTimeArray = bookTimeArray;
     this.image = image;
     this.weekArray = weekArray;
     this.alternativeBookingHours = [];
   }
 }
+
+
+
