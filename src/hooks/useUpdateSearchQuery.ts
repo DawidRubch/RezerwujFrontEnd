@@ -7,7 +7,7 @@ export const useUpdateSearchQuery = () => {
   const history = useHistory();
   const params = useSearchQuery();
 
-  const callBackToSend = ({
+  return ({
     dateString,
     hour,
     people,
@@ -27,6 +27,4 @@ export const useUpdateSearchQuery = () => {
       search: searchQuery ?? search,
     });
   };
-
-  return callBackToSend;
 };

@@ -6,8 +6,10 @@ const requestHandler = async (config: AxiosRequestConfig) => {
 
   const item = localStorage.getItem("@city");
 
+
+
   if (item) {
-    config.headers.city = item;
+    config.headers.city = item || "Szczecin";
   }
 
   return config;
