@@ -1,1 +1,1 @@
-export const DefaultCity = Cities.Szczecin;
+export const DefaultCity = "Szczecin";

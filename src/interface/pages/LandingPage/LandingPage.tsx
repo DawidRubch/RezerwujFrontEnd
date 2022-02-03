@@ -15,7 +15,7 @@ export const LandingPage: React.FC = () => {
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
-    setValue;
+    setValue(e.target.value);
   };
   return (
     <>
