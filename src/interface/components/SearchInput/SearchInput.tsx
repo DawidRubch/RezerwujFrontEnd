@@ -8,6 +8,8 @@ interface Props {
 }
 
 export const SearchInput: FC<Props> = ({ onChange, value }) => {
+
+  
   return (
     <div className="search-input">
       <SearchIcon className="search-input__icon" />
