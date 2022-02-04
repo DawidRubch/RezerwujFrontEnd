@@ -1,8 +1,12 @@
 import axios, { AxiosRequestConfig } from "axios";
 import { APIURLS } from "services";
 
+const SHOULD_SHOW_TEST_ON_PROD = true;
+
 const requestHandler = async (config: AxiosRequestConfig) => {
-  config.headers.enviromentType = process.env.WDS_SOCKET_PATH;
+  config.headers.enviromentType = SHOULD_SHOW_TEST_ON_PROD
+    ? "test"
+    : process.env.WDS_SOCKET_PATH;
 
   const item = localStorage.getItem("@city");
 

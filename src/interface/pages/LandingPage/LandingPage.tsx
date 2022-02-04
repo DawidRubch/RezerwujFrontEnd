@@ -4,18 +4,12 @@ import image from "../../../images/Image 7.png";
 import { HowToBookPage } from "./localPages";
 import { SearchButton, SearchInput } from "interface/components";
 import { LocationPicker } from "interface/components/LocationPicker/LocationPicker";
-import { useLocalStorage } from "hooks";
 
 export const LandingPage: React.FC = () => {
   const [searchValue, setSearchValue] = useState("");
-  const { setValue } = useLocalStorage<string>({
-    key: "@city",
-    initialValue: "Szczecin",
-  });
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
-    setValue(e.target.value);
   };
   return (
     <>
