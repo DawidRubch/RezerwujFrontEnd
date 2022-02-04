@@ -11,7 +11,7 @@ export const useGetRestaurantsLandingQuery = (search: string) => {
   );
 
   const { data: rawData, ...rest } = useQuery(Queries.RESTAURANTS, () =>
-    getRestaurantsArrayLanding({ bookTime }, search)
+    getRestaurantsArrayLanding({ ...bookTime }, search)
   );
 
   return { data: rawData?.data, ...rest };

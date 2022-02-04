@@ -56,9 +56,7 @@ export const getRestaurant = async (data: RestaurantInput, name: string) => {
   );
 };
 
-type RestaurantLandingInput = {
-  bookTime: BookTime;
-};
+type RestaurantLandingInput = BookTime
 
 export const getRestaurantsArrayLanding = async (
   data: RestaurantLandingInput,
